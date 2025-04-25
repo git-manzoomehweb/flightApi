@@ -1,0 +1,617 @@
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سیستم رزرو پرواز</title>
+    <link rel="stylesheet" href="../assets/css/output.css"/>
+    <link rel="stylesheet" href="../assets/css/swiper-bundle.min.css"/>
+</head>
+
+<body class="bg-specialcolor-1">
+    <!-- Header -->
+    <header></header>
+    <!-- Main-->
+    <main>
+        <!-- layout section -->
+        <section class="layout__main">
+            <div class="max-w-7xl mx-auto px-4 py-2">
+                <div class="research__container bg-white rounded-3xl shadow-sm p-4 mb-4">
+                    <div class="flex justify-between text-base mb-8">
+                        <ul class="bg-specialcolor-1 text-zinc-800 rounded-3xl flex gap-5 text-center">
+                            <li class="active__module__flight__type py-3 min-w-28 cursor-pointer">یکطرفه</li>
+                            <li class="py-3 min-w-28 cursor-pointer">رفت و برگشت</li>
+                            <li class="py-3 min-w-28 cursor-pointer">چند مسیره</li>
+                        </ul>
+                        <div>
+                            <div class="bg-zinc-100 rounded-lg text-zinc-400 flex justify-between p-3 min-w-52">
+                                <span>اکونومی</span>
+                                <svg width="24" height="24">
+                                    <use xlink:href="../assets/images/sprite-icons.svg#down-arrow-icon"></use>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap flex items-center gap-2 -mx-2">
+                        <div class="w-full md:w-2/5 flex items-center gap-2">
+                            <div class="relative min-w-54">
+                                <div class="flex items-center">
+                                    <input type="text"
+                                        class="w-full focus:outline-none bg-zinc-100 rounded-lg px-2 py-3 text-zinc-600"
+                                        placeholder="مبدا" value="تهران">
+                                </div>
+                            </div>
+                            <div
+                                class="bg-primary-500 rounded-lg px-2 text-center cursor-pointer hover:bg-secondary-500">
+                                <svg width="30" height="30" class="mt-4">
+                                    <use xlink:href="../assets/images/sprite-icons.svg#exchange-icon"></use>
+                                </svg>
+                            </div>
+                            <div class="relative min-w-54">
+                                <div class="flex items-center">
+                                    <input type="text"
+                                        class="w-full focus:outline-none bg-zinc-100 rounded-lg px-2 py-3 text-zinc-600"
+                                        placeholder="مقصد" value="آنتالیا">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full md:w-1/5">
+                            <div class="flex flex-wrap -mx-1">
+                                <div class="w-1/2 px-1">
+                                    <div class="flex items-center">
+                                        <input type="text"
+                                            class="w-full focus:outline-none bg-zinc-100 rounded-lg px-2 py-3 text-zinc-600"
+                                            placeholder="تاریخ رفت" value="۱۴۰4/۰۶/۲۷">
+                                    </div>
+                                </div>
+                                <div class="w-1/2 px-1">
+                                    <div class="flex items-center">
+                                        <input type="text"
+                                            class="w-full focus:outline-none bg-zinc-100 rounded-lg px-2 py-3 text-zinc-600"
+                                            placeholder="تاریخ برگشت" value="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full md:w-1/4">
+                            <div class="-mx-1">
+                                <div class="px-1">
+                                    <div class="relative">
+                                        <div class="flex items-center">
+                                            <input type="text"
+                                                class="w-full focus:outline-none bg-zinc-100 rounded-lg px-2 py-3 text-zinc-600"
+                                                placeholder="۱ مسافر" value="1 بزگسال / 1 کودک / 1 نوزاد">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full md:w-1/8">
+                            <button
+                                class="bg-primary-500 text-white px-2 py-3 w-full rounded-lg hover:bg-secondary-500 transition-colors animate-pulse-light">جستجو</button>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="flex flex-wrap -mx-2">
+                    <!-- Filters Sidebar -->
+                    <aside class="aside__container w-full lg:w-1/4 px-2 mb-4 lg:mb-0">
+                        <div class="rendered__container bg-white rounded-xl shadow-sm p-2 mb-4">
+
+
+                            <div class="filter__container bg-zinc-100 rounded-xl px-4 py-6 mb-2 max-h-80 overflow-auto">
+                                <div class="filter__title__container flex justify-between mb-3 cursor-pointer" onclick="toggleContent(this)">
+                                    <h3 class="font-bold text-sm text-zinc-900">ایرلاین ها (رفت)</h3>
+                                    <svg width="24" height="24">
+                                        <use xlink:href="../assets/images/sprite-icons.svg#down-arrow-icon"></use>
+                                    </svg>
+                                </div>
+                                
+                                <div class="space-y-2 selector__content text-zinc-600">
+                                    <div class="filter__content outboundairline__content">
+                                        <div class="mt-5 flex items-center checked">
+                                            <div bc-value="@Code@" bc-name="cms.outboundairline" bc-triggers="click" class="custom-checkbox  border-2/5 border-solid border-zinc-400 cursor-pointer relative transition w-5 h-5 rounded ml-2">
+                                            </div>
+                                            <div class="w-11/12">
+                                              <div class="label__content flex justify-between items-center text-xs">
+                                                <img  src="../assets/images/airline-filter.png" width="21" height="22" alt="iran Air tours"/>
+                                                <span class="ml-2">iran Air tours</span>
+                                                <span>از</span><span>70/000/000</span><span class="mr-1">ریال</span>
+                                               </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-5 flex items-center">
+                                            <div bc-value="@Code@" bc-name="cms.outboundairline" bc-triggers="click" class="custom-checkbox border-2/5 border-solid border-zinc-400 cursor-pointer relative transition w-5 h-5 rounded ml-2">
+                                            </div>
+                                            <div class="label__content w-11/12">
+                                              <div class="flex justify-between items-center text-xs">
+                                                <img  src="../assets/images/airline-filter.png" width="21" height="22" alt="iran Air tours"/>
+                                                <span class="ml-2">iran Air tours</span>
+                                                <span>از</span><span>70/000/000</span><span class="mr-1">ریال</span>
+                                               </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-5 flex items-center">
+                                            <div bc-value="@Code@" bc-name="cms.outboundairline" bc-triggers="click" class="custom-checkbox border-2/5 border-solid border-zinc-400 cursor-pointer relative transition w-5 h-5 rounded ml-2">
+                                            </div>
+                                            <div class="label__content w-11/12">
+                                              <div class="flex justify-between items-center text-xs">
+                                                <img  src="../assets/images/airline-filter.png" width="21" height="22" alt="iran Air tours"/>
+                                                <span class="ml-2">iran Air tours</span>
+                                                <span>از</span><span>70/000/000</span><span class="mr-1">ریال</span>
+                                               </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-5 flex items-center">
+                                            <div bc-value="@Code@" bc-name="cms.outboundairline" bc-triggers="click" class="custom-checkbox border-2/5 border-solid border-zinc-400 cursor-pointer relative transition w-5 h-5 rounded ml-2">
+                                            </div>
+                                            <div class="label__content w-11/12">
+                                              <div class="flex justify-between items-center text-xs">
+                                                <img  src="../assets/images/airline-filter.png" width="21" height="22" alt="iran Air tours"/>
+                                                <span class="ml-2">iran Air tours</span>
+                                                <span>از</span><span>70/000/000</span><span class="mr-1">ریال</span>
+                                               </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-5 flex items-center">
+                                            <div bc-value="@Code@" bc-name="cms.outboundairline" bc-triggers="click" class="custom-checkbox border-2/5 border-solid border-zinc-400 cursor-pointer relative transition w-5 h-5 rounded ml-2">
+                                            </div>
+                                            <div class="label__content w-11/12">
+                                              <div class="flex justify-between items-center text-xs">
+                                                <img  src="../assets/images/airline-filter.png" width="21" height="22" alt="iran Air tours"/>
+                                                <span class="ml-2">iran Air tours</span>
+                                                <span>از</span><span>70/000/000</span><span class="mr-1">ریال</span>
+                                               </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-5 flex items-center">
+                                            <div bc-value="@Code@" bc-name="cms.outboundairline" bc-triggers="click" class="custom-checkbox border-2/5 border-solid border-zinc-400 cursor-pointer relative transition w-5 h-5 rounded ml-2">
+                                            </div>
+                                            <div class="label__content w-11/12">
+                                              <div class="flex justify-between items-center text-xs">
+                                                <img  src="../assets/images/airline-filter.png" width="21" height="22" alt="iran Air tours"/>
+                                                <span class="ml-2">iran Air tours</span>
+                                                <span>از</span><span>70/000/000</span><span class="mr-1">ریال</span>
+                                               </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  
+                                
+                                </div>
+                            </div>
+
+                            <div class="filter__container bg-zinc-100 rounded-xl px-4 py-6 mb-2 max-h-80 overflow-auto">
+                                <div class="filter__title__container flex justify-between mb-3 cursor-pointer" onclick="toggleContent(this)">
+                                    <h3 class="font-bold text-sm text-zinc-900">فرودگاه مقصد (رفت)</h3>
+                                    <svg width="24" height="24">
+                                        <use xlink:href="../assets/images/sprite-icons.svg#down-arrow-icon"></use>
+                                    </svg>
+                                </div>
+                                
+                                <div class="space-y-2 selector__content text-zinc-600">
+                                    <div class="filter__content outboundairport__content">
+                                        <div class="mt-5 flex items-center">
+                                            <div bc-value="@Code@" bc-name="cms.outboundairport" bc-triggers="click" class="custom-checkbox border-2/5 border-solid border-zinc-400 cursor-pointer relative transition w-5 h-5 rounded ml-2">
+                                            </div>
+                                            <div class="w-11/12">
+                                              <div class="flex justify-between items-center text-xs">
+                                                <span class="label__content">فرودگاه بین المللی استانبول‎/IST</span>
+                                               </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-5 flex items-center">
+                                          <div bc-value="@Code@" bc-name="cms.outboundairport" bc-triggers="click" class="custom-checkbox border-2/5 border-solid border-zinc-400 cursor-pointer relative transition w-5 h-5 rounded ml-2">
+                                          </div>
+                                          <div class="w-11/12">
+                                            <div class="flex justify-between items-center text-xs">
+                                              <span class="label__content">فرودگاه بین المللی استانبول‎/IST</span>
+                                             </div>
+                                          </div>
+                                      </div>
+                                  
+                                
+                                </div>
+                            </div>
+                            </div>
+
+                            <div class="filter__container bg-zinc-100 rounded-xl px-4 py-6 mb-2 max-h-80 overflow-auto">
+                                <div class="filter__title__container flex justify-between mb-3 cursor-pointer" onclick="toggleContent(this)">
+                                    <h3 class="font-bold text-sm text-zinc-900">نوع بلیط</h3>
+                                    <svg width="24" height="24">
+                                        <use xlink:href="../assets/images/sprite-icons.svg#down-arrow-icon"></use>
+                                    </svg>
+                                </div>
+                                
+                                <div class="space-y-2 selector__content text-zinc-500">
+                                    <div class="filter__content flex justify-between gap-2">
+                                        <div bc-value="false" bc-name="cms.systemflight" bc-triggers="click" class="custom-checkbox button__content checked text-center cursor-pointer mt-3 w-1/2  py-3 rounded-lg border border-zinc-500 text-sm">
+                                                <span>چارتری</span>
+                                        </div>
+                                        <div bc-value="true" bc-name="cms.systemflight" bc-triggers="click" class="custom-checkbox button__content text-center cursor-pointer mt-3 w-1/2  py-3 rounded-lg border border-zinc-500 text-sm">
+                                              <span>سیستمی</span>
+                                      </div>
+                                </div>
+                            </div>
+                            </div>
+
+                            <div class="filter__container bg-zinc-100 rounded-xl px-4 py-6 mb-2 max-h-80 overflow-auto">
+                                <div class="filter__title__container flex justify-between mb-3 cursor-pointer" onclick="toggleContent(this)">
+                                    <h3 class="font-bold text-sm text-zinc-900">ساعت حرکت (رفت)</h3>
+                                    <svg width="24" height="24">
+                                        <use xlink:href="../assets/images/sprite-icons.svg#down-arrow-icon"></use>
+                                    </svg>
+                                </div>
+                                
+                                <div class="space-y-2 selector__content text-zinc-500">
+                              
+                                    <div class="filter__content outbounddeparturetime__content onewaytrip__content">
+                                      <div class="text-primary-300 text-sm mb-1">صبح</div>
+                                      <div class="text-zinc-900 text-xs mb-4">ساعت فیلتر شده از <span>5:00 الی 11:59</span></div>
+                                      <div class="flex justify-between bg-zinc-200 rounded-lg">
+                                        <div bc-value="0-4" bc-name="cms.outbounddeparturetime" bc-triggers="click" class="custom-checkbox button__content checked cursor-pointer  py-3 w-1/4 rounded-lg">
+                                          <svg width="24" height="24" class="mx-auto">
+                                            <use xlink:href="../assets/images/sprite-icons.svg#sunrise-icon"></use>
+                                        </svg>
+                                        </div>
+                                        <div bc-value="5-11" bc-name="cms.outbounddeparturetime" bc-triggers="click" class="custom-checkbox button__content  cursor-pointer  py-3 w-1/4 rounded-lg">
+                                          <svg width="24" height="24" class="mx-auto">
+                                            <use xlink:href="../assets/images/sprite-icons.svg#morning-icon"></use>
+                                        </svg>
+                                      </div>
+                                      <div bc-value="12-17" bc-name="cms.outbounddeparturetime" bc-triggers="click" class="custom-checkbox button__content  cursor-pointer py-3  w-1/4 rounded-lg">
+                                        <svg width="24" height="24" class="mx-auto">
+                                          <use xlink:href="../assets/images/sprite-icons.svg#sunset-icon"></use>
+                                      </svg>
+                                    </div>
+                                    <div bc-value="18-23" bc-name="cms.outbounddeparturetime" bc-triggers="click" class="custom-checkbox button__content  cursor-pointer  py-3 w-1/4 rounded-lg">
+                                      <svg width="24" height="24" class="mx-auto">
+                                        <use xlink:href="../assets/images/sprite-icons.svg#moon-icon"></use>
+                                    </svg>
+                                  </div>
+                                </div>
+                                </div>
+                              </div>
+                              </div>
+
+                              <div class="filter__container bg-zinc-100 rounded-xl px-4 py-6 mb-2 max-h-80 overflow-auto">
+                                <div class="filter__title__container flex justify-between mb-3 cursor-pointer" onclick="toggleContent(this)">
+                                    <h3 class="font-bold text-sm text-zinc-900">بازه قیمت</h3>
+                                    <svg width="24" height="24">
+                                        <use xlink:href="../assets/images/sprite-icons.svg#down-arrow-icon"></use>
+                                    </svg>
+                                </div>
+                                
+                                <div class="space-y-2 selector__content text-zinc-500">
+                              
+                                  <div class="filter__content">
+                                    <div class="my-1 ltr filter__price__container">
+                                        <div class="slider__container mx-auto">
+                                            <div class="flex justify-between items-center text-xs">
+                                                <div class="slider__value__container">
+                                                    <span class="min__value">6/000/000/000</span><span
+                                                        class="mr-1 unit__value">ریال</span>
+                                                </div>
+                                                <div class="slider__value__container">
+                                                  <span
+                                                        class="max__value">80/000/000</span>
+                                                    <span class="mr-1 unit__value">ریال</span>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="slider__content relative h-1 mx-2 rounded-sm bg-primary-50 mt-5">
+                                                <div
+                                                    class="slider__track absolute rounded-sm h-full inset-x-0 z-[1] bg-primary-400">
+                                                </div>
+                                                <div class="thumb__min absolute left-0 rounded-full cursor-pointer z-[2] bg-white border-2 border-primary-400 w-4 h-4 top-1.2"
+                                                    bc-name="cms.price" bc-triggers="mousedown" bc-value="min">
+                                                </div>
+                                                <div class="thumb__max absolute left-full rounded-full cursor-pointer z-[2] bg-white border-2 border-primary-400 w-4 h-4 top-1.2"
+                                                    bc-name="cms.price" bc-triggers="mousedown" bc-value="max">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                              </div>
+                              </div>
+                              <div
+  class="filter__container bg-zinc-100 rounded-xl px-4 py-6 mb-2 max-h-80 overflow-auto">
+  <div class="filter__title__container flex justify-between mb-3 cursor-pointer"
+    onclick="toggleContent(this)">
+    <h3 class="font-bold text-sm text-zinc-900">توقف (رفت)</h3>
+    <svg width="24" height="24">
+      <use xlink:href="../assets/images/sprite-icons.svg#down-arrow-icon"></use>
+    </svg>
+  </div>
+  <div class="space-y-2 selector__content text-zinc-500">
+    <div class="filter__content outboundstop__content">
+      <div class="mt-4 flex items-center justify-between">
+        <img src="../assets/images/0-stop.png" width="" height="" alt=""/>
+        <div bc-value="false" bc-name="cms.systemflight" bc-triggers="click"
+          class="custom-checkbox button__content text-center cursor-pointer w-1/2  py-3 rounded-lg border border-zinc-500 text-sm">
+          <span>بدون توقف</span>
+        </div>
+      </div>
+      <div class="mt-4 flex items-center justify-between">
+        <img src="../assets/images/1-stop.png" width="" height="" alt=""/>
+        <div bc-value="false" bc-name="cms.systemflight" bc-triggers="click"
+          class="custom-checkbox button__content text-center cursor-pointer w-1/2  py-3 rounded-lg border border-zinc-500 text-sm">
+          <span>یک توقف</span>
+        </div>
+      </div>
+      <div class="mt-4 flex items-center justify-between">
+        <img src="../assets/images/2-stops.png" width="" height="" alt=""/>
+        <div bc-value="false" bc-name="cms.systemflight" bc-triggers="click"
+          class="custom-checkbox button__content checked text-center cursor-pointer w-1/2  py-3 rounded-lg border border-zinc-500 text-sm">
+          <span>چند توقف</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+                    </aside>
+                      <!-- Flight Listings -->
+                    <div class="w-full lg:w-3/4 px-2">
+                           <!-- Airline Options -->
+        <div class="bg-white rounded-xl shadow-sm p-2 mb-4">
+            <div class="flex justify-between items-center text-xs">
+                <div class="w-1/5">
+                    <ul class="bg-zinc-100 rounded-xl p-4 w-3/4">
+                        <li class="text-zinc-900 mb-6">نمایش همه نرخ ها</li>
+                        <li class="text-zinc-500 mb-4">ایرلاین ها</li>
+                        <li class="text-zinc-500 mb-3">بدون توقف</li>
+                        <li class="text-zinc-500 mb-3">یک توقف</li>
+                        <li class="text-zinc-500">چند توقف</li>
+                    </ul>
+                </div>
+                <div class="w-4/5 text-center relative">
+                    <div class="swiper-button-prev airline__prev__swiper top-24"><svg width="24" height="24">
+                        <use xlink:href="../assets/images/sprite-icons.svg#right-arrow-icon"></use>
+                    </svg>
+                </div>
+                    <!-- slider main container -->
+                    <div class="swiper airline__swiper w-11/12">
+                        <!-- sdditional required wrapper -->
+                        <div class="swiper-wrapper">
+                           
+                                   
+                                    <div class="swiper-slide">
+                                        <div class="mb-2 mt-2 min-h-16">
+                                          <div class="bg-zinc-50 border border-zinc-100 rounded"><img class="route__airline mx-auto" src="../assets/images/swiper-logo.png" width="125" height="34" alt="@Name@"/></div>
+                                          <div class="mt-2 text-zinc-800">پگاسوس ایرلاین</div>
+                                        </div>
+                                        <div class="rounded-xl bg-zinc-100 border border-zinc-200 text-zinc-700">
+
+                                      
+                                        <div class="cursor-pointer p-2" bc-triggers="click" bc-name="cms.flight" bc-value="${$data.FlightId}">127/000/000<span class="mr-1 text-xs">تومان</span></div>
+                                        <div class="cursor-pointer p-1" bc-triggers="click" bc-name="cms.flight" bc-value="${$data.FlightId}">-<span class="mr-1 text-xs"></span></div>
+                                        <div class="cursor-pointer p-2" bc-triggers="click" bc-name="cms.flight" bc-value="${$data.FlightId}">127/000/000<span class="mr-1 text-xs">تومان</span></div>
+                                    </div>  </div>
+                                    <div class="swiper-slide">
+                                        <div class="mb-2 mt-2 min-h-16">
+                                          <div class="bg-zinc-50 border border-zinc-100 rounded"><img class="route__airline mx-auto" src="../assets/images/swiper-logo.png" width="125" height="34" alt="@Name@"/></div>
+                                          <div class="mt-2 text-zinc-800">پگاسوس ایرلاین</div>
+                                        </div>
+                                        <div class="rounded-xl bg-zinc-100 border border-zinc-200 text-zinc-700">
+
+                                      
+                                        <div class="cursor-pointer p-2" bc-triggers="click" bc-name="cms.flight" bc-value="${$data.FlightId}">127/000/000<span class="mr-1 text-xs">تومان</span></div>
+                                        <div class="cursor-pointer p-1" bc-triggers="click" bc-name="cms.flight" bc-value="${$data.FlightId}">127/000/000<span class="mr-1 text-xs">تومان</span></div>
+                                        <div class="cursor-pointer p-2" bc-triggers="click" bc-name="cms.flight" bc-value="${$data.FlightId}">-<span class="mr-1 text-xs"></span></div>
+                                    </div>  </div>
+                                    <div class="swiper-slide">
+                                        <div class="mb-2 mt-2 min-h-16">
+                                          <div class="bg-zinc-50 border border-zinc-100 rounded"><img class="route__airline mx-auto" src="../assets/images/swiper-logo.png" width="125" height="34" alt="@Name@"/></div>
+                                          <div class="mt-2 text-zinc-800">پگاسوس ایرلاین</div>
+                                        </div>
+                                        <div class="rounded-xl bg-zinc-100 border border-zinc-200 text-zinc-700">
+
+                                      
+                                        <div class="cursor-pointer p-2" bc-triggers="click" bc-name="cms.flight" bc-value="${$data.FlightId}">127/000/000<span class="mr-1 text-xs">تومان</span></div>
+                                        <div class="cursor-pointer p-1" bc-triggers="click" bc-name="cms.flight" bc-value="${$data.FlightId}">127/000/000<span class="mr-1 text-xs">تومان</span></div>
+                                        <div class="cursor-pointer p-2" bc-triggers="click" bc-name="cms.flight" bc-value="${$data.FlightId}">-<span class="mr-1 text-xs"></span></div>
+                                    </div>  </div>
+                                    <div class="swiper-slide">
+                                        <div class="mb-2 mt-2 min-h-16">
+                                          <div class="bg-zinc-50 border border-zinc-100 rounded"><img class="route__airline mx-auto" src="../assets/images/swiper-logo.png" width="125" height="34" alt="@Name@"/></div>
+                                          <div class="mt-2 text-zinc-800">پگاسوس ایرلاین</div>
+                                        </div>
+                                        <div class="rounded-xl bg-zinc-100 border border-zinc-200 text-zinc-700">
+
+                                      
+                                        <div class="cursor-pointer p-2" bc-triggers="click" bc-name="cms.flight" bc-value="${$data.FlightId}">127/000/000<span class="mr-1 text-xs">تومان</span></div>
+                                        <div class="cursor-pointer p-1" bc-triggers="click" bc-name="cms.flight" bc-value="${$data.FlightId}">127/000/000<span class="mr-1 text-xs">تومان</span></div>
+                                        <div class="cursor-pointer p-2" bc-triggers="click" bc-name="cms.flight" bc-value="${$data.FlightId}">-<span class="mr-1 text-xs"></span></div>
+                                    </div>  </div>
+                                    <div class="swiper-slide">
+                                        <div class="mb-2 mt-2 min-h-16">
+                                          <div class="bg-zinc-50 border border-zinc-100 rounded"><img class="route__airline mx-auto" src="../assets/images/swiper-logo.png" width="125" height="34" alt="@Name@"/></div>
+                                          <div class="mt-2 text-zinc-800">پگاسوس ایرلاین</div>
+                                        </div>
+                                        <div class="rounded-xl bg-zinc-100 border border-zinc-200 text-zinc-700">
+
+                                      
+                                        <div class="cursor-pointer p-2" bc-triggers="click" bc-name="cms.flight" bc-value="${$data.FlightId}">127/000/000<span class="mr-1 text-xs">تومان</span></div>
+                                        <div class="cursor-pointer p-1" bc-triggers="click" bc-name="cms.flight" bc-value="${$data.FlightId}">127/000/000<span class="mr-1 text-xs">تومان</span></div>
+                                        <div class="cursor-pointer p-2" bc-triggers="click" bc-name="cms.flight" bc-value="${$data.FlightId}">-<span class="mr-1 text-xs"></span></div>
+                                    </div>  </div>
+                                    
+                              
+                           
+                        </div>
+
+                    </div>
+                
+                    <div class="swiper-button-next airline__next__swiper top-24">
+                        <svg width="24" height="24">
+                            <use xlink:href="../assets/images/sprite-icons.svg#left-arrow-icon"></use>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+          </div>
+            <!-- Flight Class Options -->
+        <div class="bg-white rounded-xl shadow-sm p-2 mb-4 relative">
+                <div class="swiper-button-prev price__prev__swiper top-14"> <svg width="24" height="24">
+                    <use xlink:href="../assets/images/sprite-icons.svg#right-arrow-icon"></use>
+                </svg>
+            </div>
+            <div class="swiper w-11/12 price__swiper text-center">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="cursor-pointer p-3 w-36 mx-auto rounded-xl text-zinc-600 hover:bg-primary-50 hover:text-zinc-900">
+                            <div class="text-sm">۹۹ اردیبهشت</div>
+                            <div class="text-xs my-2">یکشنبه</div>
+                            <div class="text-xs text-green-600">۱۲۷۰۰۰۰ تومان</div>
+                          </div>
+                       
+                        
+                      
+                    </div>
+                    <div class="swiper-slide border-r border-solid border-zinc-200">   <div class=" cursor-pointer p-3 w-36 mx-auto rounded-xl text-zinc-600 hover:bg-primary-50 hover:text-zinc-900 transition-colors">
+                        <div class="text-sm">۹۹ اردیبهشت</div>
+                        <div class="text-xs my-2">دوشنبه</div>
+                        <div class="text-xs">۱۲۸۰۰۰۰ تومان</div>
+                      </div></div>
+                    <div class="swiper-slide border-r border-solid border-zinc-200">    <div class=" cursor-pointer p-3 w-36 mx-auto  rounded-xl text-zinc-600 hover:bg-primary-50 hover:text-zinc-900 transition-colors">
+                        <div class="text-sm">۹۹ اردیبهشت</div>
+                        <div class="text-xs my-2">پنجشنبه</div>
+                        <div class="text-xs">۱۲۹۰۰۰۰ تومان</div>
+                      </div></div>
+                    <div class="swiper-slide border-r border-solid border-zinc-200">  <div class=" cursor-pointer p-3 w-36 mx-auto rounded-xl text-zinc-600 hover:bg-primary-50 hover:text-zinc-900 transition-colors">
+                        <div class="text-sm">۹۹ اردیبهشت</div>
+                        <div class="text-xs my-2">چهارشنبه</div>
+                        <div class="text-xs">۱۳۰۰۰۰۰ تومان</div>
+                      </div></div>
+                    <div class="swiper-slide border-r border-solid border-zinc-200">
+                        <div class=" cursor-pointer p-3 w-36 mx-auto rounded-xl hover:bg-primary-50 text-zinc-600 hover:text-zinc-900 transition-colors">
+                            <div class="text-sm">۹۹ اردیبهشت</div>
+                          <div class="text-xs my-2">سه شنبه</div>
+                          <div class="text-xs text-red-600">تکمیل ظرفیت</div>
+                        </div></div>
+                </div>
+              
+            </div>
+            <div class="swiper-button-next price__next__swiper top-14"> <svg width="24" height="24">
+                <use xlink:href="../assets/images/sprite-icons.svg#left-arrow-icon"></use>
+            </svg>
+        </div>
+           
+          </div>
+          
+        <!-- Flight Sorting Options -->
+        <div class="sort__cards__container selector__container my-10">
+            <div class="sort__cards__content selector__content flex flex-wrap justify-between items-center text-sm">
+                <div class="text-zinc-900">مرتب سازی بر اساس:</div>
+              <div  bc-triggers="click" bc-name="cms.sort" bc-value="default" class="cursor-pointer flex items-center hover:bg-primary-50 hover:text-zinc-900 gap-1 justify-center min-h-14 min-w-32 text-zinc-500 border border-zinc-200 bg-white rounded-full text-center">
+               
+                <span class="text-sm">پیش فرض</span>
+              </div>
+              <div bc-triggers="click" bc-name="cms.sort" bc-value="price"
+              data-sort="descend" class="cursor-pointer flex items-center hover:bg-primary-50 hover:text-zinc-900 gap-1 justify-center  min-h-14 min-w-32 text-zinc-500 border border-zinc-200 bg-white rounded-full text-center">
+               
+                <svg width="24" height="25">
+                    <use xlink:href="../assets/images/sprite-icons.svg#sort-up-icon"></use>
+                </svg>
+                
+                <span class="text-sm">قیمت</span>
+              </div>
+              <div bc-triggers="click" bc-name="cms.sort" bc-value="price"
+              data-sort="descend" class="cursor-pointer flex items-center hover:bg-primary-50 hover:text-zinc-900 gap-1 justify-center min-h-14 min-w-32 text-zinc-500 border border-zinc-200 bg-white rounded-full text-center">
+               
+                <svg width="24" height="25">
+                    <use xlink:href="../assets/images/sprite-icons.svg#sort-up-icon"></use>
+                </svg>
+                
+                <span class="text-sm">توقف</span>
+              </div>
+              <div bc-triggers="click" bc-name="cms.sort" bc-value="price"
+              data-sort="descend" class="cursor-pointer flex items-center hover:bg-primary-50 hover:text-zinc-900 gap-1 justify-center min-h-14 min-w-32 text-zinc-500 border border-zinc-200 bg-white rounded-full text-center">
+               
+                <svg width="24" height="25">
+                    <use xlink:href="../assets/images/sprite-icons.svg#sort-up-icon"></use>
+                </svg>
+                
+                <span class="text-sm">زمان پرواز</span>
+              </div>
+              <div bc-triggers="click" bc-name="cms.sort" bc-value="price"
+              data-sort="descend" class="cursor-pointer flex items-center hover:bg-primary-50 hover:text-zinc-900 gap-1 justify-center min-h-14 min-w-32 text-zinc-500 border border-zinc-200 bg-white rounded-full text-center">
+               
+                <svg width="24" height="25">
+                    <use xlink:href="../assets/images/sprite-icons.svg#sort-up-icon"></use>
+                </svg>
+                
+                <span class="text-sm">نزدیک ترین پرواز</span>
+              </div>
+            </div>
+        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Search Form Section -->
+    <!-- Footer-->
+    <footer></footer>
+    <script src="../assets/js/swiper-bundle.min.js" type="text/javascript"></script>
+    <script>
+              // swiper flight
+              var airline__swiper = new Swiper(".airline__swiper", {
+            slidesPerView: 6,
+            speed: 400,
+            centeredSlides: false,
+            spaceBetween: 0,
+            navigation: {
+                nextEl: '.airline__next__swiper',
+                prevEl: '.airline__prev__swiper',
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                },
+                768: {
+                    slidesPerView: 3,
+                    spaceBetween: 40,
+                },
+                1024: {
+                    slidesPerView: 4,
+                    spaceBetween: 50,
+                },
+            },
+        });
+
+
+        var price__swiper = new Swiper(".price__swiper", {
+            slidesPerView: 6,
+            speed: 400,
+            centeredSlides: false,
+            spaceBetween: 0,
+            navigation: {
+                nextEl: '.price__next__swiper',
+                prevEl: '.price__prev__swiper',
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                },
+                768: {
+                    slidesPerView: 3,
+                    spaceBetween: 40,
+                },
+                1024: {
+                    slidesPerView: 4,
+                    spaceBetween: 50,
+                },
+            },
+        });
+
+
+   </script>
+</body>
+
+</html>
