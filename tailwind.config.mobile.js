@@ -39,7 +39,6 @@ export default {
                     1: "var(--special-1)",
                     2: "var(--special-2)",
                     3: "var(--special-3)",
-                    4: "var(--special-4)",
                 },
 
             }
