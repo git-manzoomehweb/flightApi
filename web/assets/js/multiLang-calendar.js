@@ -293,7 +293,7 @@ const IS_LTR = (document.documentElement.getAttribute('dir') || '').toLowerCase(
 
 // Detect the current language of the page
 const HTML_LANG = (document.documentElement.getAttribute('lang') || '').toLowerCase();
-const IS_EN = HTML_LANG.startsWith('en'); // fallback to LTR as English
+const IS_EN = HTML_LANG.startsWith('en') || HTML_LANG.startsWith('ar'); // fallback to LTR as English
 
 const LANG = IS_EN ? 'en' : 'fa';  // Set the language to either English or Persian
 
