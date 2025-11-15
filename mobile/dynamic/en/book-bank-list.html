@@ -80,7 +80,7 @@
     </basis>
     <basis core="group" name="check-bank" if="'[##db.bankid.RowNumber##]' <= '1'">
         <basis core="group" name="check-bankid" if="'[##db.bankid.Value##]' = '-1'">
-            <div class="book-invoice__content book-pre__Invoice  book-my-2 book-text-xl book-text-center book-cursor-pointer"
+            <div class="book-invoice__content book-pre__Invoice  book-my-3 book-text-xl book-text-center book-cursor-pointer"
                 data-run="0" onclick="submitInvoice(this,'pre__Invoice')">
                 Click here to submit the preliminary contract
             </div>
@@ -125,4 +125,13 @@
 <basis core="api" name="api.userCredit"
     url="[##cms.form.usercrediturl##]?supplier_dmnid=[##cms.cms.domainid##]&rkey=[##cms.form.rkey##]" method="get"
     content-type="application/json" run="atclient" onprocessed='onProcessedUserCredit'>
+</basis>
+<basis core="group" name="check-accounttype" if="'[##cms.form.accounttype##]' in ('1','2')">
+    <basis core="group" name="check-temporaryHold" if="'[##cms.form.TemporaryHold##]' = 'true'">
+        <div class="book-invoice__content book-pre__Invoice book-my-3 book-text-xl book-text-center book-cursor-pointer"
+            data-run="0" onclick="submitInvoice(this,'pre__Invoice')">
+            Click to register the pre-contract and temporary
+            booking</div>
+
+    </basis>
 </basis>

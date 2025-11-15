@@ -44,6 +44,7 @@ let selectedCountryCode = null;
 let selectedCity = null;
 let selectedCityId = null;
 let currencyRequest = null;
+let TemporaryHold = null;
 
 // Function to load translate
 const loadTranslations = async (lang = 'fa') => {
@@ -3077,7 +3078,7 @@ const submitInvoice = (element, type) => {
         if (type === 'pre__Invoice') {
             const invoiceContent = invoiceContainer.querySelector(".book-invoice__content");
             invoiceContent.insertAdjacentHTML('beforeend',
-                `<div class="book-invoice__loader_container book-mt-2 book-text-center">${translate("generating_pre_invoice_wait")}</div>`);
+                `<div class="book-invoice__loader_container book-my-2 book-text-center">${translate("generating_pre_invoice_wait")}</div>`);
             invoiceContent.classList.add("book-not-active");
             document.querySelector(".book-bankIdentifier").value = -1;
             if (element.getAttribute("data-run") === "0") {
@@ -3315,10 +3316,10 @@ const sendDataWithFetch = () => {
                     ? 2
                     : ""
             ),
-            currency_request: currencyRequest
+            currency_request: currencyRequest,
+            TemporaryHold: TemporaryHold != null
 
         };
-
         // Create and submit form
         const form = document.createElement("form");
         form.method = "POST";
@@ -4135,6 +4136,8 @@ const nextStep = (element) => {
                         rkey: getSearchCookie("rkey") || "",
                         selectedMode: selectedMode,
                         userCreditUrl: userCreditUrl,
+                        TemporaryHold: TemporaryHold,
+                        accounttype: document.querySelector(".book-buyers__container").dataset.accounttype,
                         run: true
                     };
 

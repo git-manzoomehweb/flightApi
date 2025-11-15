@@ -1441,6 +1441,7 @@ const setProductGroup = async () => {
         ExcessService = sessionBookStorage.FlightGroup?.[0]?.ExcessService || false;
         SeatSelection = sessionBookStorage.FlightGroup?.[0]?.SeatSelection || false;
         lastDepartureDate = sessionBookStorage.FlightGroup?.[0].DepartureDate;
+        TemporaryHold = sessionBookStorage.TemporaryHold
 
         if (ExcessService || SeatSelection) {
             const container = document.querySelector(".book-passengers__container");
@@ -1611,11 +1612,9 @@ const setProductGroup = async () => {
                     if (asideContent) {
                         const tabNav = asideContent.querySelector(".book-tab__navigation__container");
                         if (tabNav) {
-                            console.log('g')
                             tabNav.insertAdjacentElement("afterend", fareFamilyHtml);
                             clearInterval(intervalId);
                         } else {
-                            console.log('f')
                             asideContent.insertAdjacentElement("afterbegin", fareFamilyHtml);
                             clearInterval(intervalId);
                         }

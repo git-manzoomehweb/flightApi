@@ -382,6 +382,8 @@
                                     <basis core="call" run="atclient" file="/book/bank/list" triggers="cms.bankList"
                                         method="post" if="{##cms.bankList.run|(false)##}"
                                         userCreditUrl="{##cms.bankList.userCreditUrl##}"
+                                        TemporaryHold="{##cms.bankList.TemporaryHold##}"
+                                        accounttype="{##cms.bankList.accounttype##}"
                                         selectedMode="{##cms.bankList.selectedMode##}" rkey="{##cms.bankList.rkey##}"
                                         engine="{##cms.bankList.engine|()##}" OnRendered="renderBankList" lid="1"
                                         pageindex="[##cms.cms.pageindex|(1)##]"></basis>

@@ -354,11 +354,11 @@ function placePanel(panelEl, inputEl, margin = 8, preferRight = true) {
     const panelH = panelEl.offsetHeight;
 
     let top = r.bottom + scrollY + margin;
-    if (top + panelH > scrollY + vh - margin) {
-        const candidateTop = r.top + scrollY - panelH - margin;
-        if (candidateTop >= scrollY + margin) top = candidateTop;
-        else top = Math.max(scrollY + margin, Math.min(top, scrollY + vh - margin - panelH));
-    }
+    // if (top + panelH > scrollY + vh - margin) {
+    //     const candidateTop = r.top + scrollY - panelH - margin;
+    //     if (candidateTop >= scrollY + margin) top = candidateTop;
+    //     else top = Math.max(scrollY + margin, Math.min(top, scrollY + vh - margin - panelH));
+    // }
 
     let left;
     if (preferRight) {
@@ -598,9 +598,7 @@ class DatePicker {
 
     // Opens the DatePicker
     open(targetEl, keepPositionIfOpen = true) {
-        // if (!IS_MOBILE) {
-        //     targetEl.scrollIntoView({ behavior: 'instant', block: 'center' });
-        // }
+
         this.currentEl = targetEl;
         this.currentRole = targetEl.dataset.role || 'depart'; // Determine the role of the field (depart or return)
         const modEl = targetEl.closest('[data-module]');
