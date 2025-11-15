@@ -1,0 +1,99 @@
+<basis core="dbsource" source="basiscore" name="db" mid="5" lid="1" usedforid="[##cms.cms.ownerid##]">
+    <member name="company-name" type="view" postsql="select Answer from [db.company-name] where prpID = '7994'" />
+</basis>
+
+<div class="book-rule__company__container book-modal__container book-fixed book-h-full book-w-full book-top-0 book-bottom-0 book-transition book-z-[9999999999] book-bg-zinc-200 book-inset-x-0 book-overflow-auto">
+    <div class="book-modal__content book-w-full">
+        <div class="book-p-3">
+            <span onclick="closeModalContainer(document.querySelector('.book-rule__company__container'), 'book-card__container__selected')" class="book-cursor-pointer book-flex book-gap-1 book-card__container__selected">
+                <svg width="28" height="28">
+                    <use xlink:href="/booking/images/sprite-booking-icons.svg#close-icon"></use>
+                </svg>
+                <span class="book-text-base">Terms and Conditions</span>
+            </span>
+        </div>
+
+        <div class="book-rule__company__content book-modal__card__content book-min-h-screen book-bg-white book-rounded-t-3xl book-p-3">
+            <div class="book-mb-3">
+                <div class="book-font-bold book-mb-2">Amendment to the International Tour Contract</div>
+                <div>
+                    In accordance with the contract between the company [##db.company-name.answer##] and the buyer, who has acted as an authorized representative of the individuals named in the contract, the following terms and conditions are added to and complete the aforementioned contract.
+                </div>
+            </div>
+            <div class="book-mb-3">
+                <div class="book-font-bold book-mb-2">Subject of the Contract:</div>
+                <div>This contract determines the duties, responsibilities, and rates for group or individual foreign tours, as detailed below.</div>
+                <div class="book-mb-3">
+                    <span class="book-font-bold">1-</span>
+                    <span>If the tour does not meet the required number (at least 15 people), [##db.company-name.answer##] is entitled to cancel it, notify the passenger one week before the tour's departure date, and refund the money received from the passenger.</span>
+                </div>
+                <div class="book-mb-3">
+                    <span class="book-font-bold">2-</span>
+                    <span>Hotel room check-in time is 2 PM and check-out time is 11 AM. Passengers are required to comply with these times.</span>
+                </div>
+                <div class="book-mb-3">
+                    <span class="book-font-bold">3-</span>
+                    <span>In double rooms, the third bed is a temporary foldable bed.</span>
+                </div>
+                <div class="book-mb-3">
+                    <span class="book-font-bold">4-</span>
+                    <span>Individual passengers, when registering, will be subject to single room rates.</span>
+                </div>
+                <div class="book-mb-3">
+                    <div class="book-font-bold book-mb-2">First Note:</div>
+                    <div class="book-mb-3">
+                        <span class="book-font-bold">A)</span>
+                        <span>For group registration, only the individual representing the passengers can approach the travel services company for follow-up, cancellation, or refund of payments. Other passengers will not be allowed to contact [##db.company-name.answer##] and waive any right to protest or file a lawsuit.</span>
+                    </div>
+                </div>
+                <div class="book-mb-3">
+                    <span class="book-font-bold">B)</span>
+                    <span>For chartered tours or flights, the fee is non-refundable.</span>
+                </div>
+                <div class="book-mb-3">
+                    <span class="book-font-bold">5-</span>
+                    <span>Regarding air travel, the regulations of the Warsaw Convention signed on October 12, 1939, and its amendment on September 28, 1995, as well as regulations from the Civil Aviation Organization, will apply.</span>
+                </div>
+                <div class="book-mb-3">
+                    <span class="book-font-bold">6-</span>
+                    <span>If a passenger causes trouble for other passengers, the tour leader, or local guides, or engages in acts contrary to the Islamic Republic of Iran's dignity in the destination country, the group leader must take appropriate action and report it to [##db.company-name.answer##] or the Iranian embassy.</span>
+                </div>
+                <div class="book-mb-3">
+                    <span class="book-font-bold">7-</span>
+                    <span>[##db.company-name.answer##] is not responsible for the refusal of visa issuance by embassies. If group passengers are registered, and the relevant embassy refuses to issue visas for any of them, the remaining passengers must proceed with the tour, and passengers whose visas were granted must pay the full tour cost if they cancel.</span>
+                </div>
+                <div class="book-mb-3">
+                    <div class="book-font-bold book-mb-2">Second Note:</div>
+                    <div>If any close relatives (father, mother, spouse, unmarried children) have not obtained a visa from the embassy, and wish to cancel the tour, 50% of the total tour cost will be charged as a penalty. For individuals without direct familial relations who failed to obtain a visa, the terms of clause 23 of this amendment will apply.</div>
+                </div>
+                <div class="book-mb-3">
+                    <span class="book-font-bold">8-</span>
+                    <span>If a visa and passport are issued last minute by the embassy before the trip starts, the passenger is obligated to attend the tour and use the services, and if the passenger cancels, they must pay the full cost of the tour.</span>
+                </div>
+                <div class="book-mb-3">
+                    <span class="book-font-bold">9-</span>
+                    <span>If an incident occurs to a passenger during the trip, they will be covered by group travel insurance, and the company [##db.company-name.answer##] will not be responsible.</span>
+                </div>
+                <div class="book-mb-3">
+                    <span class="book-font-bold">10-</span>
+                    <span>Travel insurance is mandatory for all individuals over 60 years old, and the cost is separate from the travel fee.</span>
+                </div>
+                <div class="book-mb-3">
+                    <span class="book-font-bold">11-</span>
+                    <span>Any necessary changes to the travel program, route, and timing of the tour will be at the discretion of [##db.company-name.answer##] and the agent.</span>
+                </div>
+                <div class="book-mb-3">
+                    <span class="book-font-bold">12-</span>
+                    <span>If any passengers do not return to the country on the agreed date, the responsibility and any potential damages will be the responsibility of the buyer.</span>
+                </div>
+                <div class="book-mb-3">
+                    <div class="book-font-bold book-mb-2">Passenger Responsibilities:</div>
+                    <div>
+                        <span class="book-font-bold">13-</span>
+                        <span>Passengers are required to respect Islamic customs during the trip.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

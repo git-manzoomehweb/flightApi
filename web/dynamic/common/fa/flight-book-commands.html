@@ -1,0 +1,36 @@
+<!-- Get Flight Info (AI) -->
+<basis core="api" name="api.flightAi" url="https://www.basisfly.com/ai/flight/flight-group" method="post"
+    content-type="application/json" run="atclient" triggers="cms.flightAi" if="{##cms.flightAi.run|(false)##}" body='{
+            "SessionId": "{##cms.flightAi.TokenId##}",
+            "FlightId": "{##cms.flightAi.FlightId##}",
+            "lid":"1"
+        }' onprocessed='onProcessedFlightAi'>
+</basis>
+<!-- Get Flight Info (Safarmarket) -->
+<basis core="api" name="api.flightSafarmarket" url="https://basisfly.com/api/engine/safarmarket/flightdetails"
+    method="post" content-type="application/json" run="atclient" triggers="cms.flightSafarmarket"
+    if="{##cms.flightSafarmarket.run|(false)##}" body='{
+        "flight_key": "{##cms.flightSafarmarket.flight_key##}",
+        "route_key": "{##cms.flightSafarmarket.route_key##}",
+        "smId": "{##cms.flightSafarmarket.safarmarketId##}",
+        "dmnid": "[##cms.cms.domainid##]"
+    }' onprocessed='onProcessedFlightSafarmarket'>
+</basis>
+<!-- Get Session -->
+<basis core="api" name="api.session" url="https://ota.basisfly.com/v2/api/flight/CreateSession" method="post"
+    content-type="application/json" run="atclient" if="{##cms.session##}" triggers="cms.session" body='{
+                "rkey": "[##cms.cookie.rkey##]",
+                "dmnid": "[##cms.cms.domainid##]"
+            }'>
+</basis>
+<basis core="callback" triggers="api.session" run="atclient" method="setSession"></basis>
+<!-- Get Flight Rule-->
+<basis core="api" name="api.rule" url="https://ota.basisfly.com/v2/api/flight/{##cms.rule.type##}" method="post"
+    content-type="application/json" run="atclient" triggers="cms.rule" if="{##cms.rule.run|(false)##}" body='{
+                "rkey": "{##cms.rule.rkey##}",
+                "dmnid": "[##cms.cms.domainid##]",
+                "SessionId": "{##cms.rule.SessionId##}",
+                "FlightId": "{##cms.rule.Id##}",
+                "FlightGroup": {##cms.rule.Group##}
+            }' onprocessed='onProcessedFlightApiRule'>
+</basis>

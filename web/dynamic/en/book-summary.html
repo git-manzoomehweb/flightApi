@@ -1,0 +1,102 @@
+<div
+    class="book-summary__content book-p-5 book-mb-5 book-border-slate-600 book-border-b-3 book-bg-white book-shadow-md book-rounded-2xl book-passenger">
+    <div class="book-brief__container__title book-mb-4">
+        <span class="book-p-1 book-rounded book-bg-zinc-100 book-text-primary-400 book-text-sm book-border-l-3 book-border-primary-400">Passenger
+            Information</span>
+    </div>
+    <div class="book-summary__item book-text-sm book-text-center">
+    </div>
+    <div class="clr"></div>
+</div>
+<div
+    class="book-summary__content book-p-5 book-mb-5 book-border-slate-600 book-border-b-3 book-bg-white book-shadow-md book-rounded-2xl book-buyer">
+    <div class="book-brief__container__title book-mb-4">
+        <span
+            class="book-p-1 book-rounded book-bg-zinc-100 book-text-primary-400 book-text-sm book-border-l-3 book-border-primary-400">Buyer
+            Information</span>
+    </div>
+    <div class="book-summary-buyer-items book-text-sm book-text-center">
+    </div>
+    <div class="clr"></div>
+</div>
+<div
+    class="book-summary__content book-p-5 book-mb-5 book-border-slate-600 book-border-b-3 book-bg-white book-shadow-md book-rounded-2xl">
+    <div class="book-brief__container__title book-mb-4">
+        <span
+            class="book-p-1 book-rounded book-bg-zinc-100 book-text-primary-400 book-text-sm book-border-l-3 book-border-primary-400">Discount
+            Code</span>
+    </div>
+    <div class="book-text-zinc-500 book-text-sm">If you have a discount code, enter it in the section below and click
+        the apply code button.</div>
+    <div class="book-api__container__content book-coupon__container book-info__item__container book-my-3">
+        <div
+            class="book-info__item__content book-w-1/3 book-flex book-justify-between book-bg-zinc-100 book-rounded-lg book-overflow-hidden book-transition">
+            <input type="text" class="book-coupon__code" autocomplete="off" />
+            <button onclick="renderCheckCoupon(this)" type="button"
+                class="book-cursor-pointer book-text-white book-bg-primary-400 book-px-2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
+                    stroke="currentColor" class="book-size-6">
+                    <use xlink:href="/booking/images/sprite-booking-icons.svg#search-icon">
+                    </use>
+                </svg>
+            </button>
+        </div>
+        <span
+            class="book-api__container__loader book-hidden book-bg-white book-relative book-block book-w-3 book-h-3 book-rounded-full book-mx-auto book-mt-3"></span>
+        <div class="book-api__container__reponse book-mt-3 book-text-sm"></div>
+    </div>
+    <div class="clr"></div>
+</div>
+<div class="book-member__point__container book-hidden">
+    <div id="ballsWaveG">
+        <div id="ballsWaveG_1" class="ballsWaveG"></div>
+        <div id="ballsWaveG_2" class="ballsWaveG"></div>
+        <div id="ballsWaveG_3" class="ballsWaveG"></div>
+        <div id="ballsWaveG_4" class="ballsWaveG"></div>
+        <div id="ballsWaveG_5" class="ballsWaveG"></div>
+        <div id="ballsWaveG_6" class="ballsWaveG"></div>
+        <div id="ballsWaveG_7" class="ballsWaveG"></div>
+        <div id="ballsWaveG_8" class="ballsWaveG"></div>
+    </div>
+</div>
+<div
+    class="book-summary__content book-p-5 book-mb-5 book-border-slate-600 book-border-b-3 book-bg-white book-shadow-md book-rounded-2xl">
+    <div class="book-brief__container__title book-mb-4">
+        <span
+            class="book-p-1 book-rounded book-bg-zinc-100 book-text-primary-400 book-text-sm book-border-l-3 book-border-primary-400">Payment</span>
+    </div>
+    <div class="book-counter__container book-hidden book-mb-4 book-info__item__container">
+        <div class="book-text-zinc-500 book-text-sm book-mb-3">Processing Counter</div>
+        <div
+            class="book-info__item__content book-w-1/3 book-has__drop__item book-relative book-bg-zinc-100 book-rounded-lg book-transition">
+            <input type="text" class="book-name book-cursor-pointer" readonly value="-" data-id="0"
+                onclick="toggleDropItem(this,'book-info__item__container','counter')" />
+            <ul class="book-drop__item__content book-w-full book-text-right">
+                <basis core="call" run="atclient" file="/book/counter/list" triggers="cms.counter" method="get"
+                    if="{##cms.counter##}" OnRendered="renderCounter" lid="2">
+                </basis>
+            </ul>
+        </div>
+    </div>
+    <div class="clr"></div>
+    <div class="book-note__container book-w-1/2 book-info__item__container book-mb-4">
+        <div class="book-text-zinc-500 book-text-sm book-mb-3">Note</div>
+        <div class="book-info__item__content book-bg-zinc-100 book-rounded-lg book-transition">
+            <_textarea class="book-invoicedesc book-min-h-20"></_textarea>
+        </div>
+    </div>
+    <div class="clr"></div>
+    <div class="book-company__rule__container book-relative book-text-zinc-500">
+        <input type="checkbox" class="book-mr-1 book-align-middle" data-run="0" />
+        <label class="book-text-xs">
+            <span class="book-font-bold book-cursor-pointer book-mr-2" onclick="toggleCompanyRule(this)">Terms and
+                Conditions</span>
+            I have fully read and accept the terms of this contract by selecting this option.
+           
+        </label>
+        <basis core="call" run="atclient" file="/book/company/rule" triggers="cms.companyRules" method="get"
+            if="{##cms.companyRules##}" OnRendered="renderCompanyRule" lid="2" pageindex="[##cms.cms.pageindex|(1)##]">
+        </basis>
+    </div>
+    <div class="clr"></div>
+</div>

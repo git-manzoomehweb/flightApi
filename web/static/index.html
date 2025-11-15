@@ -1,0 +1,1941 @@
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سیستم رزرو پرواز</title>
+    <link rel="stylesheet" href="../assets/css/output.css" />
+    <link rel="stylesheet" href="../assets/css/swiper-bundle.min.css" />
+</head>
+
+<body class="book-bg-specialcolor-1">
+    <!-- Header -->
+    <header></header>
+    <!-- Main-->
+    <main>
+        <!-- Layout Section -->
+        <section class="book-layout__main">
+            <!-- Expire  Modal-->
+            <div
+                class="book-expire__message__modal__container book-modal__container book-fixed book-top-0 book-left-0 book-w-screen book-h-screen book-overflow-hidden book-z-50 book-hidden">
+                <div
+                    class="book-modal__content book-bg-white book-fixed book-inset-x-0 book-top-1.2 book-w-[560px] book-rounded-2xl book-mx-auto book-p-5 book-text-center">
+                    <svg width="24" height="24">
+                        <use xlink:href="../assets/images/sprite-booking-icons.svg#hour-expire-icon"></use>
+                    </svg>
+                    <div class="book-text-2xl book-font-bold book-mt-6">اعتبار نتایج به پایان رسید</div>
+                    <div class="book-text-gray-500 book-mt-3">لطفا برای نمایش جدیدترین اطلاعات و قیمت‌ها نتایج جستجو را
+                        بروز رسانی
+                        کنید</div>
+                    <div class="book-flex book-justify-between book-mt-6">
+                        <button onclick="location.reload()"
+                            class="book-min-w-48 book-text-white book-bg-primary-400 book-border book-border-solid book-border-primary-400 book-rounded-2xl book-p-3 hover:book-bg-white hover:book-text-primary">بروز
+                            رسانی جستجو</button>
+                        <button onclick="window.location='/'"
+                            class="book-min-w-48 book-text-primary-400 book-border book-border-solid book-border-primary-400 book-rounded-2xl book-p-3 hover:book-bg-primary-400 hover:book-text-white">بازگشت
+                            به صفحه اصلی</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="book-max-w-7xl book-mx-auto book-px-4 book-py-2">
+                <!-- Research -->
+                <div class="book-research__container book-bg-white book-rounded-3xl book-shadow-sm book-p-4 book-mb-4">
+                    <div class="book-flex book-justify-between book-text-base book-mb-8">
+                        <ul
+                            class="book-bg-specialcolor-1 book-text-zinc-800 book-rounded-3xl book-flex book-gap-5 book-text-center">
+                            <li class="book-active__module__flight__type book-py-3 book-min-w-28 book-cursor-pointer">
+                                یکطرفه</li>
+                            <li class="book-py-3 book-min-w-28 book-cursor-pointer">رفت و برگشت</li>
+                            <li class="book-py-3 book-min-w-28 book-cursor-pointer">چند مسیره</li>
+                        </ul>
+                        <div>
+                            <div
+                                class="book-bg-zinc-100 book-rounded-lg book-text-zinc-400 book-flex book-justify-between book-p-3 book-min-w-52">
+                                <span>اکونومی</span>
+                                <svg width="24" height="24">
+                                    <use xlink:href="../assets/images/sprite-booking-icons.svg#down-arrow-icon"></use>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="book-flex book-flex-wrap book-items-center book-gap-2 book--mx-2">
+                        <div class="book-w-full md:book-w-2/5 book-flex book-items-center book-gap-2">
+                            <div class="book-relative book-min-w-54">
+                                <div class="book-flex book-items-center">
+                                    <input type="text"
+                                        class="book-w-full focus:book-outline-none book-bg-zinc-100 book-rounded-lg book-px-2 book-py-3 book-text-zinc-600"
+                                        placeholder="مبدا" value="تهران">
+                                </div>
+                            </div>
+                            <div
+                                class="book-bg-primary-500 book-rounded-lg book-px-2 book-text-center book-cursor-pointer hover:book-bg-secondary-500">
+                                <svg width="30" height="30" class="book-mt-4">
+                                    <use xlink:href="../assets/images/sprite-booking-icons.svg#exchange-icon"></use>
+                                </svg>
+                            </div>
+                            <div class="book-relative book-min-w-54">
+                                <div class="book-flex book-items-center">
+                                    <input type="text"
+                                        class="book-w-full focus:book-outline-none book-bg-zinc-100 book-rounded-lg book-px-2 book-py-3 book-text-zinc-600"
+                                        placeholder="مقصد" value="آنتالیا">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-w-full md:book-w-1/5">
+                            <div class="book-flex book-flex-wrap book--mx-1">
+                                <div class="book-w-1/2 book-px-1">
+                                    <div class="book-flex book-items-center">
+                                        <input type="text"
+                                            class="book-w-full focus:book-outline-none book-bg-zinc-100 book-rounded-lg book-px-2 book-py-3 book-text-zinc-600"
+                                            placeholder="تاریخ رفت" value="۱۴۰4/۰۶/۲۷">
+                                    </div>
+                                </div>
+                                <div class="book-w-1/2 book-px-1">
+                                    <div class="book-flex book-items-center">
+                                        <input type="text"
+                                            class="book-w-full focus:book-outline-none book-bg-zinc-100 book-rounded-lg book-px-2 book-py-3 book-text-zinc-600"
+                                            placeholder="تاریخ برگشت" value="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-w-full md:book-w-1/4">
+                            <div class="book--mx-1">
+                                <div class="book-px-1">
+                                    <div class="book-relative">
+                                        <div class="book-flex book-items-center">
+                                            <input type="text"
+                                                class="book-w-full focus:book-outline-none book-bg-zinc-100 book-rounded-lg book-px-2 book-py-3 book-text-zinc-600"
+                                                placeholder="۱ مسافر" value="1 بزگسال / 1 کودک / 1 نوزاد">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-w-full md:book-w-1/8">
+                            <button
+                                class="book-bg-primary-500 book-text-white book-px-2 book-py-3 book-w-full book-rounded-lg hover:book-bg-secondary-500 book-transition-colors book-animate-pulse-light">جستجو</button>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="book-flex book-flex-wrap book--mx-2">
+                    <!-- Filters Sidebar -->
+                    <aside class="book-aside__container book-w-full lg:book-w-1/4 book-px-2 book-mb-4 lg:book-mb-0">
+                        <div
+                            class="book-rendered__container book-bg-white book-rounded-xl book-shadow-sm book-p-2 book-mb-4">
+
+
+                            <div
+                                class="book-filter__container book-bg-zinc-100 book-rounded-xl book-px-4 book-py-6 book-mb-2 book-max-h-80 book-overflow-auto">
+                                <div class="book-filter__title__container book-flex book-justify-between book-mb-3 book-cursor-pointer"
+                                    onclick="toggleContent(this)">
+                                    <h3 class="book-font-bold book-text-sm book-text-zinc-900">ایرلاین ها (رفت)</h3>
+                                    <svg width="24" height="24">
+                                        <use xlink:href="../assets/images/sprite-booking-icons.svg#down-arrow-icon">
+                                        </use>
+                                    </svg>
+                                </div>
+
+                                <div class="book-space-y-2 book-selector__content book-text-zinc-600">
+                                    <div class="book-filter__content book-outboundairline__content">
+                                        <div class="book-mt-5 book-flex book-items-center book-checked">
+                                            <div bc-value="@Code@" bc-name="cms.outboundairline" bc-triggers="click"
+                                                class="book-custom-checkbox book-border-2/5 book-border-solid book-border-zinc-400 book-cursor-pointer book-relative book-transition book-w-5 book-h-5 book-rounded book-ml-2">
+                                            </div>
+                                            <div class="book-w-11/12">
+                                                <div
+                                                    class="book-label__content book-flex book-justify-between book-items-center book-text-xs">
+                                                    <img src="../assets/images/airline-filter.png" width="21"
+                                                        height="22" alt="iran Air tours" />
+                                                    <span class="book-ml-2">iran Air tours</span>
+                                                    <span>از</span><span>70/000/000</span><span
+                                                        class="book-mr-1">ریال</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="book-mt-5 book-flex book-items-center">
+                                            <div bc-value="@Code@" bc-name="cms.outboundairline" bc-triggers="click"
+                                                class="book-custom-checkbox book-border-2/5 book-border-solid book-border-zinc-400 book-cursor-pointer book-relative book-transition book-w-5 book-h-5 book-rounded book-ml-2">
+                                            </div>
+                                            <div class="book-label__content book-w-11/12">
+                                                <div
+                                                    class="book-flex book-justify-between book-items-center book-text-xs">
+                                                    <img src="../assets/images/airline-filter.png" width="21"
+                                                        height="22" alt="iran Air tours" />
+                                                    <span class="book-ml-2">iran Air tours</span>
+                                                    <span>از</span><span>70/000/000</span><span
+                                                        class="book-mr-1">ریال</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="book-mt-5 book-flex book-items-center">
+                                            <div bc-value="@Code@" bc-name="cms.outboundairline" bc-triggers="click"
+                                                class="book-custom-checkbox book-border-2/5 book-border-solid book-border-zinc-400 book-cursor-pointer book-relative book-transition book-w-5 book-h-5 book-rounded book-ml-2">
+                                            </div>
+                                            <div class="book-label__content book-w-11/12">
+                                                <div
+                                                    class="book-flex book-justify-between book-items-center book-text-xs">
+                                                    <img src="../assets/images/airline-filter.png" width="21"
+                                                        height="22" alt="iran Air tours" />
+                                                    <span class="book-ml-2">iran Air tours</span>
+                                                    <span>از</span><span>70/000/000</span><span
+                                                        class="book-mr-1">ریال</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="book-mt-5 book-flex book-items-center">
+                                            <div bc-value="@Code@" bc-name="cms.outboundairline" bc-triggers="click"
+                                                class="book-custom-checkbox book-border-2/5 book-border-solid book-border-zinc-400 book-cursor-pointer book-relative book-transition book-w-5 book-h-5 book-rounded book-ml-2">
+                                            </div>
+                                            <div class="book-label__content book-w-11/12">
+                                                <div
+                                                    class="book-flex book-justify-between book-items-center book-text-xs">
+                                                    <img src="../assets/images/airline-filter.png" width="21"
+                                                        height="22" alt="iran Air tours" />
+                                                    <span class="book-ml-2">iran Air tours</span>
+                                                    <span>از</span><span>70/000/000</span><span
+                                                        class="book-mr-1">ریال</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="book-mt-5 book-flex book-items-center">
+                                            <div bc-value="@Code@" bc-name="cms.outboundairline" bc-triggers="click"
+                                                class="book-custom-checkbox book-border-2/5 book-border-solid book-border-zinc-400 book-cursor-pointer book-relative book-transition book-w-5 book-h-5 book-rounded book-ml-2">
+                                            </div>
+                                            <div class="book-label__content book-w-11/12">
+                                                <div
+                                                    class="book-flex book-justify-between book-items-center book-text-xs">
+                                                    <img src="../assets/images/airline-filter.png" width="21"
+                                                        height="22" alt="iran Air tours" />
+                                                    <span class="book-ml-2">iran Air tours</span>
+                                                    <span>از</span><span>70/000/000</span><span
+                                                        class="book-mr-1">ریال</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="book-mt-5 book-flex book-items-center">
+                                            <div bc-value="@Code@" bc-name="cms.outboundairline" bc-triggers="click"
+                                                class="book-custom-checkbox book-border-2/5 book-border-solid book-border-zinc-400 book-cursor-pointer book-relative book-transition book-w-5 book-h-5 book-rounded book-ml-2">
+                                            </div>
+                                            <div class="book-label__content book-w-11/12">
+                                                <div
+                                                    class="book-flex book-justify-between book-items-center book-text-xs">
+                                                    <img src="../assets/images/airline-filter.png" width="21"
+                                                        height="22" alt="iran Air tours" />
+                                                    <span class="book-ml-2">iran Air tours</span>
+                                                    <span>از</span><span>70/000/000</span><span
+                                                        class="book-mr-1">ریال</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                            <div
+                                class="book-filter__container book-bg-zinc-100 book-rounded-xl book-px-4 book-py-6 book-mb-2 book-max-h-80 book-overflow-auto">
+                                <div class="book-filter__title__container book-flex book-justify-between book-mb-3 book-cursor-pointer"
+                                    onclick="toggleContent(this)">
+                                    <h3 class="book-font-bold book-text-sm book-text-zinc-900">فرودگاه مقصد (رفت)</h3>
+                                    <svg width="24" height="24">
+                                        <use xlink:href="../assets/images/sprite-booking-icons.svg#down-arrow-icon">
+                                        </use>
+                                    </svg>
+                                </div>
+
+                                <div class="book-space-y-2 book-selector__content book-text-zinc-600">
+                                    <div class="book-filter__content book-outboundairport__content">
+                                        <div class="book-mt-5 book-flex book-items-center">
+                                            <div bc-value="@Code@" bc-name="cms.outboundairport" bc-triggers="click"
+                                                class="book-custom-checkbox book-border-2/5 book-border-solid book-border-zinc-400 book-cursor-pointer book-relative book-transition book-w-5 book-h-5 book-rounded book-ml-2">
+                                            </div>
+                                            <div class="book-w-11/12">
+                                                <div
+                                                    class="book-flex book-justify-between book-items-center book-text-xs">
+                                                    <span class="book-label__content">فرودگاه بین المللی
+                                                        استانبول‎/IST</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="book-mt-5 book-flex book-items-center">
+                                            <div bc-value="@Code@" bc-name="cms.outboundairport" bc-triggers="click"
+                                                class="book-custom-checkbox book-border-2/5 book-border-solid book-border-zinc-400 book-cursor-pointer book-relative book-transition book-w-5 book-h-5 book-rounded book-ml-2">
+                                            </div>
+                                            <div class="book-w-11/12">
+                                                <div
+                                                    class="book-flex book-justify-between book-items-center book-text-xs">
+                                                    <span class="book-label__content">فرودگاه بین المللی
+                                                        استانبول‎/IST</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div
+                                class="book-filter__container book-bg-zinc-100 book-rounded-xl book-px-4 book-py-6 book-mb-2 book-max-h-80 book-overflow-auto">
+                                <div class="book-filter__title__container book-flex book-justify-between book-mb-3 book-cursor-pointer"
+                                    onclick="toggleContent(this)">
+                                    <h3 class="book-font-bold book-text-sm book-text-zinc-900">نوع بلیط</h3>
+                                    <svg width="24" height="24">
+                                        <use xlink:href="../assets/images/sprite-booking-icons.svg#down-arrow-icon">
+                                        </use>
+                                    </svg>
+                                </div>
+
+                                <div class="book-space-y-2 book-selector__content book-text-zinc-500">
+                                    <div class="book-filter__content book-flex book-justify-between book-gap-2">
+                                        <div bc-value="false" bc-name="cms.systemflight" bc-triggers="click"
+                                            class="book-custom-checkbox book-button__content book-checked book-text-center book-cursor-pointer book-mt-3 book-w-1/2 book-py-3 book-rounded-lg book-border book-border-zinc-500 book-text-sm">
+                                            <span>چارتری</span>
+                                        </div>
+                                        <div bc-value="true" bc-name="cms.systemflight" bc-triggers="click"
+                                            class="book-custom-checkbox book-button__content book-text-center book-cursor-pointer book-mt-3 book-w-1/2 book-py-3 book-rounded-lg book-border book-border-zinc-500 book-text-sm">
+                                            <span>سیستمی</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div
+                                class="book-filter__container book-bg-zinc-100 book-rounded-xl book-px-4 book-py-6 book-mb-2 book-max-h-80 book-overflow-auto">
+                                <div class="book-filter__title__container book-flex book-justify-between book-mb-3 book-cursor-pointer"
+                                    onclick="toggleContent(this)">
+                                    <h3 class="book-font-bold book-text-sm book-text-zinc-900">ساعت حرکت (رفت)</h3>
+                                    <svg width="24" height="24">
+                                        <use xlink:href="../assets/images/sprite-booking-icons.svg#down-arrow-icon">
+                                        </use>
+                                    </svg>
+                                </div>
+
+                                <div class="book-space-y-2 book-selector__content book-text-zinc-500">
+
+                                    <div
+                                        class="book-filter__content book-outbounddeparturetime__content book-onewaytrip__content">
+                                        <div class="book-text-primary-300 book-text-sm book-mb-1">صبح</div>
+                                        <div class="book-text-zinc-900 book-text-xs book-mb-4">ساعت فیلتر شده از
+                                            <span>5:00 الی
+                                                11:59</span>
+                                        </div>
+                                        <div class="book-flex book-justify-between book-bg-zinc-200 book-rounded-lg">
+                                            <div bc-value="0-4" bc-name="cms.outbounddeparturetime" bc-triggers="click"
+                                                class="book-custom-checkbox book-button__content book-checked book-cursor-pointer book-py-3 book-w-1/4 book-rounded-lg">
+                                                <svg width="24" height="24" class="book-mx-auto">
+                                                    <use
+                                                        xlink:href="../assets/images/sprite-booking-icons.svg#sunrise-icon">
+                                                    </use>
+                                                </svg>
+                                            </div>
+                                            <div bc-value="5-11" bc-name="cms.outbounddeparturetime" bc-triggers="click"
+                                                class="book-custom-checkbox book-button__content book-cursor-pointer book-py-3 book-w-1/4 book-rounded-lg">
+                                                <svg width="24" height="24" class="book-mx-auto">
+                                                    <use
+                                                        xlink:href="../assets/images/sprite-booking-icons.svg#morning-icon">
+                                                    </use>
+                                                </svg>
+                                            </div>
+                                            <div bc-value="12-17" bc-name="cms.outbounddeparturetime"
+                                                bc-triggers="click"
+                                                class="book-custom-checkbox book-button__content book-cursor-pointer book-py-3 book-w-1/4 book-rounded-lg">
+                                                <svg width="24" height="24" class="book-mx-auto">
+                                                    <use
+                                                        xlink:href="../assets/images/sprite-booking-icons.svg#sunset-icon">
+                                                    </use>
+                                                </svg>
+                                            </div>
+                                            <div bc-value="18-23" bc-name="cms.outbounddeparturetime"
+                                                bc-triggers="click"
+                                                class="book-custom-checkbox book-button__content book-cursor-pointer book-py-3 book-w-1/4 book-rounded-lg">
+                                                <svg width="24" height="24" class="book-mx-auto">
+                                                    <use
+                                                        xlink:href="../assets/images/sprite-booking-icons.svg#moon-icon">
+                                                    </use>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div
+                                class="book-filter__container book-bg-zinc-100 book-rounded-xl book-px-4 book-py-6 book-mb-2 book-max-h-80 book-overflow-auto">
+                                <div class="book-filter__title__container book-flex book-justify-between book-mb-3 book-cursor-pointer"
+                                    onclick="toggleContent(this)">
+                                    <h3 class="book-font-bold book-text-sm book-text-zinc-900">بازه قیمت</h3>
+                                    <svg width="24" height="24">
+                                        <use xlink:href="../assets/images/sprite-booking-icons.svg#down-arrow-icon">
+                                        </use>
+                                    </svg>
+                                </div>
+
+                                <div class="book-space-y-2 book-selector__content book-text-zinc-500">
+
+                                    <div class="book-filter__content">
+                                        <div class="book-my-1 book-ltr book-filter__price__container">
+                                            <div class="book-slider__container book-mx-auto">
+                                                <div
+                                                    class="book-flex book-justify-between book-items-center book-text-xs">
+                                                    <div class="book-slider__value__container">
+                                                        <span class="book-min__value">6/000/000/000</span><span
+                                                            class="book-mr-1 book-unit__value">ریال</span>
+                                                    </div>
+                                                    <div class="book-slider__value__container">
+                                                        <span class="book-max__value">80/000/000</span>
+                                                        <span class="book-mr-1 book-unit__value">ریال</span>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="book-slider__content book-relative book-h-1 book-mx-2 book-rounded-sm book-bg-primary-50 book-mt-5">
+                                                    <div
+                                                        class="book-slider__track book-absolute book-rounded-sm book-h-full book-inset-x-0 book-z-[1] book-bg-primary-400">
+                                                    </div>
+                                                    <div class="book-thumb__min book-absolute book-left-0 book-rounded-full book-cursor-pointer book-z-[2] book-bg-white book-border-2 book-border-primary-400 book-w-4 book-h-4 book-top-1.2"
+                                                        bc-name="cms.price" bc-triggers="mousedown" bc-value="min">
+                                                    </div>
+                                                    <div class="book-thumb__max book-absolute book-left-full book-rounded-full book-cursor-pointer book-z-[2] book-bg-white book-border-2 book-border-primary-400 book-w-4 book-h-4 book-top-1.2"
+                                                        bc-name="cms.price" bc-triggers="mousedown" bc-value="max">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="book-filter__container book-bg-zinc-100 book-rounded-xl book-px-4 book-py-6 book-mb-2 book-max-h-80 book-overflow-auto">
+                                <div class="book-filter__title__container book-flex book-justify-between book-mb-3 book-cursor-pointer"
+                                    onclick="toggleContent(this)">
+                                    <h3 class="book-font-bold book-text-sm book-text-zinc-900">توقف (رفت)</h3>
+                                    <svg width="24" height="24">
+                                        <use xlink:href="../assets/images/sprite-booking-icons.svg#down-arrow-icon">
+                                        </use>
+                                    </svg>
+                                </div>
+                                <div class="book-space-y-2 book-selector__content book-text-zinc-500">
+                                    <div class="book-filter__content book-outboundstop__content">
+                                        <div class="book-mt-4 book-flex book-items-center book-justify-between">
+                                            <img src="../assets/images/0-stop.png" width="" height="" alt="" />
+                                            <div bc-value="false" bc-name="cms.systemflight" bc-triggers="click"
+                                                class="book-custom-checkbox book-button__content book-text-center book-cursor-pointer book-w-1/2 book-py-3 book-rounded-lg book-border book-border-zinc-500 book-text-sm">
+                                                <span>بدون توقف</span>
+                                            </div>
+                                        </div>
+                                        <div class="book-mt-4 book-flex book-items-center book-justify-between">
+                                            <img src="../assets/images/1-stop.png" width="" height="" alt="" />
+                                            <div bc-value="false" bc-name="cms.systemflight" bc-triggers="click"
+                                                class="book-custom-checkbox book-button__content book-text-center book-cursor-pointer book-w-1/2 book-py-3 book-rounded-lg book-border book-border-zinc-500 book-text-sm">
+                                                <span>یک توقف</span>
+                                            </div>
+                                        </div>
+                                        <div class="book-mt-4 book-flex book-items-center book-justify-between">
+                                            <img src="../assets/images/2-stops.png" width="" height="" alt="" />
+                                            <div bc-value="false" bc-name="cms.systemflight" bc-triggers="click"
+                                                class="book-custom-checkbox book-button__content book-checked book-text-center book-cursor-pointer book-w-1/2 book-py-3 book-rounded-lg book-border book-border-zinc-500 book-text-sm">
+                                                <span>چند توقف</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+                    <!-- Flight Listings -->
+                    <div class="book-main__container book-w-full lg:book-w-3/4 book-px-2">
+                        <!-- Flight Loading -->
+                        <div class="book-flex book-justify-between book-text-lg">
+                            <div
+                                class="book-rendering__skeleton__container book-flex book-items-center book-gap-2 book-mb-1">
+                                در حال جستجو پرواز
+                                <svg width="38" height="38" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg">
+                                    <defs>
+                                        <linearGradient x1="8.042%" y1="0%" x2="65.682%" y2="23.865%" id="a">
+                                            <stop stop-color="#B0B0B0" stop-opacity="0" offset="0%" />
+                                            <stop stop-color="#B0B0B0" stop-opacity=".631" offset="63.146%" />
+                                            <stop stop-color="#B0B0B0" offset="100%" />
+                                        </linearGradient>
+                                    </defs>
+                                    <g fill="none" fill-rule="evenodd">
+                                        <g transform="translate(1 1)">
+                                            <path d="M36 18c0-9.94-8.06-18-18-18" id="Oval-2" stroke="url(#a)"
+                                                stroke-width="2">
+                                                <animateTransform attributeName="transform" type="rotate" from="0 18 18"
+                                                    to="360 18 18" dur="0.9s" repeatCount="indefinite" />
+                                            </path>
+                                            <circle fill="#B0B0B0" cx="36" cy="18" r="1">
+                                                <animateTransform attributeName="transform" type="rotate" from="0 18 18"
+                                                    to="360 18 18" dur="0.9s" repeatCount="indefinite" />
+                                            </circle>
+                                        </g>
+                                    </g>
+                                </svg>
+
+                            </div>
+                            <div class="book-count__api__container"><span
+                                    class="book-count__api__content book-w-10 book-inline-block book-text-primary-950 book-font-bold">0</span>
+                                پرواز یافت شد
+                            </div>
+                        </div>
+                        <div
+                            class="book-progress__bar__container book-w-full book-rounded-md book-bg-zinc-300 book-my-3">
+                            <div
+                                class="book-progress__bar book-h-2 book-bg-gradient-special book-rounded-md book-relative">
+                            </div>
+                        </div>
+                        <!-- Flight Advertisment -->
+                        <div class="book-advertisment__container book-my-5">
+                            <img src="../assets/images/adv.jpg" class="book-w-full book-rounded-lg" width="930"
+                                height="200" alt="" />
+                        </div>
+                        <!-- Airline Options -->
+                        <div
+                            class="book-card__flight__selection__container book-bg-white book-rounded-xl book-shadow-sm book-p-2 book-mb-4">
+                            <div class="book-flex book-justify-between book-items-center book-text-xs">
+                                <div class="book-w-1/5">
+                                    <ul class="book-bg-zinc-100 book-rounded-xl book-p-4 book-w-3/4">
+                                        <li class="book-text-zinc-900 book-mb-6">نمایش همه نرخ ها</li>
+                                        <li class="book-text-zinc-500 book-mb-4">ایرلاین ها</li>
+                                        <li class="book-text-zinc-500 book-mb-3">بدون توقف</li>
+                                        <li class="book-text-zinc-500 book-mb-3">یک توقف</li>
+                                        <li class="book-text-zinc-500">چند توقف</li>
+                                    </ul>
+                                </div>
+                                <div class="book-w-4/5 book-text-center book-relative">
+                                    <div class="swiper-button-prev book-airline__prev__swiper book-top-24"><svg
+                                            width="24" height="24">
+                                            <use
+                                                xlink:href="../assets/images/sprite-booking-icons.svg#right-arrow-icon">
+                                            </use>
+                                        </svg>
+                                    </div>
+                                    <!-- slider main container -->
+                                    <div class="swiper book-airline__swiper book-w-11/12">
+                                        <!-- sdditional required wrapper -->
+                                        <div class="swiper-wrapper">
+
+
+                                            <div class="swiper-slide">
+                                                <div class="book-mb-2 book-mt-2 book-min-h-16">
+                                                    <div
+                                                        class="book-bg-zinc-50 book-border book-border-zinc-100 book-rounded">
+                                                        <img class="book-route__airline book-mx-auto"
+                                                            src="../assets/images/swiper-logo.png" width="125"
+                                                            height="34" alt="@Name@" />
+                                                    </div>
+                                                    <div class="book-mt-2 book-text-zinc-800">پگاسوس ایرلاین</div>
+                                                </div>
+                                                <div
+                                                    class="book-rounded-xl book-bg-zinc-100 book-border book-border-zinc-200 book-text-zinc-700 hover:book-bg-primary-50 hover:book-text-zinc-900">
+
+
+                                                    <div class="book-cursor-pointer book-p-2" bc-triggers="click"
+                                                        bc-name="cms.flight" bc-value="${$data.FlightId}">
+                                                        127/000/000<span class="book-mr-1 book-text-xs">تومان</span>
+                                                    </div>
+                                                    <div class="book-cursor-pointer book-p-1" bc-triggers="click"
+                                                        bc-name="cms.flight" bc-value="${$data.FlightId}">-<span
+                                                            class="book-mr-1 book-text-xs"></span></div>
+                                                    <div class="book-cursor-pointer book-p-2" bc-triggers="click"
+                                                        bc-name="cms.flight" bc-value="${$data.FlightId}">
+                                                        127/000/000<span class="book-mr-1 book-text-xs">تومان</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="swiper-slide">
+                                                <div class="book-mb-2 book-mt-2 book-min-h-16">
+                                                    <div
+                                                        class="book-bg-zinc-50 book-border book-border-zinc-100 book-rounded">
+                                                        <img class="book-route__airline book-mx-auto"
+                                                            src="../assets/images/swiper-logo.png" width="125"
+                                                            height="34" alt="@Name@" />
+                                                    </div>
+                                                    <div class="book-mt-2 book-text-zinc-800">پگاسوس ایرلاین</div>
+                                                </div>
+                                                <div
+                                                    class="book-rounded-xl book-bg-zinc-100 book-border book-border-zinc-200 book-text-zinc-700 hover:book-bg-primary-50 hover:book-text-zinc-900">
+
+
+                                                    <div class="book-cursor-pointer book-p-2" bc-triggers="click"
+                                                        bc-name="cms.flight" bc-value="${$data.FlightId}">
+                                                        127/000/000<span class="book-mr-1 book-text-xs">تومان</span>
+                                                    </div>
+                                                    <div class="book-cursor-pointer book-p-1" bc-triggers="click"
+                                                        bc-name="cms.flight" bc-value="${$data.FlightId}">
+                                                        127/000/000<span class="book-mr-1 book-text-xs">تومان</span>
+                                                    </div>
+                                                    <div class="book-cursor-pointer book-p-2" bc-triggers="click"
+                                                        bc-name="cms.flight" bc-value="${$data.FlightId}">-<span
+                                                            class="book-mr-1 book-text-xs"></span></div>
+                                                </div>
+                                            </div>
+                                            <div class="swiper-slide">
+                                                <div class="book-mb-2 book-mt-2 book-min-h-16">
+                                                    <div
+                                                        class="book-bg-zinc-50 book-border book-border-zinc-100 book-rounded">
+                                                        <img class="book-route__airline book-mx-auto"
+                                                            src="../assets/images/swiper-logo.png" width="125"
+                                                            height="34" alt="@Name@" />
+                                                    </div>
+                                                    <div class="book-mt-2 book-text-zinc-800">پگاسوس ایرلاین</div>
+                                                </div>
+                                                <div
+                                                    class="book-rounded-xl book-bg-zinc-100 book-border book-border-zinc-200 book-text-zinc-700 hover:book-bg-primary-50 hover:book-text-zinc-900">
+
+
+                                                    <div class="book-cursor-pointer book-p-2" bc-triggers="click"
+                                                        bc-name="cms.flight" bc-value="${$data.FlightId}">
+                                                        127/000/000<span class="book-mr-1 book-text-xs">تومان</span>
+                                                    </div>
+                                                    <div class="book-cursor-pointer book-p-1" bc-triggers="click"
+                                                        bc-name="cms.flight" bc-value="${$data.FlightId}">
+                                                        127/000/000<span class="book-mr-1 book-text-xs">تومان</span>
+                                                    </div>
+                                                    <div class="book-cursor-pointer book-p-2" bc-triggers="click"
+                                                        bc-name="cms.flight" bc-value="${$data.FlightId}">-<span
+                                                            class="book-mr-1 book-text-xs"></span></div>
+                                                </div>
+                                            </div>
+                                            <div class="swiper-slide">
+                                                <div class="book-mb-2 book-mt-2 book-min-h-16">
+                                                    <div
+                                                        class="book-bg-zinc-50 book-border book-border-zinc-100 book-rounded">
+                                                        <img class="book-route__airline book-mx-auto"
+                                                            src="../assets/images/swiper-logo.png" width="125"
+                                                            height="34" alt="@Name@" />
+                                                    </div>
+                                                    <div class="book-mt-2 book-text-zinc-800">پگاسوس ایرلاین</div>
+                                                </div>
+                                                <div
+                                                    class="book-rounded-xl book-bg-zinc-100 book-border book-border-zinc-200 book-text-zinc-700 hover:book-bg-primary-50 hover:book-text-zinc-900">
+
+
+                                                    <div class="book-cursor-pointer book-p-2" bc-triggers="click"
+                                                        bc-name="cms.flight" bc-value="${$data.FlightId}">
+                                                        127/000/000<span class="book-mr-1 book-text-xs">تومان</span>
+                                                    </div>
+                                                    <div class="book-cursor-pointer book-p-1" bc-triggers="click"
+                                                        bc-name="cms.flight" bc-value="${$data.FlightId}">
+                                                        127/000/000<span class="book-mr-1 book-text-xs">تومان</span>
+                                                    </div>
+                                                    <div class="book-cursor-pointer book-p-2" bc-triggers="click"
+                                                        bc-name="cms.flight" bc-value="${$data.FlightId}">-<span
+                                                            class="book-mr-1 book-text-xs"></span></div>
+                                                </div>
+                                            </div>
+                                            <div class="swiper-slide">
+                                                <div class="book-mb-2 book-mt-2 book-min-h-16">
+                                                    <div
+                                                        class="book-bg-zinc-50 book-border book-border-zinc-100 book-rounded">
+                                                        <img class="book-route__airline book-mx-auto"
+                                                            src="../assets/images/swiper-logo.png" width="125"
+                                                            height="34" alt="@Name@" />
+                                                    </div>
+                                                    <div class="book-mt-2 book-text-zinc-800">پگاسوس ایرلاین</div>
+                                                </div>
+                                                <div
+                                                    class="book-rounded-xl book-bg-zinc-100 book-border book-border-zinc-200 book-text-zinc-700 hover:book-bg-primary-50 hover:book-text-zinc-900">
+
+
+                                                    <div class="book-cursor-pointer book-p-2" bc-triggers="click"
+                                                        bc-name="cms.flight" bc-value="${$data.FlightId}">
+                                                        127/000/000<span class="book-mr-1 book-text-xs">تومان</span>
+                                                    </div>
+                                                    <div class="book-cursor-pointer book-p-1" bc-triggers="click"
+                                                        bc-name="cms.flight" bc-value="${$data.FlightId}">
+                                                        127/000/000<span class="book-mr-1 book-text-xs">تومان</span>
+                                                    </div>
+                                                    <div class="book-cursor-pointer book-p-2" bc-triggers="click"
+                                                        bc-name="cms.flight" bc-value="${$data.FlightId}">-<span
+                                                            class="book-mr-1 book-text-xs"></span></div>
+                                                </div>
+                                            </div>
+
+
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="swiper-button-next book-airline__next__swiper book-top-24">
+                                        <svg width="24" height="24">
+                                            <use xlink:href="../assets/images/sprite-booking-icons.svg#left-arrow-icon">
+                                            </use>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Flight Price Options -->
+                        <div
+                            class="book-card__price__selection__container book-bg-white book-rounded-2xl book-shadow-sm book-p-2 book-mb-4 book-relative">
+                            <div class="swiper-button-prev book-price__prev__swiper book-top-14"> <svg width="24"
+                                    height="24">
+                                    <use xlink:href="../assets/images/sprite-booking-icons.svg#right-arrow-icon"></use>
+                                </svg>
+                            </div>
+                            <div class="swiper book-w-11/12 book-price__swiper book-text-center">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <div
+                                            class="book-cursor-pointer book-p-3 book-w-36 book-mx-auto book-rounded-xl book-text-zinc-600 hover:book-bg-primary-50 hover:book-text-zinc-900">
+                                            <h6 class="book-text-sm">۹۹ اردیبهشت</h6>
+                                            <div class="book-text-xs book-my-2">یکشنبه</div>
+                                            <div class="book-text-xs book-text-green-600">۱۲۷۰۰۰۰ تومان</div>
+                                        </div>
+
+
+
+                                    </div>
+                                    <div class="swiper-slide book-border-r book-border-solid book-border-zinc-200">
+                                        <div
+                                            class=" book-cursor-pointer book-p-3 book-w-36 book-mx-auto book-rounded-xl book-text-zinc-600 hover:book-bg-primary-50 hover:book-text-zinc-900 book-transition-colors">
+                                            <h6 class="book-text-sm">۹۹ اردیبهشت</h6>
+                                            <div class="book-text-xs book-my-2">دوشنبه</div>
+                                            <div class="book-text-xs">۱۲۸۰۰۰۰ تومان</div>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide book-border-r book-border-solid book-border-zinc-200">
+                                        <div
+                                            class=" book-cursor-pointer book-p-3 book-w-36 book-mx-auto book-rounded-xl book-text-zinc-600 hover:book-bg-primary-50 hover:book-text-zinc-900 book-transition-colors">
+                                            <h6 class="book-text-sm">۹۹ اردیبهشت</h6>
+                                            <div class="book-text-xs book-my-2">پنجشنبه</div>
+                                            <div class="book-text-xs">۱۲۹۰۰۰۰ تومان</div>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide book-border-r book-border-solid book-border-zinc-200">
+                                        <div
+                                            class=" book-cursor-pointer book-p-3 book-w-36 book-mx-auto book-rounded-xl book-text-zinc-600 hover:book-bg-primary-50 hover:book-text-zinc-900 book-transition-colors">
+                                            <h6 class="book-text-sm">۹۹ اردیبهشت</h6>
+                                            <div class="book-text-xs book-my-2">چهارشنبه</div>
+                                            <div class="book-text-xs">۱۳۰۰۰۰۰ تومان</div>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide book-border-r book-border-solid book-border-zinc-200">
+                                        <div
+                                            class=" book-cursor-pointer book-p-3 book-w-36 book-mx-auto book-rounded-xl hover:book-bg-primary-50 book-text-zinc-600 hover:book-text-zinc-900 book-transition-colors">
+                                            <h6 class="book-text-sm">۹۹ اردیبهشت</h6>
+                                            <div class="book-text-xs book-my-2">سه شنبه</div>
+                                            <div class="book-text-xs book-text-red-600">تکمیل ظرفیت</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="swiper-button-next book-price__next__swiper book-top-14"> <svg width="24"
+                                    height="24">
+                                    <use xlink:href="../assets/images/sprite-booking-icons.svg#left-arrow-icon"></use>
+                                </svg>
+                            </div>
+
+                        </div>
+
+                        <!-- Flight Sorting Options -->
+                        <div class="book-sort__cards__container book-selector__container book-my-10">
+                            <div
+                                class="book-sort__cards__content book-selector__content book-flex book-flex-wrap book-justify-between book-items-center book-text-sm">
+                                <div class="book-text-zinc-900">مرتب سازی بر اساس:</div>
+                                <div bc-triggers="click" bc-name="cms.sort" bc-value="default"
+                                    class="book-cursor-pointer book-flex book-items-center hover:book-bg-primary-50 hover:book-text-zinc-900 book-gap-1 book-justify-center book-min-h-14 book-min-w-32 book-text-zinc-500 book-border book-border-zinc-200 book-bg-white book-rounded-full book-text-center">
+
+                                    <h6 class="book-text-sm">پیش فرض</ا>
+                                </div>
+                                <div bc-triggers="click" bc-name="cms.sort" bc-value="price" data-sort="descend"
+                                    class="book-cursor-pointer book-flex book-items-center hover:book-bg-primary-50 hover:book-text-zinc-900 book-gap-1 book-justify-center book-min-h-14 book-min-w-32 book-text-zinc-500 book-border book-border-zinc-200 book-bg-white book-rounded-full book-text-center">
+
+                                    <svg width="24" height="25">
+                                        <use xlink:href="../assets/images/sprite-booking-icons.svg#sort-up-icon"></use>
+                                    </svg>
+
+                                    <h6 class="book-text-sm">قیمت</h6>
+                                </div>
+                                <div bc-triggers="click" bc-name="cms.sort" bc-value="price" data-sort="descend"
+                                    class="book-cursor-pointer book-flex book-items-center hover:book-bg-primary-50 hover:book-text-zinc-900 book-gap-1 book-justify-center book-min-h-14 book-min-w-32 book-text-zinc-500 book-border book-border-zinc-200 book-bg-white book-rounded-full book-text-center">
+
+                                    <svg width="24" height="25">
+                                        <use xlink:href="../assets/images/sprite-booking-icons.svg#sort-up-icon"></use>
+                                    </svg>
+
+                                    <h6 class="book-text-sm">توقف</h6>
+                                </div>
+                                <div bc-triggers="click" bc-name="cms.sort" bc-value="price" data-sort="descend"
+                                    class="book-cursor-pointer book-flex book-items-center hover:book-bg-primary-50 hover:book-text-zinc-900 book-gap-1 book-justify-center book-min-h-14 book-min-w-32 book-text-zinc-500 book-border book-border-zinc-200 book-bg-white book-rounded-full book-text-center">
+
+                                    <svg width="24" height="25">
+                                        <use xlink:href="../assets/images/sprite-booking-icons.svg#sort-up-icon"></use>
+                                    </svg>
+
+                                    <h6 class="book-text-sm">زمان پرواز</h6>
+                                </div>
+                                <div bc-triggers="click" bc-name="cms.sort" bc-value="price" data-sort="descend"
+                                    class="book-cursor-pointer book-flex book-items-center hover:book-bg-primary-50 hover:book-text-zinc-900 book-gap-1 book-justify-center book-min-h-14 book-min-w-32 book-text-zinc-500 book-border book-border-zinc-200 book-bg-white book-rounded-full book-text-center">
+
+                                    <svg width="24" height="25">
+                                        <use xlink:href="../assets/images/sprite-booking-icons.svg#sort-up-icon"></use>
+                                    </svg>
+
+                                    <h6 class="book-text-sm">نزدیک ترین پرواز</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Flight Card -->
+                        <div class="book-cards__container book-cards__container__rendering book-mb-4">
+                            <div
+                                class="book-shadow__cards__container book-absolute book-w-full book-z-10 book-h-22 book-bottom-0 book-left-0 book-right-0 book-mx-auto book-shadow-[inset_0_-100px_100px_-45px_#fff]">
+                            </div>
+                            <div class="book-list__cards__container">
+                                <div class="book-card__container book-mb-4">
+                                    <div class="book-flex book-justify-between">
+                                        <div class="book-w-4/5 book-bg-white book-rounded-2xl book-shadow-sm ">
+                                            <div class="book-flex book-items-center book-justify-between book-p-4">
+                                                <div class="book-card__logo__class__provider book-text-center">
+                                                    <div
+                                                        class="book-bg-zinc-50 book-border book-border-zinc-100 book-rounded">
+                                                        <img class="book-route__airline book-mx-auto"
+                                                            src="../assets/images/card-logo.png" width="97" height="34"
+                                                            alt="@Name@">
+                                                    </div>
+
+                                                    <div class="book-mt-3">
+                                                        <div class="book-text-sm book-text-zinc-800 book-font-bold">
+                                                            پگاسوس</div>
+                                                        <div class="book-text-xs book-text-zinc-500 book-my-3">شماره
+                                                            پرواز<span class="book-mr-1">E125G</span></div>
+                                                        <div class="book-text-xs book-flex book-text-secondary-600">
+
+
+                                                            <svg width="17" height="17">
+                                                                <use
+                                                                    xlink:href="../assets/images/sprite-booking-icons.svg#user-icon">
+                                                                </use>
+                                                            </svg>
+                                                            مانده :<span class="book-mx-1">8</span>صندلی
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="book-card__route__map ">
+                                                    <div class="book-flex book-justify-between">
+
+                                                        <div class="book-text-center">
+                                                            <div class="book-text-lg book-font-bold book-text-zinc-900">
+                                                                ۸:۰۰</div>
+                                                            <div
+                                                                class="book-text-xs book-text-zinc-900 book-mt-1 book-mb-2">
+                                                                تهران</div>
+                                                            <div class="book-text-xs book-text-zinc-400">IKA</div>
+                                                        </div>
+                                                        <div class="book-relative book-mx-4 book-mt-4 book-text-center">
+                                                            <div class="book-w-full">
+                                                                <div
+                                                                    class="book-flight__progress__line book-min-w-[29rem] book-relative">
+                                                                    <svg width="26" height="26"
+                                                                        class="book-absolute book-right-0 book--bottom-3">
+                                                                        <use
+                                                                            xlink:href="../assets/images/sprite-booking-icons.svg#flight-icon">
+                                                                        </use>
+                                                                    </svg>
+                                                                    <div
+                                                                        class="book-absolute book-right-0 book-left-0 book-bottom-0">
+                                                                        <svg width="26" height="26"
+                                                                            class="book-mx-auto">
+                                                                            <use
+                                                                                xlink:href="../assets/images/sprite-booking-icons.svg#tag-icon">
+                                                                            </use>
+                                                                    </div>
+
+                                                                    </svg>
+
+                                                                    <svg width="17" height="18"
+                                                                        class="book-absolute book--left-2 book--bottom-0.5">
+                                                                        <use
+                                                                            xlink:href="../assets/images/sprite-booking-icons.svg#pin-icon">
+                                                                        </use>
+                                                                    </svg>
+                                                                </div>
+
+                                                                <div></div>
+
+                                                            </div>
+                                                            <div
+                                                                class="book-text-xs book-text-zinc-500 book-mt-10 book-flex book-gap-1 book-justify-center">
+                                                                <svg width="17" height="17">
+                                                                    <use
+                                                                        xlink:href="../assets/images/sprite-booking-icons.svg#hour-icon">
+                                                                    </use>
+                                                                </svg>۲ ساعت ۳۰ دقیقه
+                                                            </div>
+                                                        </div>
+                                                        <div class="book-text-center">
+                                                            <div class="book-text-lg book-font-bold book-text-zinc-900">
+                                                                7:40</div>
+                                                            <div
+                                                                class="book-text-xs book-text-zinc-900 book-mt-1 book-mb-2">
+                                                                ترنتو</div>
+                                                            <div class="book-text-xs book-text-zinc-400">YYZ</div>
+                                                        </div>
+
+
+
+                                                    </div>
+                                                    <div
+                                                        class="book-flex book-items-center book-justify-between book-mt-6 book-gap-1">
+
+                                                        <div
+                                                            class="book-bg-primary-50 book-text-primary-400 book-flex book-gap-1 book-rounded-full book-text-xs book-min-w-28 book-py-2 book-items-center book-justify-center ">
+                                                            <svg width="17" height="17">
+                                                                <use
+                                                                    xlink:href="../assets/images/sprite-booking-icons.svg#wheel-bag-icon">
+                                                                </use>
+                                                            </svg>
+                                                            <span>20
+                                                                کیلو</span>
+                                                        </div>
+                                                        <div
+                                                            class="book-bg-zinc-100 book-text-zinc-500 book-flex book-gap-1 book-rounded-full book-text-xs book-min-w-28 book-py-2 book-items-center book-justify-center ">
+                                                            <svg width="17" height="17">
+                                                                <use
+                                                                    xlink:href="../assets/images/sprite-booking-icons.svg#class-icon">
+                                                                </use>
+                                                            </svg>
+                                                            <span><span class="book-ml-1">بیزنس</span>کلاس</span>
+                                                        </div>
+                                                        <div
+                                                            class="book-bg-zinc-100 book-text-zinc-500 book-flex book-gap-1 book-rounded-full book-text-xs book-min-w-28 book-py-2 book-items-center book-justify-center ">
+                                                            <svg width="17" height="17">
+                                                                <use
+                                                                    xlink:href="../assets/images/sprite-booking-icons.svg#ticket-icon">
+                                                                </use>
+                                                            </svg>
+                                                            <span>سیستمی</span>
+                                                        </div>
+                                                        <div
+                                                            class="book-bg-zinc-100 book-text-zinc-500 book-flex book-gap-1 book-rounded-full book-text-xs book-min-w-28 book-py-2 book-items-center book-justify-center ">
+                                                            <svg width="17" height="17">
+                                                                <use
+                                                                    xlink:href="../assets/images/sprite-booking-icons.svg#plane-icon">
+                                                                </use>
+                                                            </svg>
+                                                            <span>MDV33</span>
+                                                        </div>
+                                                        <div
+                                                            class="book-bg-zinc-100 book-text-zinc-500 book-flex book-gap-1 book-rounded-full book-text-xs book-min-w-28 book-py-2 book-items-center book-justify-center ">
+                                                            <svg width="17" height="17">
+                                                                <use
+                                                                    xlink:href="../assets/images/sprite-booking-icons.svg#bulleted-list-icon">
+                                                                </use>
+                                                            </svg>
+                                                            <span>نرخ ویژه</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                        <div
+                                            class="book-cart__cost__container book-relative book-w-1/5 book-bg-white book-rounded-2xl book-shadow-sm">
+                                            <div class="book-flex book-flex-col book-items-center book-pt-8 book-pb-4">
+                                                <div class="book-text-xs book-text-zinc-500 book-mb-2">قیمت برای هر نفر
+                                                    :</div>
+                                                <h4 class="book-text-xl book-font-bold book-text-zinc-900">
+                                                    ۱,۷۷۰,۰۰۰<span class="book-mr-2">ریال</span></h4>
+
+                                                <button
+                                                    class="book-mt-8 book-bg-primary-400 book-text-white book-px-6 book-py-3.5 book-rounded-xl book-text-sm hover:book-bg-secondary-400 book-transition-colors">جزئیات
+                                                    و خرید</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="book-fixed book-h-full book-w-[700px] book-top-0 book-bottom-0 book-transition book-z-10 book-bg-zinc-200 book-shadow-lg book-rounded-ss-3xl book--left-full book-overflow-auto">
+                                        <div class="book-modal__content book-w-full">
+                                            <div class="book-p-5">
+                                                <span onclick="closeModalContainer(this,'selected__card__container')"
+                                                    class="book-cursor-pointer book-flex book-gap-1">
+                                                    <svg width="28" height="28">
+                                                        <use
+                                                            xlink:href="../assets/images/sprite-booking-icons.svg#close-icon">
+                                                        </use>
+                                                    </svg> <span class="book-text-base">مشاهده جزئیات</span> </span>
+                                            </div>
+                                            <div class="book-bg-white book-rounded-t-3xl book-p-4">
+                                                <!-- Tab Navigation -->
+                                                <div
+                                                    class="book-tab__navigation__container book-flex book-justify-around book-space-x-2 book-space-x-reverse book-mb-4">
+                                                    <button
+                                                        class="book-tab__navigation__content book-min-w-[155px] book-active__tab__navigation book-flex book-items-center book-justify-center book-p-4 book-rounded-xl book-border-zinc-400 book-border book-transition-colors book-text-zinc-500 hover:book-bg-primary-400 hover:book-border-primary-400 hover:book-text-white">
+                                                        <svg width="21" height="20">
+                                                            <use
+                                                                xlink:href="../assets/images/sprite-booking-icons.svg#plane-rotate-icon">
+                                                            </use>
+                                                        </svg>
+                                                        <h6 class="book-text-sm">جزئیات پرواز</h6>
+                                                    </button>
+                                                    <button
+                                                        class="book-tab__navigation__content book-min-w-[155px] book-flex book-items-center book-justify-center book-p-4 book-rounded-xl book-border-zinc-400 book-border book-transition-colors book-text-zinc-500 hover:book-bg-primary-400 hover:book-border-primary-400 hover:book-text-white">
+                                                        <svg width="21" height="20">
+                                                            <use
+                                                                xlink:href="../assets/images/sprite-booking-icons.svg#wheel-bag-icon">
+                                                            </use>
+                                                        </svg>
+                                                        <h6 class="book-text-sm">بار مجاز</h6>
+                                                    </button>
+                                                    <button
+                                                        class="book-tab__navigation__content book-min-w-[155px] book-flex book-items-center book-justify-center book-p-4 book-rounded-xl book-border-zinc-400 book-border book-transition-colors book-text-zinc-500 hover:book-bg-primary-400 hover:book-border-primary-400 hover:book-text-white">
+                                                        <svg width="21" height="20">
+                                                            <use
+                                                                xlink:href="../assets/images/sprite-booking-icons.svg#class-icon">
+                                                            </use>
+                                                        </svg>
+                                                        <h6 class="book-text-sm">جزئیات قیمت</h6>
+                                                    </button>
+                                                    <button
+                                                        class="book-tab__navigation__content book-min-w-[155px] book-flex book-items-center book-justify-center book-p-4 book-rounded-xl book-border-zinc-400 book-border book-transition-colors book-text-zinc-500 hover:book-bg-primary-400 hover:book-border-primary-400 hover:book-text-white">
+                                                        <svg width="21" height="20">
+                                                            <use
+                                                                xlink:href="../assets/images/sprite-booking-icons.svg#flight-rule-icon">
+                                                            </use>
+                                                        </svg>
+                                                        <h6 class="book-text-sm">قوانین و مقررات</h6>
+                                                    </button>
+                                                </div>
+                                                <!-- Fare Group Section -->
+                                                <div
+                                                    class="book-p-4 book-border book-border-zinc-300 book-rounded-2xl book-mb-4">
+                                                    <div class="book-border-b book-border-zinc-300 book-pb-8 book-mb-7">
+                                                        <div
+                                                            class="book-flex book-justify-between book-items-center book-mb-2">
+                                                            <h6 class="book-text-lg book-font-bold book-text-zinc-800">
+                                                                گروه نرخی:</h6>
+                                                            <svg width="34" height="34">
+                                                                <use
+                                                                    xlink:href="../assets/images/sprite-booking-icons.svg#down-arrow-icon">
+                                                                </use>
+                                                            </svg>
+                                                        </div>
+
+                                                        <div class="book-text-zinc-600 book-text-sm ">اگر تمایل به
+                                                            دریافت خدمات
+                                                            مازاد
+                                                            دارید یکی
+                                                            از پکیج
+                                                            های زیر را انتخاب کنید.</div>
+                                                    </div>
+
+
+                                                    <!-- Fare Options -->
+                                                    <div
+                                                        class="book-grid book-grid-cols-1 md:book-grid-cols-3 book-gap-4 book-ltr">
+                                                        <!-- Option 1 -->
+                                                        <div
+                                                            class="book-border book-rounded-2xl book-border-zinc-200 book-overflow-hidden">
+                                                            <div class="book-p-3">
+                                                                <h6 class="book-font-bold book-mb-2 book-text-zinc-900">
+                                                                    ECO FLEX</h6>
+                                                                <p class="book-mb-2 book-text-zinc-900">Included</p>
+                                                                <ul
+                                                                    class="book-space-y-2 book-text-sm book-text-zinc-700">
+                                                                    <li class="book-flex book-items-center book-gap-1">
+                                                                        <svg width="17" height="16">
+                                                                            <use
+                                                                                xlink:href="../assets/images/sprite-booking-icons.svg#check-circle-icon">
+                                                                            </use>
+                                                                        </svg>
+
+                                                                        <span>Hand baggage 7 kg</span>
+                                                                    </li>
+                                                                    <li class="book-flex book-items-center book-gap-1">
+                                                                        <svg width="17" height="16">
+                                                                            <use
+                                                                                xlink:href="../assets/images/sprite-booking-icons.svg#check-circle-icon">
+                                                                            </use>
+                                                                        </svg>
+                                                                        <span>Checked baggage 30kg</span>
+                                                                    </li>
+                                                                    <li class="book-flex book-items-center book-gap-1">
+                                                                        <svg width="17" height="16">
+                                                                            <use
+                                                                                xlink:href="../assets/images/sprite-booking-icons.svg#check-circle-icon">
+                                                                            </use>
+                                                                        </svg>
+                                                                        <span>Seat type: standard</span>
+                                                                    </li>
+                                                                </ul>
+                                                                <p class="book-mt-4 book-text-sm">NotOffered</p>
+                                                                <div
+                                                                    class="book-flex book-text-sm book-items-center book-my-3 book-text-zinc-700 book-gap-1">
+                                                                    <svg width="20" height="20">
+                                                                        <use
+                                                                            xlink:href="../assets/images/sprite-booking-icons.svg#dash-circle-icon">
+                                                                        </use>
+                                                                    </svg>
+                                                                    <span>70 PERCENT MILES EARNED</span>
+                                                                </div>
+                                                                <div
+                                                                    class="book-bg-primary-50 book-p-2 book-text-sm book-text-center book-text-primary-300 book-rounded-3xl">
+                                                                    رایگان
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <!-- Option 2 -->
+                                                        <div
+                                                            class="book-border book-rounded-2xl book-border-zinc-200 book-overflow-hidden">
+                                                            <div class="book-p-3">
+                                                                <h6 class="book-font-bold book-mb-2 book-text-zinc-900">
+                                                                    ECO FLEX</h6>
+                                                                <p class="book-mb-2 book-text-zinc-900">Included</p>
+                                                                <ul
+                                                                    class="book-space-y-2 book-text-sm book-text-zinc-700">
+                                                                    <li class="book-flex book-items-center book-gap-1">
+                                                                        <svg width="17" height="16">
+                                                                            <use
+                                                                                xlink:href="../assets/images/sprite-booking-icons.svg#check-circle-icon">
+                                                                            </use>
+                                                                        </svg>
+
+                                                                        <span>Hand baggage 7 kg</span>
+                                                                    </li>
+                                                                    <li class="book-flex book-items-center book-gap-1">
+                                                                        <svg width="17" height="16">
+                                                                            <use
+                                                                                xlink:href="../assets/images/sprite-booking-icons.svg#check-circle-icon">
+                                                                            </use>
+                                                                        </svg>
+                                                                        <span>Checked baggage 30kg</span>
+                                                                    </li>
+                                                                    <li class="book-flex book-items-center book-gap-1">
+                                                                        <svg width="17" height="16">
+                                                                            <use
+                                                                                xlink:href="../assets/images/sprite-booking-icons.svg#check-circle-icon">
+                                                                            </use>
+                                                                        </svg>
+                                                                        <span>Seat type: standard</span>
+                                                                    </li>
+                                                                </ul>
+                                                                <p class="book-mt-4 book-text-sm">NotOffered</p>
+                                                                <div
+                                                                    class="book-flex book-text-sm book-items-center book-my-3 book-text-zinc-700 book-gap-1">
+                                                                    <svg width="20" height="20">
+                                                                        <use
+                                                                            xlink:href="../assets/images/sprite-booking-icons.svg#dash-circle-icon">
+                                                                        </use>
+                                                                    </svg>
+                                                                    <span>70 PERCENT MILES EARNED</span>
+                                                                </div>
+                                                                <div
+                                                                    class="book-bg-primary-50 book-p-2 book-text-sm book-text-center book-text-primary-300 book-rounded-3xl">
+                                                                    رایگان
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <!-- Option 3 (Selected) -->
+                                                        <div
+                                                            class="book-border book-rounded-2xl book-border-primary-300 book-overflow-hidden">
+                                                            <div class="book-p-3">
+                                                                <h6 class="book-font-bold book-mb-2 book-text-zinc-900">
+                                                                    ECO FLEX</h6>
+                                                                <p class="book-mb-2 book-text-zinc-900">Included</p>
+                                                                <ul
+                                                                    class="book-space-y-2 book-text-sm book-text-zinc-700">
+                                                                    <li class="book-flex book-items-center book-gap-1">
+                                                                        <svg width="17" height="16">
+                                                                            <use
+                                                                                xlink:href="../assets/images/sprite-booking-icons.svg#check-circle-icon">
+                                                                            </use>
+                                                                        </svg>
+
+                                                                        <span>Hand baggage 7 kg</span>
+                                                                    </li>
+                                                                    <li class="book-flex book-items-center book-gap-1">
+                                                                        <svg width="17" height="16">
+                                                                            <use
+                                                                                xlink:href="../assets/images/sprite-booking-icons.svg#check-circle-icon">
+                                                                            </use>
+                                                                        </svg>
+                                                                        <span>Checked baggage 30kg</span>
+                                                                    </li>
+                                                                    <li class="book-flex book-items-center book-gap-1">
+                                                                        <svg width="17" height="16">
+                                                                            <use
+                                                                                xlink:href="../assets/images/sprite-booking-icons.svg#check-circle-icon">
+                                                                            </use>
+                                                                        </svg>
+                                                                        <span>Seat type: standard</span>
+                                                                    </li>
+                                                                </ul>
+                                                                <p class="book-mt-4 book-text-sm">NotOffered</p>
+                                                                <div
+                                                                    class="book-flex book-text-sm book-items-center book-my-3 book-text-zinc-700 book-gap-1">
+                                                                    <svg width="20" height="20">
+                                                                        <use
+                                                                            xlink:href="../assets/images/sprite-booking-icons.svg#dash-circle-icon">
+                                                                        </use>
+                                                                    </svg>
+                                                                    <span>70 PERCENT MILES EARNED</span>
+                                                                </div>
+                                                                <div
+                                                                    class="book-bg-primary-50 book-p-2 book-text-sm book-text-center book-text-primary-300 book-rounded-3xl">
+                                                                    رایگان
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Flight Details -->
+                                                <div class="book-p-4 book-border book-border-zinc-300 book-rounded-2xl">
+                                                    <div class="book-border-b book-border-zinc-300 book-pb-7 book-mb-7">
+                                                        <div
+                                                            class="book-flex book-justify-between book-items-center book-mb-2">
+                                                            <h6 class="book-text-lg book-font-bold book-text-zinc-800">
+                                                                جزئیات پرواز
+                                                            </h6>
+                                                            <svg width="34" height="34">
+                                                                <use
+                                                                    xlink:href="../assets/images/sprite-booking-icons.svg#down-arrow-icon">
+                                                                </use>
+                                                            </svg>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- First Flight -->
+                                                    <div class="">
+                                                        <div class="book-flex book-mb-4">
+                                                            <div class="book-flex">
+                                                                <div
+                                                                    class="book-flight__details__progress__line book-ml-14 book-mr-3 book-relative">
+                                                                    <svg width="26" height="40"
+                                                                        class="book-absolute book--right-3 book-z-10">
+                                                                        <use
+                                                                            xlink:href="../assets/images/sprite-booking-icons.svg#path-icon">
+                                                                        </use>
+                                                                    </svg>
+                                                                    <svg width="26" height="40"
+                                                                        class="book-absolute book--right-3 book--bottom-3 book-z-10">
+                                                                        <use
+                                                                            xlink:href="../assets/images/sprite-booking-icons.svg#tag-details-icon">
+                                                                        </use>
+                                                                    </svg>
+
+
+
+
+
+
+                                                                </div>
+
+                                                                <div
+                                                                    class="book-flex book-flex-col book-border-l book-border-zinc-300 book-px-7 book-ml-7">
+                                                                    <div>
+                                                                        <h5
+                                                                            class="book-text-xl book-font-bold book-text-zinc-900">
+                                                                            IKA
+                                                                        </h5>
+                                                                        <h5
+                                                                            class="book-text-xl book-font-bold book-text-zinc-900 book-my-2">
+                                                                            ۲۳:۴۵
+                                                                        </h5>
+                                                                        <p class="book-text-zinc-500 book-text-sm">سه
+                                                                            شنبه ۱۹
+                                                                            فروردین
+                                                                        </p>
+                                                                    </div>
+                                                                    <div
+                                                                        class="book-text-sm book-text-primary-400 book-my-10">
+                                                                        <span class="book-mr-1">05:20</span>
+                                                                        مدت پرواز
+                                                                    </div>
+                                                                    <div>
+                                                                        <h5
+                                                                            class="book-text-xl book-font-bold book-text-zinc-900">
+                                                                            DOH
+                                                                        </h5>
+                                                                        <h5
+                                                                            class="book-text-xl book-font-bold book-text-zinc-900 book-my-2">
+                                                                            ۲۳:۴۵
+                                                                        </h5>
+                                                                        <p class="book-text-zinc-500 book-text-sm">سه
+                                                                            شنبه ۱۹
+                                                                            فروردین
+                                                                        </p>
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="book-flex">
+                                                                <div class="book-flex book-flex-col">
+                                                                    <div>
+                                                                        <h6 class="book-text-xl book-text-zinc-900">
+                                                                            فرودگاه بین
+                                                                            المللی امام خمینی</h6>
+
+                                                                        <p
+                                                                            class="book-text-zinc-600 book-text-sm book-my-2">
+                                                                            تهران ،
+                                                                            ایران
+                                                                        </p>
+                                                                        <div
+                                                                            class="book-flex book-items-center book-gap-2">
+                                                                            <div
+                                                                                class="book-bg-zinc-50 book-rounded book-w-11 book-h-4">
+                                                                                <img class="book-route__airline book-mx-auto"
+                                                                                    src="../assets/images/details-logo.png"
+                                                                                    width="44" height="25" alt="@Name@">
+                                                                            </div>
+                                                                            <span
+                                                                                class="book-text-zinc-900 book-text-sm">قطر
+                                                                                ایرویز
+                                                                                QR399</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="book-text-sm book-my-6">
+
+                                                                        <div
+                                                                            class="book-grid book-grid-cols-2 book-gap-10">
+                                                                            <div class="book-space-y-4">
+                                                                                <div class="book-flex">
+                                                                                    <div
+                                                                                        class="book-w-10 book-h-10 book-bg-primary-50 book-flex book-items-center book-justify-center book-rounded book-ml-2">
+                                                                                        <svg width="25" height="24">
+                                                                                            <use
+                                                                                                xlink:href="../assets/images/sprite-booking-icons.svg#class-details-icon">
+                                                                                            </use>
+                                                                                        </svg>
+                                                                                    </div>
+                                                                                    <div>
+                                                                                        <p
+                                                                                            class="book-text-zinc-500 book-mb-1">
+                                                                                            کلاس
+                                                                                            بلیط:
+                                                                                        </p>
+                                                                                        <p class="book-text-zinc-900">
+                                                                                            بیزنس
+                                                                                            کلاس
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="book-flex">
+                                                                                    <div
+                                                                                        class="book-w-10 book-h-10 book-bg-primary-50 book-flex book-items-center book-justify-center book-rounded book-ml-2">
+                                                                                        <svg width="25" height="24">
+                                                                                            <use
+                                                                                                xlink:href="../assets/images/sprite-booking-icons.svg#wheel-bag-details-icon">
+                                                                                            </use>
+                                                                                        </svg>
+                                                                                    </div>
+                                                                                    <div>
+                                                                                        <p
+                                                                                            class="book-text-zinc-500 book-mb-1">
+                                                                                            بار
+                                                                                            مجاز:
+                                                                                        </p>
+                                                                                        <p class="book-text-zinc-900">۲۰
+                                                                                            کیلوگرم
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="book-space-y-4">
+                                                                                <div class="book-flex">
+                                                                                    <div
+                                                                                        class="book-w-10 book-h-10 book-bg-primary-50 book-flex book-items-center book-justify-center book-rounded book-ml-2">
+                                                                                        <svg width="25" height="24">
+                                                                                            <use
+                                                                                                xlink:href="../assets/images/sprite-booking-icons.svg#ticket-details-icon">
+                                                                                            </use>
+                                                                                        </svg>
+                                                                                    </div>
+                                                                                    <div>
+                                                                                        <p
+                                                                                            class="book-text-zinc-500 book-mb-1">
+                                                                                            کلاس
+                                                                                            نرخی:
+                                                                                        </p>
+                                                                                        <p class="book-text-zinc-900">S
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="book-flex">
+                                                                                    <div
+                                                                                        class="book-w-10 book-h-10 book-bg-primary-50 book-flex book-items-center book-justify-center book-rounded book-ml-2">
+                                                                                        <svg width="25" height="24">
+                                                                                            <use
+                                                                                                xlink:href="../assets/images/sprite-booking-icons.svg#plane-details-icon">
+                                                                                            </use>
+                                                                                        </svg>
+                                                                                    </div>
+                                                                                    <div>
+                                                                                        <p
+                                                                                            class="book-text-zinc-500 book-mb-1">
+                                                                                            نوع
+                                                                                            هواپیما:
+                                                                                        </p>
+                                                                                        <p class="book-text-zinc-900">MD
+                                                                                            737
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div>
+                                                                        <h6 class="book-text-xl book-text-zinc-900">
+                                                                            فرودگاه بین
+                                                                            المللی
+                                                                            حمد</h6>
+
+                                                                        <p
+                                                                            class="book-text-zinc-600 book-text-sm book-my-2">
+                                                                            دوحه ، قطر
+                                                                        </p>
+                                                                    </div>
+
+                                                                </div>
+
+
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <!-- Flight Details Box -->
+
+                                                    <!-- Connection Info -->
+                                                    <div
+                                                        class="book-my-10 book-flex book-text-zinc-800 book-text-sm book-justify-between book-bg-zinc-100 book-rounded-xl book-p-3 ">
+                                                        <div class="book-flex book-gap-1">
+                                                            <svg width="15" height="16">
+                                                                <use
+                                                                    xlink:href="../assets/images/sprite-booking-icons.svg#hourglass-icon">
+                                                                </use>
+                                                            </svg>
+
+                                                            <span>مدت توقف: ۱ ساعت و ۲۰ دقیقه</span>
+                                                        </div>
+
+                                                        <div class="">
+                                                            (DOH) فرودگاه بین المللی حمد
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="book-mb-10">
+                                                        <div class="book-flex book-mb-4">
+                                                            <div class="book-flex">
+                                                                <div
+                                                                    class="book-flight__details__progress__line book-ml-14 book-mr-3 book-relative">
+                                                                    <svg width="26" height="40"
+                                                                        class="book-absolute book--right-3 book-z-10">
+                                                                        <use
+                                                                            xlink:href="../assets/images/sprite-booking-icons.svg#path-icon">
+                                                                        </use>
+                                                                    </svg>
+                                                                    <svg width="26" height="40"
+                                                                        class="book-absolute book--right-3 book--bottom-3 book-z-10">
+                                                                        <use
+                                                                            xlink:href="../assets/images/sprite-booking-icons.svg#tag-details-icon">
+                                                                        </use>
+                                                                    </svg>
+
+
+
+
+
+
+                                                                </div>
+
+                                                                <div
+                                                                    class="book-flex book-flex-col book-border-l book-border-zinc-300 book-px-7 book-ml-7">
+                                                                    <div>
+                                                                        <h5
+                                                                            class="book-text-xl book-font-bold book-text-zinc-900">
+                                                                            IKA
+                                                                        </h5>
+                                                                        <h5
+                                                                            class="book-text-xl book-font-bold book-text-zinc-900 book-my-2">
+                                                                            ۲۳:۴۵
+                                                                        </h5>
+                                                                        <p class="book-text-zinc-500 book-text-sm">سه
+                                                                            شنبه ۱۹
+                                                                            فروردین
+                                                                        </p>
+                                                                    </div>
+                                                                    <div
+                                                                        class="book-text-sm book-text-primary-400 book-my-10">
+                                                                        <span class="book-mr-1">05:20</span>
+                                                                        مدت پرواز
+                                                                    </div>
+                                                                    <div>
+                                                                        <h5
+                                                                            class="book-text-xl book-font-bold book-text-zinc-900">
+                                                                            DOH
+                                                                        </h5>
+                                                                        <h5
+                                                                            class="book-text-xl book-font-bold book-text-zinc-900 book-my-2">
+                                                                            ۲۳:۴۵
+                                                                        </h5>
+                                                                        <p class="book-text-zinc-500 book-text-sm">سه
+                                                                            شنبه ۱۹
+                                                                            فروردین
+                                                                        </p>
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="book-flex">
+                                                                <div class="book-flex book-flex-col">
+                                                                    <div>
+                                                                        <h6 class="book-text-xl book-text-zinc-900">
+                                                                            فرودگاه بین
+                                                                            المللی امام خمینی</h6>
+
+                                                                        <p
+                                                                            class="book-text-zinc-600 book-text-sm book-my-2">
+                                                                            تهران ،
+                                                                            ایران
+                                                                        </p>
+                                                                        <div
+                                                                            class="book-flex book-items-center book-gap-2">
+                                                                            <div
+                                                                                class="book-bg-zinc-50 book-rounded book-w-11 book-h-4">
+                                                                                <img class="book-route__airline book-mx-auto"
+                                                                                    src="../assets/images/details-logo.png"
+                                                                                    width="44" height="25" alt="@Name@">
+                                                                            </div>
+                                                                            <span
+                                                                                class="book-text-zinc-900 book-text-sm">قطر
+                                                                                ایرویز
+                                                                                QR399</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="book-text-sm book-my-6">
+
+                                                                        <div
+                                                                            class="book-grid book-grid-cols-2 book-gap-10">
+                                                                            <div class="book-space-y-4">
+                                                                                <div class="book-flex">
+                                                                                    <div
+                                                                                        class="book-w-10 book-h-10 book-bg-primary-50 book-flex book-items-center book-justify-center book-rounded book-ml-2">
+                                                                                        <svg width="25" height="24">
+                                                                                            <use
+                                                                                                xlink:href="../assets/images/sprite-booking-icons.svg#class-details-icon">
+                                                                                            </use>
+                                                                                        </svg>
+                                                                                    </div>
+                                                                                    <div>
+                                                                                        <p
+                                                                                            class="book-text-zinc-500 book-mb-1">
+                                                                                            کلاس
+                                                                                            بلیط:
+                                                                                        </p>
+                                                                                        <p class="book-text-zinc-900">
+                                                                                            بیزنس
+                                                                                            کلاس
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="book-flex">
+                                                                                    <div
+                                                                                        class="book-w-10 book-h-10 book-bg-primary-50 book-flex book-items-center book-justify-center book-rounded book-ml-2">
+                                                                                        <svg width="25" height="24">
+                                                                                            <use
+                                                                                                xlink:href="../assets/images/sprite-booking-icons.svg#wheel-bag-details-icon">
+                                                                                            </use>
+                                                                                        </svg>
+                                                                                    </div>
+                                                                                    <div>
+                                                                                        <p
+                                                                                            class="book-text-zinc-500 book-mb-1">
+                                                                                            بار
+                                                                                            مجاز:
+                                                                                        </p>
+                                                                                        <p class="book-text-zinc-900">۲۰
+                                                                                            کیلوگرم
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="book-space-y-4">
+                                                                                <div class="book-flex">
+                                                                                    <div
+                                                                                        class="book-w-10 book-h-10 book-bg-primary-50 book-flex book-items-center book-justify-center book-rounded book-ml-2">
+                                                                                        <svg width="25" height="24">
+                                                                                            <use
+                                                                                                xlink:href="../assets/images/sprite-booking-icons.svg#ticket-details-icon">
+                                                                                            </use>
+                                                                                        </svg>
+                                                                                    </div>
+                                                                                    <div>
+                                                                                        <p
+                                                                                            class="book-text-zinc-500 book-mb-1">
+                                                                                            کلاس
+                                                                                            نرخی:
+                                                                                        </p>
+                                                                                        <p class="book-text-zinc-900">S
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="book-flex">
+                                                                                    <div
+                                                                                        class="book-w-10 book-h-10 book-bg-primary-50 book-flex book-items-center book-justify-center book-rounded book-ml-2">
+                                                                                        <svg width="25" height="24">
+                                                                                            <use
+                                                                                                xlink:href="../assets/images/sprite-booking-icons.svg#plane-details-icon">
+                                                                                            </use>
+                                                                                        </svg>
+                                                                                    </div>
+                                                                                    <div>
+                                                                                        <p
+                                                                                            class="book-text-zinc-500 book-mb-1">
+                                                                                            نوع
+                                                                                            هواپیما:
+                                                                                        </p>
+                                                                                        <p class="book-text-zinc-900">MD
+                                                                                            737
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div>
+                                                                        <h6 class="book-text-xl book-text-zinc-900">
+                                                                            فرودگاه بین
+                                                                            المللی
+                                                                            حمد</h6>
+
+                                                                        <p
+                                                                            class="book-text-zinc-600 book-text-sm book-my-2">
+                                                                            دوحه ، قطر
+                                                                        </p>
+                                                                    </div>
+
+                                                                </div>
+
+
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <!-- Content Area -->
+                                                <div class="book-p-4 book-border book-border-zinc-300 book-rounded-2xl">
+                                                    <div class="book-border-b book-border-zinc-300 book-pb-4 book-mb-2">
+                                                        <div
+                                                            class="book-flex book-justify-between book-items-center book-mb-2">
+                                                            <h6 class="book-text-lg book-font-bold book-text-zinc-800">
+                                                                بار مجاز</h6>
+                                                            <svg width="34" height="34">
+                                                                <use
+                                                                    xlink:href="../assets/images/sprite-booking-icons.svg#down-arrow-icon">
+                                                                </use>
+                                                            </svg>
+                                                        </div>
+                                                    </div>
+                                                    <div class="">
+                                                        <table
+                                                            class="book-w-full book-table-auto book-border-separate [border-spacing:book-0_8px]">
+                                                            <thead>
+                                                                <tr class="">
+                                                                    <th
+                                                                        class="book-pt-2 book-pb-4 book-pr-2 book-text-right book-text-primary-400">
+                                                                        مبدا</th>
+                                                                    <th
+                                                                        class="book-pt-2 book-pb-4 book-text-center book-text-primary-400">
+                                                                        مقصد
+                                                                    </th>
+                                                                    <th
+                                                                        class="book-pt-2 book-pb-4 book-text-center book-text-primary-400">
+                                                                        شماره
+                                                                        پرواز</th>
+                                                                    <th
+                                                                        class="book-pt-2 book-pb-4 book-pl-2 book-text-left book-text-primary-400">
+                                                                        بار</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="">
+                                                                <tr class=" ">
+                                                                    <td
+                                                                        class="book-py-2 book-bg-zinc-100 book-rounded-s-lg book-pr-2 book-text-right">
+                                                                        IKA</td>
+                                                                    <td
+                                                                        class="book-py-2 book-bg-zinc-100 book-text-center">
+                                                                        DXB</td>
+                                                                    <td
+                                                                        class="book-py-2 book-bg-zinc-100 book-text-center">
+                                                                        2491</td>
+                                                                    <td
+                                                                        class="book-py-2 book-bg-zinc-100 book-rounded-e-lg book-pl-2 book-text-left">
+                                                                        2 PC</td>
+                                                                </tr>
+                                                                <tr class="book-mb-2">
+                                                                    <td
+                                                                        class="book-py-2 book-bg-zinc-100 book-rounded-s-lg book-pr-2 book-text-right">
+                                                                        IKA</td>
+                                                                    <td
+                                                                        class="book-py-2 book-bg-zinc-100 book-text-center">
+                                                                        DXB</td>
+                                                                    <td
+                                                                        class="book-py-2 book-bg-zinc-100 book-text-center">
+                                                                        2491</td>
+                                                                    <td
+                                                                        class="book-py-2 book-bg-zinc-100 book-rounded-e-lg book-pl-2 book-text-left">
+                                                                        2 PC</td>
+                                                                </tr>
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <!-- Price Details Section -->
+                                                <div class="book-p-4 book-border book-border-zinc-300 book-rounded-2xl">
+                                                    <div class="book-border-b book-border-zinc-300 book-pb-4 book-mb-2">
+                                                        <div
+                                                            class="book-flex book-justify-between book-items-center book-mb-2">
+                                                            <h6 class="book-text-lg book-font-bold book-text-zinc-800">
+                                                                گروه نرخی</h6>
+                                                            <svg width="34" height="34">
+                                                                <use
+                                                                    xlink:href="../assets/images/sprite-booking-icons.svg#down-arrow-icon">
+                                                                </use>
+                                                            </svg>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <ul
+                                                            class="book-divide-y book-divide-gray-100 book-text-zinc-900 book-text-sm">
+                                                            <li
+                                                                class="book-flex book-justify-between book-py-3 book-px-2 book-bg-zinc-100 book-rounded-lg book-mb-2">
+                                                                <span>قیمت پایه</span>
+                                                                <span>۸۱۵٬۶۱۶٬۰۰۰ ریال</span>
+                                                            </li>
+                                                            <li
+                                                                class="book-flex book-justify-between book-py-3 book-px-2 book-bg-zinc-100 book-rounded-lg book-mb-2">
+                                                                <span class="">مالیات و
+                                                                    عوارض</span>
+                                                                <span>۸۱۵٬۶۱۶٬۰۰۰ ریال</span>
+                                                            </li>
+                                                            <li
+                                                                class="book-flex book-justify-between book-py-3 book-px-2 book-bg-zinc-100 book-rounded-lg book-mb-2">
+                                                                <span>مالیات و
+                                                                    خدمات</span>
+                                                                <span>۸۱۵٬۶۱۶٬۰۰۰ ریال</span>
+                                                            </li>
+                                                            <li
+                                                                class="book-flex book-justify-between book-py-3 book-px-2 book-bg-zinc-100 book-rounded-lg book-mb-2">
+                                                                <span>مالیات بر ارزش
+                                                                    افزوده</span>
+                                                                <span>۸۱۵٬۶۱۶٬۰۰۰ ریال</span>
+                                                            </li>
+                                                            <li
+                                                                class="book-flex book-justify-between book-py-3 book-px-2 book-bg-zinc-100 book-rounded-lg book-mb-2">
+                                                                <span>هر بزرگسال</span>
+                                                                <span>۸۱۵٬۶۱۶٬۰۰۰ ریال</span>
+                                                            </li>
+                                                            <li
+                                                                class="book-flex book-justify-between book-py-3 book-px-2 book-bg-zinc-100 book-rounded-lg book-mb-2">
+                                                                <span>مجموع بزرگسال</span>
+                                                                <span>۸۱۵٬۶۱۶٬۰۰۰ ریال</span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <!-- Rules Content -->
+                                                <div>
+                                                    <div
+                                                        class="book-p-4 book-border book-border-zinc-300 book-rounded-2xl">
+                                                        <div class=" book-pb-4 book-mb-2">
+                                                            <div
+                                                                class="book-flex book-justify-between book-items-center book-mb-2">
+                                                                <h6
+                                                                    class="book-text-lg book-font-bold book-text-zinc-800">
+                                                                    قوانین کنسلی
+                                                                </h6>
+                                                                <svg width="34" height="34">
+                                                                    <use
+                                                                        xlink:href="../assets/images/sprite-booking-icons.svg#down-arrow-icon">
+                                                                    </use>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                        </div>
+                                                    </div>
+                                                    <div
+                                                        class="book-p-4 book-border book-border-zinc-300 book-rounded-2xl">
+                                                        <div class=" book-pb-4 book-mb-2">
+                                                            <div
+                                                                class="book-flex book-justify-between book-items-center book-mb-2">
+                                                                <h6
+                                                                    class="book-text-lg book-font-bold book-text-zinc-800">
+                                                                    هزینه کسر
+                                                                    شده
+                                                                </h6>
+                                                                <svg width="34" height="34">
+                                                                    <use
+                                                                        xlink:href="../assets/images/sprite-booking-icons.svg#down-arrow-icon">
+                                                                    </use>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                        </div>
+                                                    </div>
+                                                    <div
+                                                        class="book-p-4 book-border book-border-zinc-300 book-rounded-2xl">
+                                                        <div class="book-pb-4 book-mb-2">
+                                                            <div
+                                                                class="book-flex book-justify-between book-items-center book-mb-2">
+                                                                <h6
+                                                                    class="book-text-lg book-font-bold book-text-zinc-800">
+                                                                    مدت زمان
+                                                                    استرداد
+                                                                    هزینه</h6>
+                                                                <svg width="34" height="34">
+                                                                    <use
+                                                                        xlink:href="../assets/images/sprite-booking-icons.svg#down-arrow-icon">
+                                                                    </use>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                        <div class="book-text-zinc-900 book-text-sm book-text-justify">
+                                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و
+                                                            با
+                                                            استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و
+                                                            مجله
+                                                            در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی
+                                                            مورد
+                                                            نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می
+                                                            باشد،
+                                                            کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت
+                                                            فراوان
+                                                            جامعه و متخصصان را می طلبد،
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Price Footer -->
+                                                <div class="book-sticky book-bottom-0 book-bg-white book-p-4 book-z-10">
+                                                    <div class="book-flex book-justify-between book-items-center">
+                                                        <div class="book-mb-2">
+                                                            <h6 class="book-text-zinc-500 book-mb-2">مبلغ قابل پرداخت:
+                                                            </h6>
+                                                            <div
+                                                                class="book-text-2xl book-font-bold book-text-zinc-900">
+                                                                ۷۷,۵۴۲,۰۰۰
+                                                                ریال
+                                                            </div>
+                                                        </div>
+                                                        <button
+                                                            class="book-bg-primary-800 book-text-white book-w-44 book-h-12 book-rounded-lg book-font-bold hover:book-bg-secondary-800 book-transition-colors">
+                                                            ادامه خرید
+                                                        </button>
+                                                    </div>
+
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="book-nodata__container book-w-full book-text-center book-hidden">
+                            <div>
+                                <svg class="book-stroke-secondary-400 book-mx-auto book-w-44">
+                                    <use xlink:href="../assets/images/sprite-booking-icons.svg#calendare-icon"></use>
+                                </svg>
+                            </div>
+                            <div class="book-text-2xl book-font-bold book-mt-6">پروازی در تاریخ انتخابی شما یافت نشد.
+                                تاریخ دیگری
+                                را امتحان کنید</div>
+                            <div class="book-text-gray-500 book-mt-3">برای دریافت نتیجه لطفا تاریخ و یا مسیر خود را
+                                تغییر دهید
+                            </div>
+                            <div class="book-mt-6">
+                                <button onclick="window.location='/'"
+                                    class="book-min-w-48 book-text-primary-400 book-border book-border-solid book-border-primary-400 book-rounded-2xl book-p-3 hover:book-bg-primary-400 hover:book-text-white">بازگشت
+                                    به صفحه اصلی</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+    </main>
+    <!-- Footer-->
+    <footer></footer>
+    <script src="../assets/js/swiper-bundle.min.js" type="text/javascript"></script>
+    <script>
+        // swiper flight
+        var airline__swiper = new Swiper(".airline__swiper", {
+            slidesPerView: 6,
+            speed: 400,
+            centeredSlides: false,
+            spaceBetween: 0,
+            navigation: {
+                nextEl: '.airline__next__swiper',
+                prevEl: '.airline__prev__swiper',
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                },
+                768: {
+                    slidesPerView: 3,
+                    spaceBetween: 40,
+                },
+                1024: {
+                    slidesPerView: 4,
+                    spaceBetween: 50,
+                },
+            },
+        });
+        var price__swiper = new Swiper(".price__swiper", {
+            slidesPerView: 6,
+            speed: 400,
+            centeredSlides: false,
+            spaceBetween: 0,
+            navigation: {
+                nextEl: '.price__next__swiper',
+                prevEl: '.price__prev__swiper',
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                },
+                768: {
+                    slidesPerView: 3,
+                    spaceBetween: 40,
+                },
+                1024: {
+                    slidesPerView: 4,
+                    spaceBetween: 50,
+                },
+            },
+        });
+    </script>
+</body>
+
+</html>

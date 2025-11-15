@@ -1,0 +1,128 @@
+<basis core="external.fly.ws" procedurename="dbsource" source="cmsDbService2" name="db">
+    <member name="get_unit_currency" method="cms" query='{
+        "name": "db",
+        "mid": "20",
+        "member": [
+            {
+                "type": "list",
+                "request": "get_unit_currency",
+                "dmnid": "[##cms.cms.domainid##]",
+                "name": "q",
+                "lid": "2"
+               
+            }
+        ]
+    }' />
+</basis>
+<basis core="external.fly.ws" source="cmsDbService2" name="db" procedurename="dbsource">
+    <member method="cms" name="webservice_list" query='
+    { 
+        "name": "db",
+        "mid": "20",
+        "member":
+        [
+            { 
+                "name": "q", 
+                "type":"list",
+                "request": "webservice_list",
+                "dmnid":"[##cms.cms.domainid##]",
+                "engine":"[##cms.form.engine##]",
+                "type": "5",
+                "lid": "2"
+            }
+        ] 
+    } ' />
+</basis>
+<basis core="group" name="Delay_1">
+    <basis core="inlinesource" name="db">
+        <member name="webservice_list-Tree" format="json"
+            postsql="select  Id , ParentId , case when trim(Field) is null  then  (select field from [db.webservice_list-Tree] where id = a.parentid ) else field end as field, value , type , path  from [db.webservice_list-Tree] as a">
+            {"root":[##db.webservice_list.result##]}</member>
+        <member name="bankid" format="json" postsql="select Value from [db.bankid] where field = 'id'">
+            {"root":[##db.webservice_list.result##]}</member>
+        <member name='unit_id' format="json" postsql="select value from [db.unit_id] where field = 'id'">
+            {"root": [##db.get_unit_currency.result##]}
+        </member>
+    </basis>
+    <basis core="group" name="check-bank" if="'[##db.bankid.RowNumber##]' > '1'">
+        <basis core="tree" datamembername="db.webservice_list-Tree" idcol="id" parentidcol="parentid" nullvalue="null">
+            <face filter="field in ('bank') and type in ('Object')">
+                <div class="book-invoice__content book-cursor-pointer book-p-2" data-run="0"
+                    onclick="submitInvoice(this,'bank__Invoice')">
+                    <ul class="book-text-center">
+                        <li class="book-my-1">Payment Gateway</li>
+                        @child
+                        <li class="book-my-1">
+                            <button type="button"
+                                class="book-text-white book-rounded-2xl book-p-3 book-text-center book-bg-primary-400 book-next__btn hover:book-bg-secondary-400">
+                                Confirm and Pay
+                            </button>
+                        </li>
+                    </ul>
+
+                </div>
+            </face>
+            <face filter="field = 'logo'">
+                <li class="book-my-1"><img src="/@value" alt="banklogo" width="65" height="65" /></li>
+            </face>
+            <face filter="field = 'persianName'">
+                <li class="book-my-1">@value</li>
+            </face>
+            <face filter="field = 'moneytype'">
+                <li class="book-my-2"><span class="book-firstpay__cost book-font-bold"></span><span
+                        class="book-text-xs book-mx-1">@value</span></li>
+            </face>
+            <face filter="field = 'id'">
+                <input type="hidden" value="@value" class="book-bankId" />
+            </face>
+            <face filter="type in ('object','array')">@child</face>
+        </basis>
+    </basis>
+    <basis core="group" name="check-bank" if="'[##db.bankid.RowNumber##]' <= '1'">
+        <basis core="group" name="check-bankid" if="'[##db.bankid.Value##]' = '-1'">
+            <div class="book-invoice__content book-pre__Invoice  book-my-2 book-text-xl book-text-center book-cursor-pointer"
+                data-run="0" onclick="submitInvoice(this,'pre__Invoice')">
+                Click here to submit the preliminary contract
+            </div>
+
+        </basis>
+        <basis core="group" name="check-bankid" if="'[##db.bankid.Value##]' <> '-1'">
+            <basis core="tree" datamembername="db.webservice_list-Tree" idcol="id" parentidcol="parentid"
+                nullvalue="null">
+                <face filter="field in ('bank') and type in ('Object')">
+                    <div class="book-invoice__content book-cursor-pointer book-p-2" data-run="0"
+                        onclick="submitInvoice(this,'bank__Invoice')">
+                        <ul class="book-text-center">
+                            <li class="book-my-1">Payment Gateway</li>
+                            @child
+                            <li class="book-my-1">
+                                <button type="button"
+                                    class="book-text-white book-rounded-2xl book-p-3 book-text-center book-bg-primary-400 book-next__btn hover:book-bg-secondary-400">
+                                    Confirm and Pay
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </face>
+                <face filter="field = 'logo'">
+                    <li class="book-my-1"><img src="/@value" alt="banklogo" width="65" height="65" /></li>
+                </face>
+                <face filter="field = 'persianName'">
+                    <li class="book-my-1">@value</li>
+                </face>
+                <face filter="field = 'moneytype'">
+                    <li class="book-my-2"><span class="book-firstpay__cost book-font-bold"></span><span
+                            class="book-text-xs book-mx-1">@value</span></li>
+                </face>
+                <face filter="field = 'id'">
+                    <input type="hidden" value="@value" class="book-bankId">
+                </face>
+                <face filter="type in ('object','array')">@child</face>
+            </basis>
+        </basis>
+    </basis>
+</basis>
+<basis core="api" name="api.userCredit"
+    url="[##cms.form.usercrediturl##]?supplier_dmnid=[##cms.cms.domainid##]&rkey=[##cms.form.rkey##]" method="get"
+    content-type="application/json" run="atclient" onprocessed='onProcessedUserCredit'>
+</basis>

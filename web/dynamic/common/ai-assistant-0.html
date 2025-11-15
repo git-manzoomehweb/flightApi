@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <basis core="call" file="book/taglist" lid="1" pageindex="[##cms.cms.pageindex|(1)##]"></basis>
+    <title>Flight Assistant - دستیار هوشمند پرواز</title>
+    <meta name="description" content="Flight Assistant - دستیار هوشمند پرواز">
+    <link href="[##cms.cms.cdn##]/booking/css/ai.ui.min.css?ver=1" type="text/css" rel="stylesheet" />
+</head>
+
+<body class="bg-gray-100 flex justify-center items-center min-h-screen p-4">
+    <!-- Main-->
+    <main class="book-layout__main" data-sessionid="[##db.dmntoken.dmntoken##]" data-dmnid="[##cms.cms.domainid##]"
+        data-lid="[##cms.query.lang|(2)##]">
+
+        <basis core="dbsource" source="trustloginapi" name="db" useragent="[##cms.request.user-agent##]"
+            ip="[##cms.request.clientip##]">
+            <member name="dmntoken" type="scalar" request="dmntoken" />
+        </basis>
+        <!-- Commands / Requests -->
+        <basis core="api" name="flight.response" url="https://www.basisfly.com/ai/flight/offers" method="post"
+            triggers="flight.request"
+            body='{"text":"{##flight.request.text##}","dmnid":"{##flight.request.dmnid##}","sessionId":"[##db.dmntoken.dmntoken##]","lid":"[##cms.query.lang##]"}'
+            if="{##flight.request.run|(false)##}" run="atclient" onprocessed="handleApiResponse">
+        </basis>
+        <basis core="api" name="offers.response" url="https://www.basisfly.com/ai/flight/get-offer" method="post"
+            triggers="offers.request" body='{##offers.request.value##}' onprocessing="handleLoadingResponse"
+            if="{##offers.request##}" run="atclient" onprocessed="handleApiResponse">
+        </basis>
+        <basis core="api" name="schema.response" run="atclient"
+            url="https://api.trust-login.com/schema/{##login.response.rkey##}/fa" method="get"
+            onprocessed="handleUserSchema" if="{##login.response##}" triggers="login.response"></basis>
+        <basis core="api" name="selectuser.response" run="atclient" url="https://api.trust-login.com/selectuser"
+            method="post" body='{"hashid":"{##selectuser.request.hashid##}","userid":{##selectuser.request.userid##}}'
+            onprocessed="handleApiResponse" if="{##selectuser.request.run|(false)##}" triggers="selectuser.request">
+        </basis>
+        <basis core="call" file="Client_BasisCore_Script.inc"></basis>
+        <div class="container max-w-md w-full">
+            <!-- Chat Interface -->
+            <div id="chat-container" class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col h-[700px]">
+                <!-- Header -->
+                <div class>
+                    <img src="[##cms.cms.cdn##]/booking/images/hero-ai.png" width="448" height="334" alt="hero-ai"
+                        class="mx-auto">
+                </div>
+
+                <!-- Messages Container -->
+                <div id="messages-container" class="flex-1 overflow-y-auto p-4 flex flex-col gap-4">
+                    <!-- System welcome message will be added here by JavaScript -->
+                </div>
+
+                <!-- Input Area -->
+                <basis core="group" name="check-lid" if="[##cms.query.lang|(2)##]=2">
+                    <div class="border-t border-gray-200 p-3 bg-white flex items-center">
+                        <button id="send-button"
+                            class="bg-blue-500 text-white rounded-full w-10 h-10 flex items-center justify-center ml-2 hover:bg-blue-600 transform rotate-180">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+                            </svg>
+
+                        </button>
+                        <input id="message-input" type="text" placeholder="Type your message..."
+                            class="flex-1 border border-gray-300 rounded-full px-4 py-2 outline-none focus:border-blue-500 ltr" />
+
+                    </div>
+                </basis>
+                <basis core="group" name="check-lid" if="[##cms.query.lang|(2)##]<>2">
+                    <div class="border-t border-gray-200 p-3 bg-white flex items-center">
+                        <input id="message-input" type="text" placeholder="پیام خود را بنویسید..."
+                            class="flex-1 border border-gray-300 rounded-full px-4 py-2 outline-none focus:border-blue-500 rtl" />
+                        <button id="send-button"
+                            class="bg-blue-500 text-white rounded-full w-10 h-10 flex items-center justify-center mr-2 hover:bg-blue-600 transform rotate-180">
+
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                            </svg>
+                        </button>
+                    </div>
+                </basis>
+            </div>
+
+        </div>
+
+    </main>
+    <script src="[##cms.cms.cdn##]/booking/js/ai-search.js?ver=1" type="text/javascript"></script>
+
+</body>
+
+</html>

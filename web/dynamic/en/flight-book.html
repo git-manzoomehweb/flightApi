@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <basis core="call" file="book/taglist" lid="2"></basis>
+    <title>Flight Booking</title>
+    <meta name="description" content="Flight Booking">
+    <link href="[##cms.cms.cdn##]/booking/css/book.ui.min.css?ver=[##cms.cms.date2##][##cms.cms.time2##]"
+        type="text/css" rel="stylesheet" />
+</head>
+
+<body class="book-bg-specialcolor-1">
+    <!-- Header -->
+    <basis core="call" file="header.inc" lid="2" pageindex="[##cms.cms.pageindex|(1)##]"></basis>
+    <!-- Main-->
+    <main data-dmnid="[##cms.cms.domainid##]" data-cmsdate="[##cms.cms.date##]" data-b2b="[##cms.host.B2B|(false)##]">
+        <!-- Commands / Requests -->
+        <basis core="call" file="flight/book/commands" lid="2"></basis>
+        <basis core="call" file="book/commands" lid="2"></basis>
+        <!-- Layout Section -->
+        <section class="book-layout__main book-my-5">
+            <!-- Expire  Modal-->
+            <div
+                class="book-expire__message__modal__container book-modal__container book-fixed book-top-0 book-left-0 book-w-screen book-h-screen book-overflow-hidden book-z-[9999999999] book-hidden">
+                <div
+                    class="book-modal__content book-bg-white book-fixed book-inset-x-0 book-top-1.2 book--translate-y-1.2 book-w-[560px] book-rounded-2xl book-mx-auto book-p-5 book-text-center">
+                    <svg class="book-stroke-secondary-400 book-mx-auto book-w-44">
+                        <use xlink:href="/booking/images/sprite-booking-icons.svg#hour-expire-icon">
+                        </use>
+                    </svg>
+                    <div class="book-no__time book-hidden">
+                        <div class="book-text-2xl book-font-bold book-mt-6">Results have expired</div>
+                        <div class="book-text-zinc-500 book-mt-3">Please refresh search results to display the latest
+                            information and prices</div>
+                        <div class="book-flex book-justify-between book-mt-6">
+                            <button
+                                onclick="window.location = document.querySelector('main')?.dataset.b2b === 'true' ? '/flight/search/B2B' : '/flight/search'"
+                                type="button"
+                                class="book-research__btn__container book-min-w-48 book-text-white book-bg-primary-400 book-border book-border-solid book-border-primary-400 book-rounded-lg book-p-3 hover:book-bg-white hover:book-text-primary-400 book-cursor-pointer">Refresh
+                                Search</button>
+
+                            <button onclick="sessionStorage.removeItem('sessionBook'); window.location='/'"
+                                type="button"
+                                class="book-min-w-48 book-text-primary-400 book-border book-border-solid book-bg-white book-border-primary-400 book-rounded-lg book-p-3 hover:book-bg-primary-400 hover:book-text-white book-cursor-pointer">Back
+                                to Home</button>
+                        </div>
+                    </div>
+                    <div class="book-some__time book-hidden">
+                        <div class="book-text-2xl book-font-bold book-mt-6">Search results are valid for 6 more minutes.
+                        </div>
+                        <div class="book-text-zinc-500 book-mt-3">After expiration, flights will no longer be available.
+                        </div>
+                        <div class="book-mt-6">
+                            <button
+                                onclick="document.querySelector('.book-expire__message__modal__container').classList.add('book-hidden')"
+                                type="button"
+                                class="book-min-w-48 book-text-white book-bg-primary-400 book-border book-border-solid book-border-primary-400 book-rounded-lg book-p-3 hover:book-bg-white hover:book-text-primary-400 book-cursor-pointer">Got
+                                it</button>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="book-max-w-7xl book-mx-auto book-px-4 book-py-2">
+                <div class="book-loading__container book-flex book-flex-col book-items-center book-justify-center">
+                    <div
+                        class="book-spinner book-w-16 book-h-16 book-border-3 book-border-zinc-300 book-border-t-primary-400 book-rounded-full">
+                    </div>
+                    <p class="book-mt-4 book-text-zinc-700 book-text-base">Loading...</p>
+                </div>
+                <div class="book-main__container book-hidden">
+                    <div class="book-route__map__container 
+                book-bg-white book-shadow-md book-rounded-2xl book-p-5 book-mb-5 book-text-center">
+                        <ul
+                            class="book-route__map__content book-inline-block book-relative book-mx-auto book-text-zinc-500 book-text-sm">
+                            <li class="book-route__map__item book-inline-block book-pr-20 book-route__map__item__active"
+                                data-step="passenger">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    strokeWidth={1.5} stroke="currentColor" class="book-size-6 book-mx-auto">
+                                    <use xlink:href="/booking/images/sprite-booking-icons.svg#passenger-nav-icon">
+                                    </use>
+                                </svg>
+                                <div class="book-route__map__title book-bg-white book-relative">Passenger Details</div>
+                            </li>
+                            <li class="book-route__map__item book-inline-block book-px-20" data-step="buyer">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    strokeWidth={1.5} stroke="currentColor" class="book-size-6 book-mx-auto">
+                                    <use xlink:href="/booking/images/sprite-booking-icons.svg#buyer-nav-icon">
+                                    </use>
+                                </svg>
+                                <div class="book-route__map__title book-bg-white book-relative">Buyer Details</div>
+                            </li>
+                            <li class="book-route__map__item book-inline-block book-pl-20" data-step="summary">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    strokeWidth={1.5} stroke="currentColor" class="book-size-6 book-mx-auto">
+                                    <use xlink:href="/booking/images/sprite-booking-icons.svg#invoice-nav-icon">
+                                    </use>
+                                </svg>
+                                <div class="book-route__map__title book-bg-white book-relative">Payment & Issue</div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="book-if__hero"></div>
+                    <div class="book-my-12">
+
+                        <!-- Research -->
+                        <basis core="call" run="atclient" lid="2" pageindex="[##cms.cms.pageindex|(1)##]"
+                            file="/module/retry/search" triggers="cms.research" if=" {##cms.research##}" method="post"
+                            selectedMode="flight" OnRendered="renderResearch">
+                        </basis>
+
+                        <div class="book-flex">
+                            <aside class="book-aside__container book-w-2/5">
+                                <basis core="print" datamembername="flight.book" run="atclient">
+                                    <layout>
+                                        <script type="text/template">
+                                        <div class="book-overflow-hidden book-w-[96per] book-bg-white book-shadow-md book-rounded-2xl book-mb-10">
+                                            @child
+                                        </div>
+                                    </script>
+                                    </layout>
+                                    <face>
+                                        <script type="text/template">
+                                        <div class="book-aside__content book-overflow-auto book-max-h-[800px] book-px-4 book-pt-5">
+                                            <div class="book-tab__navigation__container book-flex book-justify-around book-gap-2 book-mb-4">
+                                                <button onclick="{{return `scrollModalContainerItem(this,'','book-flight__details','')`}}" type="button"
+                                                    class="book-tab__navigation__content book-w-20 book-w-full book-active__tab__navigation book-p-3 book-rounded-xl book-border-zinc-400 book-border book-transition-colors book-text-zinc-500 hover:book-bg-primary-400 hover:book-border-primary-400 hover:book-text-white">
+                                                    <svg width="21" height="20">
+                                                        <use href="/booking/images/sprite-booking-icons.svg#plane-rotate-icon">
+                                                        </use>
+                                                    </svg>
+                                                    <h6 class="book-text-sm">Flight Details</h6>
+                                                </button>
+                                                <button onclick="{{return `scrollModalContainerItem(this,'AirBaggage','book-flight__baggage')`}}" type="button"
+                                                    class="book-tab__navigation__content book-w-20 book-w-full book-p-2 book-rounded-xl book-border-zinc-400 book-border book-transition-colors book-text-zinc-500 hover:book-bg-primary-400 hover:book-border-primary-400 hover:book-text-white">
+                                                    <svg width="21" height="20">
+                                                        <use href="/booking/images/sprite-booking-icons.svg#wheel-bag-icon">
+                                                        </use>
+                                                    </svg>
+                                                    <h6 class="book-text-sm">Baggage Allowance</h6>
+                                                </button>
+                                                <button onclick="{{return `scrollModalContainerItem(this,'','book-flight__price','')`}}" type="button"
+                                                    class="book-tab__navigation__content  book-w-20  book-w-full book-p-2 book-rounded-xl book-border-zinc-400 book-border book-transition-colors book-text-zinc-500 hover:book-bg-primary-400 hover:book-border-primary-400 hover:book-text-white">
+                                                    <svg width="21" height="20">
+                                                        <use href="/booking/images/sprite-booking-icons.svg#class-icon">
+                                        
+                                                        </use>
+                                                    </svg>
+                                                    <h6 class="book-text-sm">Price Details</h6>
+                                                </button>
+                                                <button onclick="{{return `scrollModalContainerItem(this,'AirRules','book-flight__rule')`}}" type="button"
+                                                    class="book-tab__navigation__content  book-w-20  book-w-full book-p-2 book-rounded-xl book-border-zinc-400 book-border book-transition-colors book-text-zinc-500 hover:book-bg-primary-400 hover:book-border-primary-400 hover:book-text-white">
+                                                    <svg width="21" height="20">
+                                                        <use href="/booking/images/sprite-booking-icons.svg#flight-rule-icon">
+                                                        </use>
+                                                    </svg>
+                                                    <h6 class="book-text-sm">Rules and Regulations</h6>
+                                                </button>
+                                            </div>
+                                            <div
+                                                class="book-flight__details book-api__container book-p-4 book-border book-border-zinc-300 book-rounded-2xl  book-mb-4">
+                                                <div class="book-border-b book-border-zinc-300 book-pb-7 book-mb-2">
+                                                    <div class="book-content__api book-flex book-justify-between book-items-center book-mb-2 book-cursor-pointer"
+                                                        onclick="{{return `toggleContentApi(this,'','book-flight__details','')`}}" data-run="1">
+                                                        <h6 class="book-text-lg book-font-bold book-text-zinc-800">
+                                                            Flight Details
+                                                        </h6>
+                                                        <svg class="book-api__container__arrow" width="24" height="24">
+                                                            <use href="/booking/images/sprite-booking-icons.svg#up-arrow-icon">
+                                                            </use>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                                <div class="book-api__container__content">
+                                                    {{ return await renderRoutesInfoPc($data)}}
+                                                </div>
+                                        
+                                            </div>
+                                            <div
+                                                class="book-flight__baggage book-api__container book-p-4 book-border book-border-zinc-300 book-rounded-2xl  book-mb-4">
+                                                <div class="book-border-b book-border-zinc-300 book-pb-4 book-mb-2">
+                                                    <div class="book-content__api book-flex book-justify-between book-items-center book-mb-2 book-cursor-pointer"
+                                                        onclick="{{return `toggleContentApi(this,'AirBaggage','book-flight__baggage')`}}" data-run="0">
+                                                        <h6 class="book-text-lg book-font-bold book-text-zinc-800">
+                                                            Baggage Allowance</h6>
+                                                        <svg class="book-api__container__arrow" width="24" height="24">
+                                                            <use href="/booking/images/sprite-booking-icons.svg#down-arrow-icon">
+                                                            </use>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                                <div class="book-api__container__content book-mt-4 book-hidden">
+                                                    <span
+                                                        class="book-api__container__loader book-bg-white book-relative book-block book-w-3 book-h-3 book-rounded-full book-mx-auto book-my-3"></span>
+                                                </div>
+                                        
+                                            </div>
+                                            <div
+                                                class="book-flight__price book-api__container book-p-4 book-border book-border-zinc-300 book-rounded-2xl  book-mb-4">
+                                                <div class="book-border-b book-border-zinc-300 book-pb-4 book-mb-2">
+                                                    <div class="book-content__api book-flex book-justify-between book-items-center book-mb-2 book-cursor-pointer"
+                                                        onclick="{{return `toggleContentApi(this,'','book-flight__price')`}}" data-run="1">
+                                                        <h6 class="book-text-lg book-font-bold book-text-zinc-800">
+                                                            Rate Details</h6>
+                                                        <svg class="book-api__container__arrow" width="24" height="24">
+                                                            <use href="/booking/images/sprite-booking-icons.svg#down-arrow-icon">
+                                                            </use>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                                <div class="book-api__container__content book-mt-4 book-hidden">
+                                                    {{ return await renderPassengerFare($data)}}
+                                                </div>
+                                            </div>
+                                        
+                                            <div class="book-flight__rule book-api__container book-p-4 book-border book-border-zinc-300 book-rounded-2xl">
+                                                <div class="book-border-b book-border-zinc-300 book-pb-4 book-mb-2">
+                                                    <div class="book-content__api book-flex book-justify-between book-items-center book-mb-2 book-cursor-pointer"
+                                                        onclick="{{return `toggleContentApi(this,'AirRules','book-flight__rule')`}}" data-run="0">
+                                                        <h6 class="book-text-lg book-font-bold book-text-zinc-800">
+                                                            General Rules
+                                                        </h6>
+                                                        <svg class="book-api__container__arrow" width="24" height="24">
+                                                            <use href="/booking/images/sprite-booking-icons.svg#down-arrow-icon">
+                                                            </use>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                                <div class="book-api__container__content book-max-h-40 book-pr-2 book-overflow-y-auto book-mt-4 book-hidden">
+                                                    <span
+                                                        class="book-api__container__loader book-bg-white book-relative book-block book-w-3 book-h-3 book-rounded-full book-mx-auto book-my-3"></span>
+                                                </div>
+                                                <div>
+                                                </div>
+                                            </div>
+                                            <div class="book-sticky book-bottom-0 book-bg-white book-p-4 book-z-10">
+                                                <div class="book-flex book-justify-between book-items-center">
+                                                    <div class="book-mb-2">
+                                                        {{
+                                        
+                                                        if($data.PriceInfo.Commission !== '0'){
+                                                        return `<div class="book-mb-2 book-total__container">
+                                                            <h6 class="book-text-zinc-500 book-mb-2">Amount : </h6>
+                                                            <div class="book-text-lg book-font-bold book-text-zinc-900">
+                                                                <span class="book-total__cost">
+                                                                    ${await
+                                                                        priceWithCurrency($data.PriceInfo.Total)}
+                                                                   </span>${await
+                                                                renderCurrency($data.PriceInfo.Currency)}
+                                                            </div>
+                                                        </div>
+                                                        <div class="book-mb-2 book-commission__container">
+                                                            <h6 class="book-text-zinc-500 book-mb-2">Commission : </h6>
+                                                            <div class="book-text-lg book-font-bold book-text-zinc-900">
+                                                                <span class="book-commission__cost">
+                                                                    ${await
+                                                                        priceWithCurrency($data.PriceInfo.Commission)}
+                                                                    </span>${await
+                                                                renderCurrency($data.PriceInfo.Currency)}
+                                                            </div>
+                                                        </div>`
+                                                        }
+                                                        }}
+                                                        <div class="book-mb-2 book-totalcom__container"></div>
+                                                        <div class="book-firstpay__container">
+                                                            <h6 class="book-text-zinc-500 book-mb-2">Payable Amount:
+                                                            </h6>
+                                                            {{
+                                        
+                                                            return `<div class="book-text-2xl book-font-bold book-text-zinc-900"><span
+                                                                    class="book-firstpay__cost">
+                                                                    ${await
+                                                                        priceWithCurrency($data.PriceInfo.TotalCommission)}
+                                                                  </span>
+                                                                <span class="book-unit__content">${await renderCurrency($data.PriceInfo.Currency)}</span>
+                                                            </div>`
+                                                            }}
+                                                        </div>
+                                                    </div>
+                                        
+                                                </div>
+                                        
+                                            </div>
+                                        
+                                        </div>
+      
+                                    </script>
+                                    </face>
+                                </basis>
+                            </aside>
+                            <section class="book-main__content book-w-3/5">
+                                <div
+                                    class="book-bg-white book-shadow-md book-rounded-2xl book-p-5 book-mb-5 book-brief__container__title">
+                                    <div class="book-flex book-justify-between">
+                                        <div class="book-current__route__map">Passenger Details</div>
+                                        <div class="book-text-green-600">
+                                            <span class="book-timer__left__container"></span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                strokeWidth={1.5} stroke="currentColor"
+                                                class="book-size-6 book-ml-2 book-inline-block">
+                                                <use xlink:href="/booking/images/sprite-booking-icons.svg#clock-icon">
+                                                </use>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" value="[##db.checkrkey.userid|(0)##]" class="main-userid" />
+                                <input type="hidden" value="-" class="book-bankIdentifier" />
+                                <input type="hidden" value="" class="book-payType" />
+                                <input type="hidden" value="" class="book-clear" />
+                                <div class="book-passengers__container">
+                                    <basis core="call" file="book/passenger" lid="2"
+                                        pageindexid="[##cms.cms.pageindexid|(1)##]">
+                                    </basis>
+                                </div>
+                                <div class="book-buyers__container book-hidden" data-run="0">
+                                    <div id="ballsWaveG">
+                                        <div id="ballsWaveG_1" class="ballsWaveG"></div>
+                                        <div id="ballsWaveG_2" class="ballsWaveG"></div>
+                                        <div id="ballsWaveG_3" class="ballsWaveG"></div>
+                                        <div id="ballsWaveG_4" class="ballsWaveG"></div>
+                                        <div id="ballsWaveG_5" class="ballsWaveG"></div>
+                                        <div id="ballsWaveG_6" class="ballsWaveG"></div>
+                                        <div id="ballsWaveG_7" class="ballsWaveG"></div>
+                                        <div id="ballsWaveG_8" class="ballsWaveG"></div>
+                                    </div>
+                                    <basis core="call" run="atclient" file="/book/buyer" triggers="cms.buyer"
+                                        if="{##cms.buyer##}" method="get" lid="2"
+                                        pageindex="[##cms.cms.pageindex|(1)##]">
+                                    </basis>
+                                </div>
+                                <div class="book-summary__container book-hidden">
+                                    <basis core="call" file="book/summary" lid="2"
+                                        pageindexid="[##cms.cms.pageindexid|(1)##]">
+                                    </basis>
+                                </div>
+                                <div class="book-flex book-justify-between book-my-5">
+                                    <button
+                                        class="book-btn__content book-min-w-40 book-text-white book-rounded-2xl book-p-3 book-cursor-pointer book-text-center book-prev__btn book-bg-zinc-300 hover:book-bg-zinc-200 book-hidden"
+                                        data-step="" onclick="prevStep(this)">
+                                        Back to Previous Step
+                                    </button>
+                                    <button
+                                        class="book-btn__content book-min-w-40 book-text-white book-rounded-2xl book-p-3 book-cursor-pointer book-text-center book-bg-primary-400 book-next__btn hover:book-bg-secondary-400"
+                                        data-step="passenger" onclick="nextStep(this)">
+                                        Confirm and Continue
+                                    </button>
+                                </div>
+                                <div
+                                    class="book-summary__content book-p-5 book-mb-5 book-border-slate-600 book-border-b-3 book-bg-white book-shadow-md book-rounded-2xl book-invoice__container book-hidden">
+                                    <basis core="call" run="atclient" file="/book/bank/list" triggers="cms.bankList"
+                                        method="post" if="{##cms.bankList.run|(false)##}"
+                                        userCreditUrl="{##cms.bankList.userCreditUrl##}"
+                                        selectedMode="{##cms.bankList.selectedMode##}" rkey="{##cms.bankList.rkey##}"
+                                        engine="{##cms.bankList.engine|()##}" OnRendered="renderBankList" lid="2"
+                                        pageindex="[##cms.cms.pageindex|(1)##]"></basis>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="book-nodata__container book-w-full book-text-center book-hidden">
+                    <div>
+                        <svg class="book-stroke-secondary-400 book-mx-auto book-w-44">
+                            <use xlink:href="/booking/images/sprite-booking-icons.svg#no-data-icon">
+                            </use>
+                        </svg>
+                    </div>
+                    <div class="book-text-2xl book-font-bold book-mt-6">Your selected flight is not available for
+                        booking.
+                        (Error code 105)</div>
+                    <div class="book-text-zinc-500 book-mt-3">Please contact our support team
+                        ([##db.phone-company.Answer##])
+                    </div>
+                    <div class="book-mt-6">
+                        <button onclick="sessionStorage.removeItem('sessionBook'); window.location='/'"
+                            class="book-min-w-48 book-text-primary-400 book-border book-bg-white book-border-solid book-border-primary-400 book-rounded-lg book-p-3 hover:book-bg-primary-400 hover:book-text-white book-cursor-pointer">Back
+                            to Home</button>
+                    </div>
+                </div>
+                <div onclick="closeModalContainer(this)"
+                    class="book-previous__passengers__container book-modal__container book-fixed book-top-0 book-left-0 book-w-screen book-h-screen book-overflow-hidden book-z-[9999999999] book-hidden">
+
+                    <div class="book-previous__passengers__content book-modal__content">
+                        <div class="book-p-5">
+                            <span
+                                onclick="closeModalContainer(document.querySelector('.book-previous__passengers__container'), 'book-card__container__selected')"
+                                class="book-cursor-pointer book-flex book-gap-1 book-card__container__selected">
+                                <svg width="28" height="28">
+                                    <use xlink:href="/booking/images/sprite-booking-icons.svg#close-icon"></use>
+                                </svg>
+                                <span class="book-text-base">Previous Passengers</span>
+                            </span>
+                        </div>
+                        <!-- grid -->
+                        <basis core="component.grid.grid" run="atclient" dataMemberName="cms.gridPreviousPassengers"
+                            options="gridPreviousPassengers"></basis>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Footer -->
+    <basis core="call" file="footer.inc" lid="2" pageindex="[##cms.cms.pageindex|(1)##]"></basis>
+    <script src="[##cms.cms.cdn##]/booking/js/book.js?ver=[##cms.cms.date2##][##cms.cms.time2##]"
+        type="text/javascript"></script>
+    <script src="[##cms.cms.cdn##]/booking/js/flight-book.js?ver=[##cms.cms.date2##][##cms.cms.time2##]"
+        type="text/javascript"></script>
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <basis core="call" file="book/taglist" lid="1"></basis>
+    <title>ثبت رزرو</title>
+    <meta name="description" content="ثبت رزرو">
+    <link href="[##cms.cms.cdn##]/booking/css/book-mob.ui.min.css?ver=[##cms.cms.date2##][##cms.cms.time2##]"
+        type="text/css" rel="stylesheet" />
+</head>
+
+<body class="book-bg-specialcolor-1">
+    <!-- Header -->
+    <basis core="call" file="header.inc" lid="1" pageindex="[##cms.cms.pageindex|(1)##]"></basis>
+    <!-- Main-->
+    <main data-mob="true">
+        <!-- Commands / Requests -->
+        <basis core="call" file="book/final/commands" lid="1"></basis>
+        <div class="book-layout__main book-max-w-7xl book-mx-auto">
+            <div
+                class="book-message__booking__container book-w-full book-text-center book-my-10 book-py-10 book-bg-white book-rounded-2xl book-shadow-sm book-px-5">
+                <div class="book__first__message__content">
+                    <div class="book-final__loader book-mx-auto"></div>
+                    <div class="book-text-2xl book-font-bold book-mt-6">در
+                        حال صدور پیش رزرو<basis core="group" name="bank-type"
+                            if="'[##cms.form.bankIdentifier##]'not in ('-1','-') "> و
+                            انتقال به بانک </basis>...</div>
+                    <div class="book-text-zinc-500 book-mt-3">لطفا منتظر بمانید</div>
+                </div>
+                <div class="book__last__message__content book-hidden">
+                    <div class="book__last__message book-text-2xl book-font-bold book-mt-6">
+                    </div>
+                    <div class="book-mt-6">
+                        <button onclick="window.location='/'"
+                            class="book-w-full book-mb-4 book-text-white book-bg-primary-400 book-border book-border-solid book-border-primary-400 book-rounded-lg book-p-3 hover:book-bg-white hover:book-text-primary book-cursor-pointer">بازگشت
+                            به صفحه اصلی</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+    <!-- Footer -->
+    <basis core="call" file="footer.inc" lid="1" pageindex="[##cms.cms.pageindex|(1)##]"></basis>
+    <script src="[##cms.cms.cdn##]/booking/js/final-book.js?ver=[##cms.cms.date2##][##cms.cms.time2##]"
+        type="text/javascript"></script>
+    <script type="text/javascript"><basis core="call" file="book/final/script" lid="1"></basis></script>
+
+</body>
+
+</html>

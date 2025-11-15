@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <basis core="call" file="book/taglist" lid="2"></basis>
+    <title>Booking Confirmation</title>
+    <meta name="description" content="Booking Confirmation">
+    <link href="[##cms.cms.cdn##]/booking/css/book.ui.min.css?ver=[##cms.cms.date2##][##cms.cms.time2##]"
+        type="text/css" rel="stylesheet" />
+</head>
+
+<body class="book-bg-specialcolor-1">
+    <!-- Header -->
+    <basis core="call" file="header.inc" lid="2" pageindex="[##cms.cms.pageindex|(1)##]"></basis>
+    <!-- Main-->
+    <main>
+        <!-- Commands / Requests -->
+        <!-- Get Saved Values-->
+        <basis core="external.fly.ws" source="cmsDbService2" procedurename="dbsource" name="db">
+            <member name="get_inputs" method="cms" query='{
+                 "name": "db",
+                 "mid": "20",
+                 "member": [
+                     {
+                         "request": "get_inputs",
+                         "id": "[##cms.query.iN##]"
+                     }
+                 ]
+               }' />
+        </basis>
+        <basis core="group" name="Delay_1">
+            <basis core="inlinesource" name="db">
+                <member name="id" format="json" postsql="select  value  from [db.id] as a where Field = 'id'">
+                    {"root":[##db.get_inputs.result##]}</member>
+                <member name="orderid" format="json"
+                    postsql="select  value  from [db.orderid] as a where Field = 'orderid'">
+                    {"root":[##db.get_inputs.result##]}</member>
+                <member name="bankIdentifier" format="json"
+                    postsql="select  value  from [db.bankIdentifier] as a where Field = 'bankIdentifier'">
+                    {"root":[##db.get_inputs.result##]}</member>
+                <member name="schemaid" format="json"
+                    postsql="select  value  from [db.schemaid] as a where Field = 'schemaid'">
+                    {"root":[##db.get_inputs.result##]}</member>
+                <member name="session" format="json"
+                    postsql="select  value  from [db.session] as a where Field = 'session'">
+                    {"root":[##db.get_inputs.result##]}</member>
+                <member name="rkey" format="json" postsql="select  value  from [db.rkey] as a where Field = 'rkey'">
+                    {"root":[##db.get_inputs.result##]}</member>
+                <member name="sessionId" format="json"
+                    postsql="select  value  from [db.sessionId] as a where Field = 'sessionId'">
+                    {"root":[##db.get_inputs.result##]}</member>
+                <member name="selectedMode" format="json"
+                    postsql="select  value  from [db.selectedMode] as a where Field = 'selectedMode'">
+                    {"root":[##db.get_inputs.result##]}</member>
+                <member name="safarmarketURL" format="json"
+                    postsql="select  value  from [db.safarmarketURL] as a where Field = 'safarmarketURL'">
+                    {"root":[##db.get_inputs.result##]}</member>
+            </basis>
+            <!-- Get Issue Ticket -->
+            <basis core="api" name="api.issueTicket" url="{##cms.issueTicket.url##}" method="post"
+                content-type="application/json" run="atclient" triggers="cms.issueTicket"
+                if="{##cms.issueTicket.run|(false)##}" ignoreNullSource="true" body='{
+            "SessionId": "[##db.sessionId.value##]",
+            "BasisFlyBookId": "[##db.id.value##]",
+            "dmnid": "[##cms.cms.domainid##]",
+            "{##cms.issueTicket.rkey##}": "[##db.rkey.value##]",
+            "lid":"2"
+
+        }'>
+            </basis>
+            <basis core="callback" run="atclient" triggers="api.issueTicket" method="setIssueTicket">
+            </basis>
+            <!-- Get Safarmarket Api -->
+            <basis core="api" name="api.safarmarket" url="{##cms.safarmarket.value##}" method="get"
+                content-type="application/json" run="atclient" triggers="cms.safarmarket" if="{##cms.safarmarket##}">
+            </basis>
+            <div class="book-layout__main book-max-w-7xl book-mx-auto">
+                <div class="book-message__booking__container book-w-full book-text-center book-my-10">
+                    <div class="book__first__message__content">
+                        <div class="book-final__loader book-mx-auto"></div>
+                        <div class="book-text-2xl book-font-bold book-mt-6">Booking in progress...</div>
+                        <div class="book-text-zinc-500 book-mt-3">Please wait</div>
+                    </div>
+                    <div class="book__last__message__content book-hidden">
+                        <div class="book__last__message book-text-2xl book-font-bold book-mt-6">
+                        </div>
+                        <div class="book-mt-6">
+                            <button onclick="window.location='/'"
+                                class="book-min-w-48 book-text-white book-bg-primary-400 book-border book-border-solid book-border-primary-400 book-rounded-lg book-p-3 hover:book-bg-white hover:book-text-primary book-cursor-pointer">
+                                Back to homepage
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <basis core="external.fly.ws" source="cmsDbService2" name="db" procedurename="dbsource">
+                    <member method="cms" name="webservice_detail" query='{
+                            "name": "db",
+                            "mid": "20",
+                            "member": [
+                                {
+                                    "name": "q",
+                                    "type": "list",
+                                    "request": "webservice_Detail",
+                                    "id": [##db.bankIdentifier.value##],
+                                    "dmnid": [##cms.cms.domainid##],
+                                    "lid":"2"
+                                }
+                            ]
+                        }' />
+                </basis>
+                <basis core="group" name="Delay_1">
+                    <basis core="inlinesource" name="db">
+                        <member name="bankid" format="json"
+                            postsql="select value from [db.bankid] where field = 'bankid'">
+                            {"root":[##db.webservice_detail.result##]}
+                        </member>
+                    </basis>
+                    <basis core="api" name="api.verify" run="atclient" if="{##cms.params.run|(false)##}"
+                        triggers="cms.params" url='https://basisfly.com/pay/Verify/[##db.rkey.value##]' method="post"
+                        body='{
+                                "bankid": [##db.bankid.value##],
+                                "factorid": [##db.id.value##],
+                                "orderid": [##db.orderid.value##],
+                                "params": {##cms.params.params##},
+                                "cardno": "",
+                                "flight_data": "[##db.safarmarketURL.value##]",
+                                "doctypeid": "5",
+                                "mid": 18,
+                                "lid":"2"
+                            }'>
+                    </basis>
+                    <basis core="callback" run="atclient" triggers="api.verify" method="setVerify"></basis>
+
+            </div>
+    </main>
+    <!-- Footer -->
+    <basis core="call" file="footer.inc" lid="2" pageindex="[##cms.cms.pageindex|(1)##]"></basis>
+    <script src="[##cms.cms.cdn##]/booking/js/callback-book.js?ver=[##cms.cms.date2##][##cms.cms.time2##]"
+        type="text/javascript"></script>
+    <script type="text/javascript"><basis core="call" file="book/callback/script" lid="2"></basis></script>
+    </basis>
+
+    </basis>
+</body>
+
+</html>

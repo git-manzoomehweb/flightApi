@@ -1,0 +1,135 @@
+<basis core="external.fly.ws" source="cmsDbService2" procedurename="dbsource" name="db">
+    <member method="cms" name="agencyinformation"
+        postsql="select replace(replace(replace(replace(replace(replace(result,'None','null'),'undefined','-'),'\xa0','null'),'nan','null'),' inf','null'),' -inf' , 'null') as 'result' from [db.agencyinformation]"
+        query='{
+            "name": "db",
+            "mid": "20",
+            "member": [
+                {
+                    "type": "list",
+                    "name": "q",
+                    "request": "agencyinformation",
+                    "id": "[##cms.form.id##]",
+                    "lid":"1"
+                }
+            ]
+        }' />
+</basis>
+<basis core="group" name="inner-Delay">
+    <basis core="inlinesource" name="db">
+        <member name="agencyinformation-Tree" format="json"> {"root": [##db.agencyinformation.result##]} </member>
+    </basis>
+    <div class="book-agency__information__content book-mt-3">
+        <basis core="tree" datamembername="db.agencyinformation-Tree" idcol="Id" parentidcol="ParentId"
+            nullvalue="null">
+            <face filter="field in ('id')">
+                <input type="hidden" class="book-agencyid" value="@value" />
+            </face>
+            <face filter="field in ('name')">
+                <div>
+                    <div class="book-info__item__container book-mb-3 book-relative">
+                        <label class="book-mb-1 book-block book-text-zinc-500 book-text-xs">نام آژانس</label>
+                        <div
+                            class="book-info__item__content book-bg-zinc-100 book-rounded-lg book-w-full book-transition">
+                            <input type="text" value="@value" class="book-name book-Agencyname" readonly />
+                        </div>
+                    </div>
+
+            </face>
+            <face filter="field in ('manager')">
+                <div class="book-info__item__container book-mb-3 book-relative">
+                    <label class="book-mb-1 book-block book-text-zinc-500 book-text-xs">مدیر عامل</label>
+                    <div class="book-info__item__content book-bg-zinc-100 book-rounded-lg book-w-full book-transition">
+                        <input type="text" value="@value" class="book-name book-Agencymanegername" readonly />
+                    </div>
+                </div>
+            </face>
+            <face filter="field in ('phone')">
+                <div class="book-info__item__container book-mb-3 book-relative">
+                    <label class="book-mb-1 book-block book-text-zinc-500 book-text-xs">تلفن ثابت</label>
+                    <div class="book-number__item__container book-w-full">
+                        <div class="book-number__item__content book-w-8/12 book-float-right">
+                            <div
+                                class="book-info__item__content book-bg-zinc-100 book-rounded-lg book-w-11/12 book-transition">
+                                <input type="text" value="@value" class="book-has-dash book-tel" readonly />
+                            </div>
+                        </div>
+                        <div class="book-code__item__container book-w-1/3 book-float-left">
+                            <div
+                                class="book-info__item__content book-bg-zinc-100 book-rounded-lg book-w-11/12 book-transition">
+                                <input type="text" value="+98" readonly
+                                    class="book-has-dash book-code book-cursor-pointer book-ltr book-text-right" />
+                            </div>
+                        </div>
+                        <input type="hidden" class="book-tel__number" />
+                        <div class="clr"></div>
+                    </div>
+                </div>
+            </face>
+            <face filter="field in ('mobile')">
+                <div class="book-info__item__container book-mb-3 book-relative">
+                    <label class="book-mb-1 book-block book-text-zinc-500 book-text-xs">تلفن همراه</label>
+                    <div class="book-number__item__container book-w-full">
+                        <div class="book-number__item__content book-w-8/12 book-float-right">
+                            <div
+                                class="book-info__item__content book-bg-zinc-100 book-rounded-lg book-w-11/12 book-transition">
+                                <input type="text" class="book-Required book-mobile" value="@value"
+                                    onkeyup="this.value=this.value.replace(/[^0-9.]/g, ''),removeAlertContent(this)" />
+                            </div>
+                        </div>
+                        <div
+                            class="book-code__item__container book-relative book-w-1/3 book-float-left book-has__drop__item">
+                            <div
+                                class="book-info__item__content book-bg-zinc-100 book-rounded-lg book-w-11/12 book-transition">
+                                <input type="text" value="+98"
+                                    onclick="toggleDropItem(this,'book-info__item__container','countryCode')"
+                                    class="book-Required book-code book-cursor-pointer book-ltr book-text-right"
+                                    oninput="autoCompleteSearch(this,'book-info__item__container','code')" />
+                            </div>
+                            <ul class="book-drop__item__content book-country__code_buyer book-w-48 book-text-right">
+                            </ul>
+                        </div>
+                        <input type="hidden" class="book-mobile__number" />
+                        <input type="hidden" class="book-code__number" value="+98" />
+                        <div class="clr"></div>
+                    </div>
+                </div>
+    </div>
+    </face>
+    <face filter="type in ('array','object')">@child</face>
+</basis>
+<div>
+    <basis core="tree" datamembername="db.agencyinformation-Tree" idcol="Id" parentidcol="ParentId" nullvalue="null">
+        <face filter="field in ('address')">
+            <div class="book-info__item__container book-mb-3 book-relative">
+                <label class="book-mb-1 book-block book-text-zinc-500 book-text-xs">آدرس</label>
+                <div class="book-info__item__content book-bg-zinc-100 book-rounded-lg book-w-full book-transition">
+                    <input type="text" value="@value" class="book-has-dash book-address" readonly />
+                </div>
+            </div>
+        </face>
+        <face filter="type in ('array','object')">@child</face>
+    </basis>
+    <basis core="tree" datamembername="db.agencyinformation-Tree" idcol="Id" parentidcol="ParentId" nullvalue="null">
+        <face filter="field in ('email')">
+            <div class="book-info__item__container book-mb-3 book-relative">
+                <label class="book-mb-1 book-block book-text-zinc-500 book-text-xs">آدرس ایمیل</label>
+                <div class="book-info__item__content book-bg-zinc-100 book-rounded-lg book-w-full book-transition">
+                    <input type="text" value="@value" class="book-email" readonly />
+                </div>
+            </div>
+        </face>
+        <face filter="field in ('website')">
+            <div class="book-info__item__container book-mb-3 book-relative">
+                <label class="book-mb-1 book-block book-text-zinc-500 book-text-xs">وب سایت</label>
+                <div class="book-info__item__content book-bg-zinc-100 book-rounded-lg book-w-full book-transition">
+                    <input type="text" value="@value" class="book-web" readonly />
+                </div>
+            </div>
+        </face>
+        <face filter="type in ('array','object')">@child</face>
+    </basis>
+</div>
+<div class="clr"></div>
+</div>
+</basis>

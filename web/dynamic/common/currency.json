@@ -1,0 +1,74 @@
+[
+    {
+        "dmnid": 4592,
+        "country": "Armenia",
+        "country_id": 1002226,
+        "unit": "AMD",
+        "code": "+374",
+        "city": "Yerevan",
+        "city_id": 1192689
+    },
+    {
+        "dmnid": 4581,
+        "country": "Iraq",
+        "country_id": 1002237,
+        "unit": "AMD",
+        "code": "+964",
+        "city": "Baghdad",
+        "city_id": 1198891
+    },
+    {
+        "dmnid": 4621,
+        "country": "Iraq",
+        "country_id": 1002237,
+        "unit": "AMD",
+        "code": "+964",
+        "city": "Baghdad",
+        "city_id": 1198891
+    },
+    {
+        "dmnid": 4865,
+        "country": "Oman",
+        "country_id": 1002243,
+        "unit": "OMR",
+        "code": "+968",
+        "city": "Muscat",
+        "city_id": 31182289
+    },
+    {
+        "dmnid": 4913,
+        "country": "United Arab Emirates",
+        "country_id": 1002248,
+        "unit": "AED",
+        "code": "+971",
+        "city": "Abu Dhabi",
+        "city_id": 1167397
+    },
+    {
+        "dmnid": 4919,
+        "country": "United Arab Emirates",
+        "country_id": 1002248,
+        "unit": "AED",
+        "code": "+971",
+        "city": "Abu Dhabi",
+        "city_id": 1167397
+    },
+    {
+        "dmnid": 4973,
+        "country": "United Arab Emirates",
+        "country_id": 1002248,
+        "unit": "AED",
+        "code": "+971",
+        "city": "Abu Dhabi",
+        "city_id": 1167397
+    },
+    {
+        "dmnid": 4932,
+        "country": "Turkey",
+        "country_id": 1002247,
+        "unit": "OMR",
+        "code": "+90",
+        "city": "Ankara",
+        "city_id": 1168073
+    }
+]

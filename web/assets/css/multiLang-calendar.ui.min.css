@@ -1,0 +1,139 @@
+.book-inline-flex {
+    display: inline-flex;
+}
+
+.book-grid-cols-7 {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.book-max-w-\[95vw\] {
+    max-width: 95vw;
+}
+
+.book-w-\[680px\] {
+    width: 680px;
+}
+
+.book-tw__today {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+.book-tw__selected {
+    background: var(--primary) !important;
+    color: #fff !important;
+}
+
+.book-tw__range__mid {
+    background: var(--bookAccent-100);
+}
+
+.book-tw__range__start,
+.book-tw__range__end {
+    background: var(--bookAccent);
+    color: #111;
+    font-weight: 700;
+}
+
+.book-tw__disabled__btn {
+    opacity: .4;
+    cursor: not-allowed;
+}
+
+.book-badge {
+    font-size: .75rem;
+    padding: .125rem .5rem;
+    border-radius: .5rem;
+    background: #eef2ff;
+    color: #1e47e4
+}
+
+.book-pointer-events-none {
+    pointer-events: none;
+}
+
+.book-line-through {
+    text-decoration: line-through;
+}
+
+.book-select-none {
+    user-select: none;
+}
+
+.book-cell:hover {
+    background: #f1f5f9;
+}
+
+.book-flash-today {
+    animation: book-blink-today 900ms ease-in-out 2;
+    outline: 2px solid #3b82f6;
+    border-radius: 0.5rem;
+}
+
+@keyframes book-blink-today {
+    0% {
+        box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.0);
+        transform: scale(1);
+    }
+
+    50% {
+        box-shadow: 0 0 0 10px rgba(59, 130, 246, 0.25);
+        transform: scale(1.04);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.0);
+        transform: scale(1);
+    }
+}
+
+.book-h-dvh {
+    height: 100dvh;
+}
+
+.book-h-9 {
+    height: 2.25rem;
+}
+
+.book-overscroll-contain {
+    overscroll-behavior: contain;
+}
+
+.book-holiday {
+    position: relative;
+}
+
+.book-holiday:hover::after {
+    content: attr(data-tip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #111827;
+    color: #fff;
+    padding: .35rem .5rem;
+    border-radius: .5rem;
+    font-size: 12px;
+    line-height: 1.4;
+    max-width: 240px;
+    white-space: normal;
+    text-align: center;
+    z-index: 9999;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .2);
+    pointer-events: none;
+
+}
+
+.book-holiday:hover::before {
+    content: "";
+    position: absolute;
+    bottom: calc(100% - 2px);
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: #111827;
+}
+
+#picker {
+    -webkit-overflow-scrolling: touch;
+}

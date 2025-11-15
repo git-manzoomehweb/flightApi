@@ -1,0 +1,363 @@
+<basis core="call" file="buyer/book/commands" lid="2"></basis>
+<div class="book-buyer__type__content">
+    <div
+        class="book-buyer__info__content book-p-5 book-mb-5 book-border-slate-600 book-border-b-3 book-bg-white book-shadow-md book-rounded-2xl book-hidden book-buyer__type__content-1">
+        <div class="book-mb-4">
+            <ul class="book-flex">
+                <li class="book-p-3 book-mr-1 book-rounded-2xl book-cursor-pointer book-border book-border-secondary hover:book-bg-secondary hover:book-text-white book-buyer-type-passenger book-buyer__type__active"
+                    onclick="selectBuyerType(this,'passenger')">Purchase for Passenger</li>
+                <li class="book-p-3 book-mr-1 book-rounded-2xl book-cursor-pointer book-border book-border-secondary hover:book-bg-secondary hover:book-text-white book-buyer-type-agency"
+                    onclick="selectBuyerType(this,'agency')">Purchase for Agency</li>
+            </ul>
+        </div>
+        <div class="book-buyer__passenger__content book-grid book-grid-cols-3 book-gap-1">
+            <div class="book-info__item__container book-mb-3 book-relative">
+                <label class="book-mb-1 book-block book-text-zinc-500 book-text-xs">First Name</label>
+                <div class="book-info__item__content book-bg-zinc-100 book-rounded-lg book-w-[96per] book-transition">
+                    <input type="text" class="book-Required book-name book-firstname"
+                        onkeyup="removeAlertContent(this)" />
+                </div>
+            </div>
+            <div class="book-info__item__container book-mb-3 book-relative">
+                <label class="book-mb-1 book-block book-text-zinc-500 book-text-xs">Last Name</label>
+                <div class="book-info__item__content book-bg-zinc-100 book-rounded-lg book-w-[96per] book-transition">
+                    <input type="text" class="book-Required book-name book-lastname"
+                        onkeyup="removeAlertContent(this)" />
+                </div>
+            </div>
+            <div class="book-info__item__container book-mb-3 book-relative">
+                <label class="book-mb-1 book-block book-text-zinc-500 book-text-xs">Email Address</label>
+                <div class="book-info__item__content book-bg-zinc-100 book-rounded-lg book-w-[96per] book-transition">
+                    <input type="text" class="book-Required book-email" onkeyup="removeAlertContent(this)" />
+                </div>
+            </div>
+            <div class="book-info__item__container book-mb-3 book-relative">
+                <label class="book-mb-1 book-block book-text-zinc-500 book-text-xs">Landline Phone</label>
+                <div class="book-number__item__container book-w-[96per]">
+                    <div class="book-number__item__content book-w-8/12 book-float-right">
+                        <div
+                            class="book-info__item__content book-bg-zinc-100 book-rounded-lg book-w-[96per] book-transition">
+                            <input type="text" class="book-has-dash book-tel"
+                                onkeyup="this.value=this.value.replace(/[^0-9.]/g, '');" />
+                        </div>
+                    </div>
+                    <div
+                        class="book-code__item__container book-relative book-w-1/3 book-float-left book-has__drop__item">
+                        <div
+                            class="book-info__item__content book-bg-zinc-100 book-rounded-lg book-w-[96per] book-transition">
+                            <input type="text" value="+98"
+                                onclick="toggleDropItem(this,'book-info__item__container','countryCode')"
+                                class="book-has-dash book-code book-ltr book-cursor-pointer book-text-left"
+                                oninput="autoCompleteSearch(this,'book-info__item__container','code')" />
+                        </div>
+                        <ul class="book-drop__item__content book-country__code_buyer book-w-48 book-text-left"></ul>
+                    </div>
+                    <input type="hidden" class="book-tel__number" />
+                    <input type="hidden" class="book-code__number book-tel__code__number" value="+98" />
+                    <div class="clr"></div>
+                </div>
+            </div>
+            <div class="book-info__item__container book-mb-3 book-relative">
+                <label class="book-mb-1 book-block book-text-zinc-500 book-text-xs">Mobile Phone</label>
+                <div class="book-number__item__container book-w-[96per]">
+                    <div class="book-number__item__content book-w-8/12 book-float-right">
+                        <div
+                            class="book-info__item__content book-bg-zinc-100 book-rounded-lg book-w-[96per] book-transition">
+                            <input type="text" class="book-Required book-mobile"
+                                onkeyup="this.value=this.value.replace(/[^0-9.]/g, ''),removeAlertContent(this)" />
+                        </div>
+                    </div>
+                    <div
+                        class="book-code__item__container book-relative book-w-1/3 book-float-left book-has__drop__item">
+                        <div
+                            class="book-info__item__content book-bg-zinc-100 book-rounded-lg book-w-[96per] book-transition">
+                            <input type="text" value="+98"
+                                onclick="toggleDropItem(this,'book-info__item__container','countryCode')"
+                                class="book-Required book-code book-ltr book-cursor-pointer book-text-left"
+                                oninput="autoCompleteSearch(this,'book-info__item__container','code')" />
+                        </div>
+                        <ul class="book-drop__item__content book-country__code_buyer book-w-48 book-text-left"></ul>
+                    </div>
+                    <input type="hidden" class="book-mobile__number" />
+                    <input type="hidden" class="book-code__number book-mobile__code__number" value="+98" />
+                    <div class="clr"></div>
+                </div>
+            </div>
+            <div class="book-info__item__container book-mb-3 book-relative">
+                <label class="book-mb-1 book-block book-text-zinc-500 book-text-xs">Address</label>
+                <div class="book-info__item__content book-bg-zinc-100 book-rounded-lg book-w-[96per] book-transition">
+                    <input type="text" class="book-has-dash book-address" />
+                </div>
+            </div>
+            <div class="book-info__item__container book-mb-3 book-relative book-has__drop__item">
+                <label class="book-mb-1 book-block book-text-zinc-500 book-text-xs">Gender</label>
+                <div class="book-info__item__content book-bg-zinc-100 book-rounded-lg book-w-[96per] book-transition">
+                    <input type="text" class="book-gender book-cursor-pointer" value="Male"
+                        onclick="toggleDropItem(this,'book-info__item__container')" readonly="true" />
+                    <input class="book-data-id" value="1" type="hidden" />
+                </div>
+                <ul class="book-drop__item__content book-w-[96per] book-text-left">
+                    <li onclick="selectDropItem(this,'book-info__item__container')"
+                        class="book-li-item book-cursor-pointer book-p-2" data-id="0" data-value="Female">Female</li>
+                    <li onclick="selectDropItem(this,'book-info__item__container')"
+                        class="book-li-item book-cursor-pointer book-p-2" data-id="1" data-value="Male">Male</li>
+                </ul>
+            </div>
+        </div>
+        <div class="book-api__container book-buyer__agency__content book-hidden">
+            <div class="book-grid book-grid-cols-3 book-gap-1">
+                <div class="book-info__item__container book-mb-3 book-relative book-has__drop__item">
+                    <label class="book-mb-1 book-block book-text-zinc-500 book-text-xs">Select Desired Agency</label>
+                    <div
+                        class="book-info__item__content book-bg-zinc-100 book-rounded-lg book-w-[96per] book-transition">
+                        <input type="text" name=""
+                            class="book-name book-selected__agency book-api__load book-cursor-pointer"
+                            onclick="toggleDropItem(this,'book-info__item__container','agencyList')"
+                            oninput="autoCompleteSearch(this,'book-info__item__container','agencyList')" />
+                        <ul class="book-drop__item__content book-w-[96per] book-text-left">
+                            <basis core="call" run="atclient" file="/book/agency/list" triggers="cms.agencyList"
+                                if="{##cms.agencyList##}" lid="2" method="get" OnRendered="renderListApi"></basis>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="clr"></div>
+            <div class="book-agency__information__container">
+                <span
+                    class="book-api__container__loader book-hidden book-bg-white book-relative book-block book-w-3 book-h-3 book-rounded-full book-mx-auto book-m-3"></span>
+                <basis core="call" run="atclient" file="/book/agency/information" triggers="cms.agencyInformation"
+                    if="{##cms.agencyInformation.run|(false)##}" lid="2" pageindex="[##cms.cms.pageindex|(1)##]"
+                    id="{##cms.agencyInformation.id##}" method="post" OnRendered="renderInfoApi"></basis>
+            </div>
+            <div class="clr"></div>
+        </div>
+        <div class="clr"></div>
+    </div>
+    <div
+        class="book-buyer__info__content book-p-5 book-mb-5 book-border-slate-600 book-border-b-3 book-bg-white book-shadow-md book-rounded-2xl book-buyer__type__content-2 book-hidden">
+        <input type="hidden" class="book-agencyid" value="" />
+        <div class="book-grid book-grid-cols-3 book-gap-1">
+            <div class="book-info__item__container book-mb-3 book-relative">
+                <label class="book-mb-1 book-block book-text-zinc-500 book-text-xs">Agency Name</label>
+                <div class="book-info__item__content book-bg-zinc-100 book-rounded-lg book-w-[96per] book-transition">
+                    <input type="text" value="" class="book-name book-Agencyname" readonly />
+                </div>
+            </div>
+            <div class="book-info__item__container book-mb-3 book-relative">
+                <label class="book-mb-1 book-block book-text-zinc-500 book-text-xs">CEO</label>
+                <div class="book-info__item__content book-bg-zinc-100 book-rounded-lg book-w-[96per] book-transition">
+                    <input type="text" value="" class="book-name book-Agencymanagername" readonly />
+                </div>
+            </div>
+            <div class="book-info__item__container book-mb-3 book-relative">
+                <label class="book-mb-1 book-block book-text-zinc-500 book-text-xs">Email Address</label>
+                <div class="book-info__item__content book-bg-zinc-100 book-rounded-lg book-w-[96per] book-transition">
+                    <input type="text" value="" class="book-email" readonly />
+                </div>
+            </div>
+            <div class="book-info__item__container book-mb-3 book-relative">
+                <label class="book-mb-1 book-block book-text-zinc-500 book-text-xs">Landline Phone</label>
+                <div class="book-number__item__container book-w-[96per]">
+                    <div class="book-number__item__content book-w-8/12 book-float-right">
+                        <div
+                            class="book-info__item__content book-bg-zinc-100 book-rounded-lg book-w-[96per] book-transition">
+                            <input type="text" value="" class="book-has-dash book-tel" readonly />
+                        </div>
+                    </div>
+                    <div class="book-code__item__container book-relative book-w-1/3 book-float-left">
+                        <div
+                            class="book-info__item__content book-bg-zinc-100 book-rounded-lg book-w-[96per] book-transition">
+                            <input type="text" value="+98" class="book-has-dash book-code book-ltr book-text-left"
+                                readonly />
+                        </div>
+                    </div>
+                    <input type="hidden" class="book-tel__number" />
+                    <div class="clr"></div>
+                </div>
+            </div>
+            <div class="book-info__item__container book-mb-3 book-relative">
+                <label class="book-mb-1 book-block book-text-zinc-500 book-text-xs">Mobile Phone</label>
+                <div class="book-number__item__container book-w-[96per]">
+                    <div class="book-number__item__content book-w-8/12 book-float-right">
+                        <div
+                            class="book-info__item__content book-bg-zinc-100 book-rounded-lg book-w-[96per] book-transition">
+                            <input type="text" value="" class="book-Required book-mobile"
+                                onkeyup="this.value=this.value.replace(/[^0-9.]/g, ''),removeAlertContent(this)" />
+                        </div>
+                    </div>
+                    <div
+                        class="book-code__item__container book-relative book-w-1/3 book-float-left book-has__drop__item">
+                        <div
+                            class="book-info__item__content book-bg-zinc-100 book-rounded-lg book-w-[96per] book-transition">
+                            <input type="text" value="+98"
+                                onclick="toggleDropItem(this,'book-info__item__container','countryCode')"
+                                class="book-Required book-code book-ltr book-cursor-pointer book-text-left"
+                                oninput="autoCompleteSearch(this,'book-info__item__container','code')" />
+                        </div>
+                        <ul class="book-drop__item__content book-country__code_buyer book-w-48 book-text-left"></ul>
+                    </div>
+                    <input type="hidden" class="book-mobile__number" />
+                    <input type="hidden" class="book-code__number" value="+98" />
+                    <div class="clr"></div>
+                </div>
+            </div>
+            <div class="book-info__item__container book-mb-3 book-relative">
+                <label class="book-mb-1 book-block book-text-zinc-500 book-text-xs">Address</label>
+                <div class="book-info__item__content book-bg-zinc-100 book-rounded-lg book-w-[96per] book-transition">
+                    <input type="text" value="" class="book-has-dash book-address" readonly />
+                </div>
+            </div>
+            <div class="book-info__item__container book-mb-3 book-relative">
+                <label class="book-mb-1 book-block book-text-zinc-500 book-text-xs">Website</label>
+                <div class="book-info__item__content book-bg-zinc-100 book-rounded-lg book-w-[96per] book-transition">
+                    <input type="text" value="" class="book-web" readonly />
+                </div>
+            </div>
+        </div>
+        <div class="clr"></div>
+    </div>
+    <div
+        class="book-buyer__info__content book-p-5 book-mb-5 book-border-slate-600 book-border-b-3 book-bg-white book-shadow-md book-rounded-2xl book-check__has__data">
+        <div class="book-grid book-grid-cols-3 book-gap-1">
+            <div class="book-info__item__container book-mb-3 book-relative">
+                <label class="book-mb-1 book-block book-text-zinc-500 book-text-xs">First Name</label>
+                <div class="book-info__item__content book-bg-zinc-100 book-rounded-lg book-w-[96per] book-transition">
+                    <input type="text" data-changed="0" oninput="checkIsChanged(this)" value=""
+                        data-counter="namecounter" class="book-Required book-name book-firstname" data-prpId="1" />
+                </div>
+            </div>
+            <div class="book-info__item__container book-mb-3 book-relative">
+                <label class="book-mb-1 book-block book-text-zinc-500 book-text-xs">Last Name</label>
+                <div class="book-info__item__content book-bg-zinc-100 book-rounded-lg book-w-[96per] book-transition">
+                    <input type="text" data-changed="0" oninput="checkIsChanged(this)" value=""
+                        data-counter="familycounter" class="book-Required book-name book-lastname" data-prpId="2" />
+                </div>
+            </div>
+            <div class="book-info__item__container book-mb-3 book-relative">
+                <label class="book-mb-1 book-block book-text-zinc-500 book-text-xs">Email Address</label>
+                <div class="book-info__item__content book-bg-zinc-100 book-rounded-lg book-w-[96per] book-transition">
+                    <input type="text" value="" data-counter="emailcounter" class="book-Required book-email" />
+                </div>
+            </div>
+            <div class="book-info__item__container book-mb-3 book-relative">
+                <label class="book-mb-1 book-block book-text-zinc-500 book-text-xs">Landline Phone</label>
+                <div class="book-number__item__container book-w-[96per]">
+                    <div class="book-number__item__content book-w-8/12 book-float-right">
+                        <div
+                            class="book-info__item__content book-bg-zinc-100 book-rounded-lg book-w-[96per] book-transition">
+                            <input type="text" data-changed="0" oninput="checkIsChanged(this)" value=""
+                                class="book-has-dash book-tel" onkeyup="this.value=this.value.replace(/[^0-9.]/g, '');"
+                                data-prpId="4" />
+                        </div>
+                    </div>
+                    <div
+                        class="book-code__item__container book-relative book-w-1/3 book-float-left book-has__drop__item">
+                        <div
+                            class="book-info__item__content book-bg-zinc-100 book-rounded-lg book-w-[96per] book-transition">
+                            <input type="text" value="+98"
+                                onclick="toggleDropItem(this,'book-info__item__container','countryCode')"
+                                class="book-has-dash book-code book-ltr book-cursor-pointer book-text-left"
+                                oninput="autoCompleteSearch(this,'book-info__item__container','code')" />
+                        </div>
+                        <ul class="book-drop__item__content book-country__code_buyer book-w-48 book-text-left"></ul>
+                    </div>
+                    <input type="hidden" class="book-tel__number" />
+                    <input type="hidden" class="book-code__number" value="+98" />
+                    <div class="clr"></div>
+                </div>
+            </div>
+            <div class="book-info__item__container book-mb-3 book-relative">
+                <label class="book-mb-1 book-block book-text-zinc-500 book-text-xs">Mobile Phone</label>
+                <div class="book-number__item__container book-w-[96per]">
+                    <div class="book-number__item__content book-w-8/12 book-float-right">
+                        <div
+                            class="book-info__item__content book-bg-zinc-100 book-rounded-lg book-w-[96per] book-transition">
+                            <input type="text" value="" class="book-Required book-mobile"
+                                onkeyup="this.value=this.value.replace(/[^0-9.]/g, ''),removeAlertContent(this)" />
+                        </div>
+                    </div>
+                    <div
+                        class="book-code__item__container book-relative book-w-1/3 book-float-left book-has__drop__item">
+                        <div
+                            class="book-info__item__content book-bg-zinc-100 book-rounded-lg book-w-[96per] book-transition">
+                            <input type="text" value="+98"
+                                onclick="toggleDropItem(this,'book-info__item__container','countryCode')"
+                                class="book-Required book-code book-ltr book-cursor-pointer book-text-left"
+                                oninput="autoCompleteSearch(this,'book-info__item__container','code')" />
+                        </div>
+                        <ul class="book-drop__item__content book-country__code_buyer book-w-48 book-text-left"></ul>
+                    </div>
+                    <input type="hidden" class="book-mobile__number" />
+                    <input type="hidden" class="book-code__number" value="+98" />
+                    <div class="clr"></div>
+                </div>
+            </div>
+            <div class="book-info__item__container book-mb-3 book-relative">
+                <label class="book-mb-1 book-block book-text-zinc-500 book-text-xs">Address</label>
+                <div class="book-info__item__content book-bg-zinc-100 book-rounded-lg book-w-[96per] book-transition">
+                    <input type="text" data-changed="0" oninput="checkIsChanged(this)" value=""
+                        class="book-has-dash book-address" data-prpId="6" />
+                </div>
+            </div>
+            <div class="book-info__item__container book-mb-3 book-relative book-has__drop__item">
+                <label class="book-mb-1 book-block book-text-zinc-500 book-text-xs">Gender</label>
+                <div class="book-info__item__content book-bg-zinc-100 book-rounded-lg book-w-[96per] book-transition">
+                    <input type="text" class="book-gender book-cursor-pointer" value="Male"
+                        onclick="toggleDropItem(this,'book-info__item__container')" readonly="true" />
+                    <input class="book-data-id" value="1" type="hidden" />
+                    <input class="book-gender-id-trust" value="668" type="hidden" data-prpId="7" data-changed="0" />
+                </div>
+                <ul class="book-drop__item__content book-w-[96per] book-text-left">
+                    <li onclick="selectDropItem(this,'book-info__item__container')"
+                        class="book-li-item book-cursor-pointer book-p-2" data-id="0" data-value="Female"
+                        data-trust="666">Female</li>
+                    <li onclick="selectDropItem(this,'book-info__item__container')"
+                        class="book-li-item book-cursor-pointer book-p-2" data-id="1" data-value="Male"
+                        data-trust="668">
+                        Male</li>
+                </ul>
+            </div>
+        </div>
+        <div class="clr"></div>
+        <div class="book-more__buyer__info__container book-mt-3 book-text-sm">
+            <button type="button" class="book-cursor-pointer" onclick="toggleMoreBuyerInfo(this)">More
+                Information</button>
+            <div class="book-more__buyer__info__content book-mt-3 book-grid book-grid-cols-3 book-gap-1 book-hidden">
+                <div class="book-info__item__container book-mb-3 book-relative">
+                    <label class="book-mb-1 book-block book-text-zinc-500 book-text-xs">Date of Birth</label>
+                    <div
+                        class="book-info__item__content book-bg-zinc-100 book-rounded-lg book-w-[96per] book-transition">
+                        <input type="text" readonly value="" class="book-has-dash book-birthdate" data-prpId="8" />
+                    </div>
+                </div>
+                <div class="book-info__item__container book-mb-3 book-relative">
+                    <label class="book-mb-1 book-block book-text-zinc-500 book-text-xs">Postal Code</label>
+                    <div
+                        class="book-info__item__content book-bg-zinc-100 book-rounded-lg book-w-[96per] book-transition">
+                        <input type="text" value="-" class="book-has-dash book-codepost" />
+                    </div>
+                </div>
+                <div class="book-info__item__container book-mb-3 book-relative">
+                    <label class="book-mb-1 book-block book-text-zinc-500 book-text-xs">Country</label>
+                    <div
+                        class="book-info__item__content book-bg-zinc-100 book-rounded-lg book-w-[96per] book-transition">
+                        <input type="text" value="Iran" class="book-country" readonly />
+                        <input type="hidden" value="1002236" class="book-countryid" />
+                    </div>
+                </div>
+                <div class="book-info__item__container book-mb-3 book-relative">
+                    <label class="book-mb-1 book-block book-text-zinc-500 book-text-xs">City</label>
+                    <div
+                        class="book-info__item__content book-bg-zinc-100 book-rounded-lg book-w-[96per] book-transition">
+                        <input type="text" value="Tehran" class="book-city" readonly />
+                        <input type="hidden" value="1203548" class="book-cityid" />
+                    </div>
+                </div>
+                <div class="clr"></div>
+            </div>
+        </div>
+        <div class="clr"></div>
+    </div>
+</div>
+<script src="[##cms.cms.cdn##]/booking/js/buyer-book.js?ver=[##cms.cms.date2##][##cms.cms.time2##]"
+    type="text/javascript"></script>

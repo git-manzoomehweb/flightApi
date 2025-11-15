@@ -1,0 +1,52 @@
+<!-- Get Userid -->
+<basis core="call" file="Client_CheckRkey.inc" lid="2"></basis>
+<!-- Get Company Info -->
+<basis core="dbsource" source="basiscore" name="db" mid="5" lid="2" usedforid="[##cms.cms.ownerid##]">
+    <member core="view" name="phone-company" type="view"
+        postsql="select Answer from [db.phone-company] where prpID = '8000'" />
+</basis>
+<!-- Get SupplierCredit-->
+<basis core="api" name="api.supplierCredit" url="{##cms.supplierCredit.url##}" method="post"
+    content-type="application/json" run="atclient" triggers="cms.supplierCredit"
+    if="{##cms.supplierCredit.run|(false)##}" ignoreNullSource="true" body='{
+                "rkey": "{##cms.supplierCredit.rkey##}",
+                "dmnid": "[##cms.cms.domainid##]",
+                "SessionId": "{##cms.supplierCredit.SessionId##}",
+                "{##cms.supplierCredit.productIdField##}": "{##cms.supplierCredit.Id##}",
+                "{##cms.supplierCredit.productGroupField##}": {##cms.supplierCredit.Group##},
+                "lid": "2"
+            }' onprocessed='onProcessedSupplierCredit'>
+</basis>
+<!-- Get Country CountryCode JSON-->
+<basis core="api" name="api.country" url="/json/country" method="get" content-type="application/json" run="atclient"
+    triggers="cms.country" if="{##cms.country##}" onprocessed='onProcessedJsonCountryId'>
+</basis>
+<basis core="api" name="api.countryCode" url="/json/country" method="get" content-type="application/json" run="atclient"
+    triggers="cms.countryCode" if="{##cms.countryCode##}" onprocessed='onProcessedJsonCountryCode'>
+</basis>
+<!-- Get Previous Passengers-->
+<basis core="api" name="api.gridPreviousPassengers"
+    url="https://www.basisfly.com/panel/main/cms/passengers-list/{##cms.previousPassengers.rkey##}" method="post" body='{
+            "member" : [
+                {
+                    "query" : 0
+                }
+            ]
+        }' content-type="application/json" run="atclient" if="{##cms.previousPassengers##}"
+    triggers="cms.previousPassengers" onProcessed="onProcessedPreviousPassengers"></basis>
+<!-- Get Check Coupon-->
+<basis core="api" name="api.checkCoupon" url="{##cms.checkCoupon.url##}" method="post" content-type="application/json"
+    run="atclient" triggers="cms.checkCoupon" if="{##cms.checkCoupon.run|(false)##}" body='{
+                "rkey": "{##cms.checkCoupon.rkey##}",
+                "dmnid": "[##cms.cms.domainid##]",
+                "SessionId": "{##cms.checkCoupon.SessionId##}",
+                "{##cms.checkCoupon.productIdField##}": "{##cms.checkCoupon.Id##}",
+                "{##cms.checkCoupon.productGroupField##}": {##cms.checkCoupon.Group##},
+                "accountType": "{##cms.checkCoupon.accountType##}",
+                "price": "{##cms.checkCoupon.price##}",
+                "firstPay": "{##cms.checkCoupon.firstPay##}",
+                "couponCode": "{##cms.checkCoupon.couponCode##}",
+                "lid": "2"
+            }
+            ' onprocessed='onProcessedCheckCoupon'>
+</basis>

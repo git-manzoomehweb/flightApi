@@ -1,0 +1,34 @@
+<basis core="external.fly.ws" source="cmsDbService2" procedurename="dbsource" name="db">
+    <member method="cms"
+        postsql="select replace(replace(replace(replace(result,'None','null'),'undefined','null'),'\xa0','null'),'nan','null') as 'result' from [db.agencylist]"
+        name="agencylist" query='{
+        "name": "db",
+        "mid": "20",
+        "member": [
+            {
+                "type": "list",
+                "name": "q",
+                "request": "agencylist",
+                "lid":"2"
+            }
+        ]
+    }' />
+</basis>
+<basis core="group" name="inner-Delay">
+    <basis core="inlinesource" name="db">
+        <member name="agencylist-Tree" format="json"
+            postsql="select  Id , ParentId , case when trim(Field) is null  then  (select field from [db.agencylist-Tree] where id = a.parentid ) else field end as field, value , type , path  from [db.agencylist-Tree] as a">
+            {"root":[##db.agencylist.result##]}</member>
+    </basis>
+    <basis core="tree" datamembername="db.agencylist-Tree" idcol="Id" parentidcol="ParentId" nullvalue="null">
+        <face filter="field in ('root') and type in ('object')">
+            <li onclick="selectDropItem(this,'book-info__item__container','agencyInformation')"
+                class="book-li-item book-cursor-pointer book-p-2">@child</li>
+        </face>
+        <face filter="field='id'">
+            <input type="hidden" value="@value" class="book-id" />
+        </face>
+        <face filter="field='name'">@value</face>
+        <face filter="type in('array','object')">@child</face>
+    </basis>
+</basis>

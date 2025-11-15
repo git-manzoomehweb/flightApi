@@ -1,0 +1,1212 @@
+{
+    "per_passenger": {
+        "en": "Per Passenger",
+        "fa": "به ازای هر مسافر",
+        "ar": "لكل مسافر"
+    },
+    "until_time": {
+        "en": "to",
+        "fa": "الی",
+        "ar": "إلى"
+    },
+    "unknown_info": {
+        "en": "Unknown",
+        "fa": "نامعلوم",
+        "ar": "غير معروف"
+    },
+    "morning_time": {
+        "en": "Morning",
+        "fa": "صبح",
+        "ar": "الصباح"
+    },
+    "afternoon_time": {
+        "en": "Afternoon",
+        "fa": "بعدازظهر",
+        "ar": "بعد الظهر"
+    },
+    "evening_time": {
+        "en": "Evening",
+        "fa": "عصر",
+        "ar": "المساء"
+    },
+    "night_time": {
+        "en": "Night",
+        "fa": "شب",
+        "ar": "الليل"
+    },
+    "time_from": {
+        "en": "Time from:",
+        "fa": "ساعت از:",
+        "ar": "الوقت من:"
+    },
+    "hour": {
+        "en": "hour",
+        "fa": "ساعت",
+        "ar": "ساعة"
+    },
+    "minute": {
+        "en": "minute",
+        "fa": "دقیقه",
+        "ar": "دقيقة"
+    },
+    "direct_flight": {
+        "en": "Nonstop",
+        "fa": "بدون توقف",
+        "ar": "مباشر"
+    },
+    "one_stop_flight": {
+        "en": "1 Stop",
+        "fa": "یک توقف",
+        "ar": "توقف واحد"
+    },
+    "multi_stop_flight": {
+        "en": "2+ Stop",
+        "fa": "چند توقف",
+        "ar": "توقفات متعدد"
+    },
+    "svg_sprite_load_error": {
+        "en": "SVG sprite load error",
+        "fa": "خطا در بارگذاری آیکون‌ها",
+        "ar": "خطأ في تحميل الرموز"
+    },
+    "loading": {
+        "en": "Loading...",
+        "fa": "در حال بارگذاری...",
+        "ar": "جارٍ التحميل..."
+    },
+    "remaining_seats": {
+        "en": "Left",
+        "fa": "باقی‌مانده",
+        "ar": "متبقي"
+    },
+    "flight_number": {
+        "en": "Flight No.",
+        "fa": "شماره پرواز",
+        "ar": "رقم الرحلة"
+    },
+    "seats": {
+        "en": "seats",
+        "fa": "صندلی",
+        "ar": "مقاعد"
+    },
+    "outbound_flight_info": {
+        "en": "Outbound Flight",
+        "fa": "پرواز رفت",
+        "ar": "رحلة الذهاب"
+    },
+    "return_flight_info": {
+        "en": "Return Flight",
+        "fa": "پرواز برگشت",
+        "ar": "رحلة العودة"
+    },
+    "connection_time": {
+        "en": "Connection Time",
+        "fa": "زمان توقف",
+        "ar": "وقت الربط"
+    },
+    "taxes_and_fees": {
+        "en": "Taxes and Fees",
+        "fa": "مالیات و عوارض",
+        "ar": "الضرائب والرسوم"
+    },
+    "taxes_and_services": {
+        "en": "Taxes and Services",
+        "fa": "مالیات و خدمات ",
+        "ar": "الضرائب والخدمات"
+    },
+    "total_price": {
+        "en": "Total",
+        "fa": "مجموع",
+        "ar": "المجموع"
+    },
+    "selected": {
+        "en": "Selected",
+        "fa": "انتخاب شده",
+        "ar": "مختار"
+    },
+    "decrease": {
+        "en": "Decrease",
+        "fa": "کاهش",
+        "ar": "تقليل"
+    },
+    "increase": {
+        "en": "Increase",
+        "fa": "افزایش",
+        "ar": "زيادة"
+    },
+    "increase_fare_and_continue": {
+        "en": "Change fare and continue",
+        "fa": "تغییر نرخ و ادامه",
+        "ar": "تغييرات التعرفة والمتابعة"
+    },
+    "continue_with_current_fare": {
+        "en": "Continue with current fare",
+        "fa": "ادامه با نرخ فعلی",
+        "ar": "المتابعة مع التعرفة الحالية"
+    },
+    "no_baggage_allowed": {
+        "en": "No Baggage",
+        "fa": "بدون بار",
+        "ar": "بدون أمتعة"
+    },
+    "system_flight": {
+        "en": "Scheduled Flight",
+        "fa": "پرواز سیستمی",
+        "ar": "رحلة نظامية"
+    },
+    "charter_flight": {
+        "en": "Charter Flight",
+        "fa": "پرواز چارتر",
+        "ar": "رحلة مستأجرة"
+    },
+    "club_points": {
+        "en": "Club Points",
+        "fa": "امتیاز باشگاه",
+        "ar": "نقاط النادي"
+    },
+    "special_offer": {
+        "en": "Fare Family",
+        "fa": "نرخی گروه",
+        "ar": "تعرفة خاصة"
+    },
+    "operated_by": {
+        "en": "Operated by",
+        "fa": "بهره‌برداری توسط",
+        "ar": "تشغيل بواسطة"
+    },
+    "invalid_origin": {
+        "en": "Invalid origin",
+        "fa": "مبدا نامعتبر است",
+        "ar": "المنشأ غير صحيح"
+    },
+    "origin": {
+        "en": "Origin",
+        "fa": "مبدا",
+        "ar": "المنشأ"
+    },
+    "invalid_destination": {
+        "en": "Invalid destination",
+        "fa": "مقصد نامعتبر است",
+        "ar": "الوجهة غير صحيحة"
+    },
+    "destination": {
+        "en": "Destination",
+        "fa": "مقصد ",
+        "ar": "الوجهة"
+    },
+    "departure_date_required": {
+        "en": "Departure date not entered",
+        "fa": "تاریخ رفت وارد نشده است",
+        "ar": "تاريخ المغادرة غير مدخل"
+    },
+    "return_date_required": {
+        "en": "Return date not entered",
+        "fa": "تاریخ برگشت وارد نشده است",
+        "ar": "تاريخ العودة غير مدخل"
+    },
+    "morning_period": {
+        "en": "Morning",
+        "fa": "صبح",
+        "ar": "الصباح"
+    },
+    "time_from_label": {
+        "en": "Time from:",
+        "fa": "ساعت از:",
+        "ar": "الوقت من:"
+    },
+    "no_flights_matching_filters": {
+        "en": "No flights found matching your filters.",
+        "fa": "هیچ پروازی مطابق با فیلترهای شما وجود ندارد.",
+        "ar": "لم يتم العثور على رحلات تطابق الفلاتر الخاصة بك."
+    },
+    "clear_filters_to_see_results": {
+        "en": "Clear your filters to see results.",
+        "fa": "برای مشاهده نتایج، فیلترهای خود را پاک کنید.",
+        "ar": "امسح الفلاتر لرؤية النتائج."
+    },
+    "no_amenities_available": {
+        "en": "No facilities available.",
+        "fa": "امکاناتی در دسترس نیست.",
+        "ar": "لا توجد مرافق متاحة."
+    },
+    "counter_information": {
+        "en": "Counter Information",
+        "fa": "اطلاعات کانتر",
+        "ar": "معلومات المكتب"
+    },
+    "commission": {
+        "en": "Commission",
+        "fa": "کمیسیون",
+        "ar": "العمولة"
+    },
+    "amount_after_commission": {
+        "en": "Amount after commission",
+        "fa": "مجموع با کسر کمیسیون",
+        "ar": "المبلغ بعد خصم العمولة"
+    },
+    "first_payment": {
+        "en": "First Payment",
+        "fa": "پرداخت مرحله اول",
+        "ar": "الدفع الأول"
+    },
+    "total_after_commission_per_passenger": {
+        "en": "Total after commission per passenger",
+        "fa": "قیمت با کمیسیون برای هر نفر",
+        "ar": "المبلغ بعد خصم العمولة (لكل مسافر)"
+    },
+    "total_per_passenger": {
+        "en": "Total per passenger",
+        "fa": "قیمت برای هر نفر",
+        "ar": "المبلغ بعد خصم العمولة (لكل مسافر)"
+    },
+    "commission_per_passenger": {
+        "en": "Commission per passenger",
+        "fa": "کمیسیون برای هر نفر",
+        "ar": "العمولة بعد خصم العمولة (لكل مسافر)"
+    },
+    "people": {
+        "en": "preson(s)",
+        "fa": "نفر",
+        "ar": "مسافر"
+    },
+    "amount": {
+        "en": "Amount",
+        "fa": "مبلغ",
+        "ar": "المبلغ"
+    },
+    "payable_amount": {
+        "en": "Payable Amount",
+        "fa": "مبلغ قابل پرداخت",
+        "ar": "المبلغ المستحق"
+    },
+    "female": {
+        "en": "Ms.",
+        "fa": "خانم",
+        "ar": "السيدة"
+    },
+    "male": {
+        "en": "Mr.",
+        "fa": "آقا",
+        "ar": "السيد"
+    },
+    "passenger": {
+        "en": "Passenger",
+        "fa": "مسافر",
+        "ar": "مسافر"
+    },
+    "agency": {
+        "en": "Agency",
+        "fa": "آژانس",
+        "ar": "وكالة"
+    },
+    "first_name": {
+        "en": "First Name",
+        "fa": "نام",
+        "ar": "الاسم الأول"
+    },
+    "last_name": {
+        "en": "Last Name",
+        "fa": "نام خانوادگی",
+        "ar": "الاسم الأخير"
+    },
+    "email": {
+        "en": "Email",
+        "fa": "ایمیل",
+        "ar": "البريد الإلكتروني"
+    },
+    "mobile": {
+        "en": "Mobile",
+        "fa": "موبایل",
+        "ar": "الجوال"
+    },
+    "phone": {
+        "en": "Phone",
+        "fa": "تلفن",
+        "ar": "الهاتف"
+    },
+    "address": {
+        "en": "Address",
+        "fa": "آدرس",
+        "ar": "العنوان"
+    },
+    "birth_date": {
+        "en": "Birth Date",
+        "fa": "تاریخ تولد",
+        "ar": "تاريخ الميلاد"
+    },
+    "postal_code": {
+        "en": "Postal Code",
+        "fa": "کد پستی",
+        "ar": "الرمز البريدي"
+    },
+    "gender": {
+        "en": "Gender",
+        "fa": "جنسیت",
+        "ar": "الجنس"
+    },
+    "national_code": {
+        "fa": "کد ملی",
+        "en": "National ID",
+        "ar": "الرقم الوطني"
+    },
+    "nationality": {
+        "fa": "ملیت",
+        "en": "Nationality",
+        "ar": "الجنسية"
+    },
+    "passport_code": {
+        "fa": "شماره پاسپورت",
+        "en": "Passport Number",
+        "ar": "رقم الجواز"
+    },
+    "agency_name": {
+        "en": "Agency Name",
+        "fa": "نام آژانس",
+        "ar": "اسم الوكالة"
+    },
+    "manager_name": {
+        "en": "Manager Name",
+        "fa": "نام مدیر",
+        "ar": "اسم المدير"
+    },
+    "website": {
+        "en": "Website",
+        "fa": "وب‌سایت",
+        "ar": "الموقع الإلكتروني"
+    },
+    "buyer_info": {
+        "fa": "مشخصات خریدار",
+        "en": "Buyer Information",
+        "ar": "معلومات المشتري"
+    },
+    "enter_buyer_info": {
+        "fa": "مشخصات خریدار را وارد کنید",
+        "en": "Please enter buyer information",
+        "ar": "يرجى إدخال معلومات المشتري"
+    },
+    "select_suggested_agency": {
+        "fa": "آژانس موردنظر را از لیست پیشنهادی انتخاب کنید",
+        "en": "Please select the desired agency from the suggested list",
+        "ar": "يرجى اختيار الوكالة المطلوبة من القائمة المقترحة"
+    },
+    "user_identity_info": {
+        "en": "User identity information",
+        "fa": "اطلاعات هویتی کاربر",
+        "ar": "معلومات هوية المستخدم"
+    },
+    "passenger_info": {
+        "fa": "مشخصات مسافران",
+        "en": "Passenger Information",
+        "ar": "معلومات المسافرين"
+    },
+    "keyboard_switch_message": {
+        "fa": "صفحه کلید را به انگلیسی تغییر دهید.",
+        "en": "Please switch your keyboard to English.",
+        "ar": "يرجى تحويل لوحة المفاتيح إلى الإنجليزية."
+    },
+    "total_cost": {
+        "en": "Total Cost",
+        "fa": "مجموع هزینه",
+        "ar": "التكلفة الإجمالية"
+    },
+    "payment_step": {
+        "en": "Payment Step",
+        "fa": "مرحله پرداخت",
+        "ar": "مرحلة الدفع"
+    },
+    "payment_and_issue": {
+        "fa": "پرداخت و صدور",
+        "en": "Payment and Issue",
+        "ar": "الدفع والإصدار"
+    },
+    "wallet_payment": {
+        "en": "Wallet Payment",
+        "fa": "پرداخت از طریق کیف پول",
+        "ar": "الدفع عن طريق المحفظة"
+    },
+    "credit_payment": {
+        "en": "Credit Payment",
+        "fa": "پرداخت اعتباری",
+        "ar": "الدفع الائتماني"
+    },
+    "remaining_credit": {
+        "en": "Remaining Credit",
+        "fa": "اعتبار باقی مانده",
+        "ar": "الرصيد المتبقي"
+    },
+    "confirm_and_pay": {
+        "en": "Confirm and Pay",
+        "fa": "تایید و پرداخت",
+        "ar": "تأكيد والدفع"
+    },
+    "loading_error": {
+        "en": "Loading error",
+        "fa": "خطا در بارگذاری",
+        "ar": "خطأ في التحميل"
+    },
+    "processing_error": {
+        "en": "Processing error",
+        "fa": "خطا در پردازش",
+        "ar": "خطأ في المعالجة"
+    },
+    "no_result_found": {
+        "fa": "موردی یافت نشد",
+        "en": "No result found",
+        "ar": "لم يتم العثور على نتائج"
+    },
+    "passenger_info_required": {
+        "fa": "مشخصات مسافر را وارد کنید.",
+        "en": "Please enter the passenger information.",
+        "ar": "يرجى إدخال معلومات المسافر."
+    },
+    "valid_date_required": {
+        "fa": "تاریخ معتبر وارد کنید.",
+        "en": "Please enter a valid date.",
+        "ar": "يرجى إدخال تاريخ صالح."
+    },
+    "valid_adult_birth_date": {
+        "fa": "برای بزرگسال تاریخ تولد معتبر وارد کنید",
+        "en": "Enter a valid birth date for adult.",
+        "ar": "أدخل تاريخ ميلاد صالح للبالغ."
+    },
+    "valid_child_birth_date": {
+        "fa": "برای کودک تاریخ تولد معتبر وارد کنید",
+        "en": "Enter a valid birth date for child.",
+        "ar": "أدخل تاريخ ميلاد صالح للطفل."
+    },
+    "valid_infant_birth_date": {
+        "fa": "برای نوزاد تاریخ تولد معتبر وارد کنید",
+        "en": "Enter a valid birth date for infant.",
+        "ar": "أدخل تاريخ ميلاد صالح للرضيع."
+    },
+    "passport_expiration_six_month": {
+        "fa": "تاریخ انقضای گذرنامه باید بیشتر از 6 ماه باشد.",
+        "en": "Passport expiration date must be at least 6 months from now.",
+        "ar": "يجب أن يكون تاريخ انتهاء جواز السفر بعد 6 أشهر على الأقل."
+    },
+    "invalid_passport_number": {
+        "fa": "شماره گذرنامه صحیح نیست.",
+        "en": "Passport number is not valid.",
+        "ar": "رقم جواز السفر غير صالح."
+    },
+    "invalid_national_code": {
+        "fa": "کد ملی صحیح نیست.",
+        "en": "National ID is not valid.",
+        "ar": "الرقم الوطني غير صالح."
+    },
+    "minimum_character_2": {
+        "fa": "حداقل تعداد کاراکتر 2 است.",
+        "en": "Minimum character length is 2.",
+        "ar": "الحد الأدنى لطول الحروف هو 2."
+    },
+    "minimum_character_5": {
+        "fa": "حداقل تعداد کاراکتر 5 است.",
+        "en": "Minimum character length is 5.",
+        "ar": "الحد الأدنى لطول الحروف هو 5."
+    },
+    "invalid_english_character": {
+        "fa": "کاراکتر غیر مجاز وارد شده است.",
+        "en": "Invalid character entered.",
+        "ar": "تم إدخال حرف غير صالح."
+    },
+    "select_country": {
+        "fa": "کشور را انتخاب کنید.",
+        "en": "Please select a country.",
+        "ar": "يرجى اختيار الدولة."
+    },
+    "invalid_email": {
+        "fa": "ایمیل صحیح نمی‌باشد.",
+        "en": "Invalid email address.",
+        "ar": "البريد الإلكتروني غير صحيح."
+    },
+    "invalid_mobile_format": {
+        "fa": "تلفن همراه باید با 9 شروع شده و بیش از 10 رقم نباشد.",
+        "en": "Mobile number must start with 9 and not exceed 10 digits.",
+        "ar": "يجب أن يبدأ رقم الجوال بـ 9 ولا يتجاوز 10 أرقام."
+    },
+    "required": {
+        "en": "Required",
+        "fa": "الزامی",
+        "ar": "مطلوب"
+    },
+    "optional": {
+        "en": "Optional",
+        "fa": "اختیاری",
+        "ar": "اختياري"
+    },
+    "not_selected": {
+        "en": "Not selected",
+        "fa": "انتخاب نشده",
+        "ar": "غير محدد"
+    },
+    "dash_value": {
+        "fa": "---",
+        "en": "---",
+        "ar": "---"
+    },
+    "delete": {
+        "fa": "حذف",
+        "en": "Delete",
+        "ar": "حذف"
+    },
+    "price": {
+        "en": "Price",
+        "fa": "قیمت",
+        "ar": "السعر"
+    },
+    "and": {
+        "en": "and",
+        "fa": "و",
+        "ar": "و"
+    },
+    "flight_outbound": {
+        "en": "Outbound Flight",
+        "fa": "پرواز رفت",
+        "ar": "رحلة الذهاب"
+    },
+    "flight_inbound": {
+        "en": "Return Flight",
+        "fa": "پرواز برگشت",
+        "ar": "رحلة العودة"
+    },
+    "outbound_flight": {
+        "en": "Outbound Flight",
+        "fa": "پرواز رفت",
+        "ar": "رحلة الذهاب"
+    },
+    "return_flight": {
+        "en": "Return Flight",
+        "fa": "پرواز برگشت",
+        "ar": "رحلة العودة"
+    },
+    "route_1": {
+        "en": "First Route",
+        "fa": "مسیر اول",
+        "ar": "المسار الأول"
+    },
+    "route_2": {
+        "en": "Second Route",
+        "fa": "مسیر دوم",
+        "ar": "المسار الثاني"
+    },
+    "route_3": {
+        "en": "Third Route",
+        "fa": "مسیر سوم",
+        "ar": "المسار الثالث"
+    },
+    "route_4": {
+        "en": "Fourth Route",
+        "fa": "مسیر چهارم",
+        "ar": "المسار الرابع"
+    },
+    "first_route": {
+        "en": "First Route",
+        "fa": "مسیر اول",
+        "ar": "المسار الأول"
+    },
+    "second_route": {
+        "en": "Second Route",
+        "fa": "مسیر دوم",
+        "ar": "المسار الثاني"
+    },
+    "third_route": {
+        "en": "Third Route",
+        "fa": "مسیر سوم",
+        "ar": "المسار الثالث"
+    },
+    "fourth_route": {
+        "en": "Fourth Route",
+        "fa": "مسیر چهارم",
+        "ar": "المسار الرابع"
+    },
+    "route": {
+        "en": "Route",
+        "fa": "مسیر",
+        "ar": "المسار"
+    },
+    "to_destination": {
+        "en": "to",
+        "fa": "به",
+        "ar": "إلى"
+    },
+    "unknown": {
+        "en": "Unknown",
+        "fa": "نامشخص",
+        "ar": "غير معروف"
+    },
+    "ticket_class": {
+        "en": "Ticket Class",
+        "fa": "کلاس بلیط",
+        "ar": "درجة التذكرة"
+    },
+    "allowed_baggage": {
+        "en": "Allowed Baggage",
+        "fa": "بار مجاز",
+        "ar": "الأمتعة المسموح بها"
+    },
+    "fare_class": {
+        "en": "Fare Class",
+        "fa": "کلاس نرخی",
+        "ar": "فئة السعر"
+    },
+    "flight_class_economy": {
+        "en": "Economy",
+        "fa": "اکونومی",
+        "ar": "الدرجة السياحية"
+    },
+    "flight_class_business": {
+        "en": "Business",
+        "fa": "بیزینس",
+        "ar": "درجة رجال الأعمال"
+    },
+    "flight_class_first": {
+        "en": "First",
+        "fa": "فرست",
+        "ar": "الدرجة الأولى"
+    },
+    "economy_class": {
+        "en": "Economy",
+        "fa": "اکونومی",
+        "ar": "الدرجة السياحية"
+    },
+    "business_class": {
+        "en": "Business",
+        "fa": "بیزینس",
+        "ar": "درجة رجال الأعمال"
+    },
+    "first_class": {
+        "en": "First",
+        "fa": "فرست",
+        "ar": "الدرجة الأولى"
+    },
+    "baggage_allowance": {
+        "en": "Baggage Allowance",
+        "fa": "بار مجاز",
+        "ar": "الوزن المسموح"
+    },
+    "no_baggage": {
+        "en": "No baggage",
+        "fa": "بدون بار",
+        "ar": "بدون أمتعة"
+    },
+    "aircraft_type": {
+        "en": "Aircraft Type",
+        "fa": "نوع هواپیما",
+        "ar": "نوع الطائرة"
+    },
+    "flight_duration": {
+        "en": "Flight Duration",
+        "fa": "مدت پرواز",
+        "ar": "مدة الرحلة"
+    },
+    "stop_duration": {
+        "en": "Stop duration",
+        "fa": "مدت توقف",
+        "ar": "مدة التوقف"
+    },
+    "hours": {
+        "en": "hours",
+        "fa": "ساعت",
+        "ar": "ساعات"
+    },
+    "minutes": {
+        "en": "minutes",
+        "fa": "دقیقه",
+        "ar": "دقائق"
+    },
+    "passenger_adult": {
+        "en": "Adult",
+        "fa": "بزرگسال",
+        "ar": "بالغ"
+    },
+    "passenger_child": {
+        "en": "Child",
+        "fa": "کودک",
+        "ar": "طفل"
+    },
+    "passenger_infant": {
+        "en": "Infant",
+        "fa": "نوزاد",
+        "ar": "رضيع"
+    },
+    "adult_passenger": {
+        "en": "Adult",
+        "fa": "بزرگسال",
+        "ar": "بالغ"
+    },
+    "child_passenger": {
+        "en": "Child",
+        "fa": "کودک",
+        "ar": "طفل"
+    },
+    "infant_passenger": {
+        "en": "Infant",
+        "fa": "نوزاد",
+        "ar": "رضيع"
+    },
+    "base_fare": {
+        "en": "Base Fare",
+        "fa": "قیمت پایه",
+        "ar": "الأجرة الأساسية"
+    },
+    "taxes": {
+        "en": "Taxes and Fees",
+        "fa": "مالیات و عوارض",
+        "ar": "الضرائب والرسوم"
+    },
+    "each_passenger": {
+        "en": "Each",
+        "fa": "هر",
+        "ar": "لكل"
+    },
+    "total_passenger": {
+        "en": "Total",
+        "fa": "مجموع",
+        "ar": "الإجمالي"
+    },
+    "first": {
+        "fa": "اول",
+        "en": "First",
+        "ar": "الأول"
+    },
+    "second": {
+        "fa": "دوم",
+        "en": "Second",
+        "ar": "الثاني"
+    },
+    "third": {
+        "fa": "سوم",
+        "en": "Third",
+        "ar": "الثالث"
+    },
+    "fourth": {
+        "fa": "چهارم",
+        "en": "Fourth",
+        "ar": "الرابع"
+    },
+    "fifth": {
+        "fa": "پنجم",
+        "en": "Fifth",
+        "ar": "الخامس"
+    },
+    "sixth": {
+        "fa": "ششم",
+        "en": "Sixth",
+        "ar": "السادس"
+    },
+    "seventh": {
+        "fa": "هفتم",
+        "en": "Seventh",
+        "ar": "السابع"
+    },
+    "eighth": {
+        "fa": "هشتم",
+        "en": "Eighth",
+        "ar": "الثامن"
+    },
+    "ninth": {
+        "fa": "نهم",
+        "en": "Ninth",
+        "ar": "التاسع"
+    },
+    "tenth": {
+        "fa": "دهم",
+        "en": "Tenth",
+        "ar": "العاشر"
+    },
+    "last": {
+        "fa": "آخر",
+        "en": "Last",
+        "ar": "النهاية"
+    },
+    "coupon_less_than_price": {
+        "en": "The product price is less than the coupon value",
+        "fa": "مبلغ محصول کمتر از مبلغ کوپن است",
+        "ar": "سعر المنتج أقل من قيمة القسيمة"
+    },
+    "coupon_not_valid_for_product": {
+        "en": "Your coupon code is not valid for this product",
+        "fa": "کد کوپن شما برای این محصول وجود ندارد",
+        "ar": "رمز القسيمة غير صالح لهذا المنتج"
+    },
+    "coupon_not_found": {
+        "en": "No coupon found with this information",
+        "fa": "کوپنی با این اطلاعات وجود ندارد",
+        "ar": "لم يتم العثور على قسيمة بهذه المعلومات"
+    },
+    "coupon_already_used": {
+        "en": "This coupon code has already been used",
+        "fa": "کد کوپن استفاده شده است",
+        "ar": "تم استخدام رمز القسيمة بالفعل"
+    },
+    "coupon_percent_discount": {
+        "en": "Your coupon includes a {value}% discount",
+        "fa": "کوپن شما شامل {value} درصد تخفیف است",
+        "ar": "قسيمتك تتضمن خصماً بنسبة {value}%"
+    },
+    "no_rules_available": {
+        "fa": "با پشتیبانی آژانس تماس بگیرید",
+        "en": "Contact agency support",
+        "ar": "اتصل بدعم الوكالة"
+    },
+    "no_services_available": {
+        "en": "No services available",
+        "fa": "سرویسی در دسترس نیست",
+        "ar": "لا توجد خدمات متاحة"
+    },
+    "no_meals_available": {
+        "en": "No meals available",
+        "fa": "غذایی در دسترس نیست",
+        "ar": "لا توجد وجبات متاحة"
+    },
+    "no_meal_for_this_route": {
+        "en": "No meal available for this route",
+        "fa": "غذایی برای این مسیر در دسترس نیست",
+        "ar": "لا توجد وجبات لهذه الرحلة"
+    },
+    "no_seats_available": {
+        "en": "No seats available",
+        "fa": "صندلی در دسترس نیست",
+        "ar": "لا توجد مقاعد متاحة"
+    },
+    "services": {
+        "fa": "سرویس‌ها",
+        "en": "Services",
+        "ar": "الخدمات"
+    },
+    "baggage": {
+        "en": "Baggage",
+        "fa": "بار",
+        "ar": "أمتعة"
+    },
+    "meal": {
+        "en": "Meal",
+        "fa": "غذا",
+        "ar": "وجبة"
+    },
+    "seat": {
+        "en": "Seat",
+        "fa": "صندلی",
+        "ar": "مقعد"
+    },
+    "selected_seat": {
+        "fa": "صندلی انتخابی",
+        "en": "Selected Seat",
+        "ar": "المقعد المختار"
+    },
+    "optional_services_title": {
+        "en": "Optional Services",
+        "fa": "گزینه‌های اضافی",
+        "ar": "الخدمات الإضافية"
+    },
+    "optional_services_description": {
+        "en": "Fly more comfortably by reserving your preferred seat, pre-selecting meals, or purchasing extra baggage capacity.",
+        "fa": "با رزرو صندلی دلخواه، انتخاب پیشاپیش وعده غذایی مورد علاقه‌تان، یا خرید ظرفیت بار اضافی، با راحتی پرواز کنید.",
+        "ar": "سافر براحة أكبر من خلال حجز مقعدك المفضل، اختيار وجبتك مسبقًا، أو شراء وزن أمتعة إضافي."
+    },
+    "extra_baggage": {
+        "en": "Extra Baggage",
+        "fa": "بار اضافه",
+        "ar": "أمتعة إضافية"
+    },
+    "seat_selection": {
+        "en": "Seat Selection",
+        "fa": "انتخاب صندلی",
+        "ar": "اختيار المقعد"
+    },
+    "fare_family": {
+        "en": "Fare Family",
+        "fa": "گروه نرخی",
+        "ar": "فئة الأسعار"
+    },
+    "send_code": {
+        "fa": "ارسال کد",
+        "en": "Send Code",
+        "ar": "إرسال الرمز"
+    },
+    "accept_rules": {
+        "fa": "لطفا قوانین و مقررات را تایید فرمایید",
+        "en": "Please accept the terms and conditions",
+        "ar": "يرجى الموافقة على الشروط والأحكام"
+    },
+    "select_action_counter": {
+        "fa": "لطفا کانتر اقدام کننده را انتخاب فرمایید",
+        "en": "Please select the action counter",
+        "ar": "يرجى اختيار الموظف المسؤول"
+    },
+    "click_to_register_contract": {
+        "fa": "جهت ثبت قرارداد کلیک کنید",
+        "en": "Click to register the contract",
+        "ar": "انقر لتسجيل العقد"
+    },
+    "click_to_register_pre_invoice": {
+        "fa": "جهت ثبت پیش قرارداد و ارسال به حسابداری کلیک کنید",
+        "en": "Click to register the pre-invoice and send to accounting",
+        "ar": "انقر لتسجيل العقد المسبق وإرساله إلى المحاسبة"
+    },
+    "operation": {
+        "fa": "انتخاب",
+        "en": "Select",
+        "ar": "اختيار"
+    },
+    "row_number": {
+        "fa": "ردیف",
+        "en": "Row",
+        "ar": "الصف"
+    },
+    "next": {
+        "fa": "بعدی",
+        "en": "Next",
+        "ar": "التالي"
+    },
+    "previous": {
+        "fa": "قبلی",
+        "en": "Previous",
+        "ar": "السابق"
+    },
+    "first_page": {
+        "fa": "اولین صفحه",
+        "en": "First Page",
+        "ar": "الصفحة الأولى"
+    },
+    "last_page": {
+        "fa": "آخرین صفحه",
+        "en": "Last Page",
+        "ar": "الصفحة الأخيرة"
+    },
+    "pagination_info": {
+        "fa": "نمایش ${from} تا ${to} از مجموع ${total}",
+        "en": "Showing ${from} to ${to} of ${total}",
+        "ar": "عرض ${from} إلى ${to} من أصل ${total}"
+    },
+    "no_data": {
+        "fa": "هیچ موردی یافت نشد",
+        "en": "No data found",
+        "ar": "لم يتم العثور على بيانات"
+    },
+    "select_button": {
+        "fa": "انتخاب",
+        "en": "Select",
+        "ar": "اختيار"
+    },
+    "generating_pre_invoice_wait": {
+        "fa": "در حال صدور پیش قرارداد، لطفا منتظر بمانید",
+        "en": "Generating pre-invoice, please wait",
+        "ar": "جارٍ إصدار الفاتورة المبدئية، يرجى الانتظار"
+    },
+    "connecting_bank_gateway_wait": {
+        "fa": "در حال اتصال به درگاه بانک، لطفا منتظر بمانید",
+        "en": "Connecting to the bank gateway, please wait",
+        "ar": "جارٍ الاتصال ببوابة الدفع، يرجى الانتظار"
+    },
+    "generating_invoice_wait": {
+        "fa": "در حال صدور قرارداد، لطفا منتظر بمانید",
+        "en": "Generating invoice, please wait",
+        "ar": "جارٍ إصدار الفاتورة، يرجى الانتظار"
+    },
+    "sibank_gateway_instructions": {
+        "fa": "کاربر گرامی, جهت استفاده از درگاه سیبانک لطفا تلفن همراه و کد ملی خود را وارد نمایید.",
+        "en": "Dear user, to use the SiBank gateway please enter your mobile number and national ID.",
+        "ar": "عزيزي المستخدم، لاستخدام بوابة سيبانك، يرجى إدخال رقم الهاتف المحمول والرمز الوطني الخاص بك."
+    },
+    "mobile_national_id_match_note": {
+        "fa": "لازم به ذکر است که تلفن همراه وارد شده باید متعلق به کد ملی ذکر شده باشد",
+        "en": "Note: The entered mobile number must belong to the provided national ID.",
+        "ar": "ملاحظة: يجب أن يكون رقم الهاتف المدخل تابعاً للرمز الوطني المذكور."
+    },
+    "mobile_number": {
+        "fa": "تلفن همراه",
+        "en": "Mobile Number",
+        "ar": "رقم الجوال"
+    },
+    "submit": {
+        "fa": "ثبت و ارسال",
+        "en": "Submit",
+        "ar": "إرسال"
+    },
+    "SVG_sprite_load_error": {
+        "fa": "خطا در بارگذاری آیکون‌ها",
+        "en": "SVG sprite load error",
+        "ar": "خطأ في تحميل الرموز"
+    },
+    "booking_error": {
+        "en": "An error occurred. Please contact the support team to check the booking status.",
+        "fa": "خطایی رخ داده است، لطفا وضعیت رزرو را از پشتیبانی آژانس پیگیری فرمایید",
+        "ar": "حدث خطأ. يرجى الاتصال بفريق الدعم للتحقق من حالة الحجز"
+    },
+    "issuing_booking": {
+        "en": "Issuing booking...",
+        "fa": "در حال صدور رزرو...",
+        "ar": "جاري إصدار الحجز..."
+    },
+    "please_wait": {
+        "en": "Please wait",
+        "fa": "لطفا منتظر بمانید",
+        "ar": "يرجى الانتظار"
+    },
+    "booking_success": {
+        "en": "Your booking was completed successfully",
+        "fa": "رزرو شما با موفقیت انجام شد",
+        "ar": "تم إنجاز حجزك بنجاح"
+    },
+    "view_booking": {
+        "en": "View booking",
+        "fa": "مشاهده رزرو",
+        "ar": "عرض الحجز"
+    },
+    "view_document": {
+        "en": "View document",
+        "fa": "مشاهده مدارک",
+        "ar": "عرض وثيقة"
+    },
+    "price_change_message": {
+        "en": "Price change occurred, do you want to continue the booking process with amount",
+        "fa": "تغییر قیمت اتفاق افتاده ,مایل به ادامه فرآیند رزرو با مبلغ",
+        "ar": "حدث تغيير في السعر، هل تريد متابعة عملية الحجز بمبلغ"
+    },
+    "price_change_question": {
+        "en": "?",
+        "fa": "هستید؟",
+        "ar": "؟"
+    },
+    "continue_booking": {
+        "en": "Yes, Continue",
+        "fa": "بله, ادامه میدم",
+        "ar": "نعم، متابعة"
+    },
+    "cancel_booking": {
+        "en": "No, Cancel",
+        "fa": "خیر, منصرف شدم",
+        "ar": "لا، إلغاء"
+    },
+    "preBooking_success": {
+        "en": "Your pre-booking was completed successfully",
+        "fa": "پیش رزرو شما با موفقیت انجام شد",
+        "ar": "تم إنجاز حجزك المسبق بنجاح"
+    },
+    "viewPre_booking": {
+        "en": "View Pre-booking",
+        "fa": "مشاهده پیش رزرو",
+        "ar": "عرض الحجز المسبق"
+    },
+    "connecting_bank": {
+        "en": "Connecting to bank gateway...",
+        "fa": "در حال اتصال به درگاه بانک...",
+        "ar": "جاري الاتصال ببوابة البنك..."
+    },
+    "payment_gateway_error": {
+        "en": "Unable to connect to electronic payment gateway.",
+        "fa": "امکان اتصال به درگاه پرداخت الکترونیک وجود ندارد.",
+        "ar": "غير قادر على الاتصال ببوابة الدفع الإلكتروني."
+    },
+    "language_english": {
+        "en": "English",
+        "fa": "انگلیسی",
+        "ar": "إنجليزي"
+    },
+    "language_persian": {
+        "en": "Persian",
+        "fa": "فارسی",
+        "ar": "فارسي"
+    },
+    "language_arabic": {
+        "en": "Arabic",
+        "fa": "عربی",
+        "ar": "عربي"
+    },
+    "booking_status_pending": {
+        "en": "Your book has been registered and is being processed. Please follow up on the book status with company support.",
+        "fa": "رزرو شما ثبت شده و در حال صدور می‌باشد، لطفا وضعیت رزرو را از پشتیبانی آژانس پیگیری فرمایید",
+        "ar": "تم تسجيل حجزك وهو قيد الإصدار، يرجى متابعة حالة الحجز مع دعم الشركة"
+    },
+    "no_flights_found": {
+        "en": "No flights found",
+        "fa": "هیچ پرواز یافت نشد",
+        "ar": "لم يتم العثور على رحلات"
+    },
+    "book": {
+        "en": "Book",
+        "fa": "خرید",
+        "ar": "للطلب"
+    },
+    "view_all": {
+        "en": "View All",
+        "fa": "مشاهده همه",
+        "ar": "عرض الكل"
+    },
+    "offer": {
+        "en": "offer",
+        "fa": "پیشنهاد",
+        "ar": "اقتراح"
+    },
+    "stop": {
+        "en": "Stop",
+        "fa": "توقف",
+        "ar": "توقف"
+    },
+    "flight": {
+        "en": "Flight",
+        "fa": "پرواز",
+        "ar": "رحلة"
+    },
+    "arrival": {
+        "en": "Arrival",
+        "fa": "رسیدن",
+        "ar": "الوصول"
+    },
+    "flight_time": {
+        "en": "Flight Time",
+        "fa": "زمان پرواز",
+        "ar": "وقت الرحلة"
+    },
+    "completed": {
+        "en": "Completed",
+        "fa": "تکمیل",
+        "ar": "مكتمل"
+    },
+    "error_displaying_flights": {
+        "en": "Error displaying flights",
+        "fa": "خطا در نمایش پروازها",
+        "ar": "خطأ في عرض الرحلات"
+    },
+    "processing": {
+        "en": "Thinking",
+        "fa": "در حال پردازش",
+        "ar": "جارٍ المعالجة"
+    },
+    "no_name": {
+        "en": "No Name",
+        "fa": "بدون نام",
+        "ar": "بدون اسم"
+    },
+    "check_flight_status": {
+        "en": "I want to check the flight status",
+        "fa": "می‌خوام وضعیت پرواز رو چک کنم",
+        "ar": "أريد التحقق من حالة الرحلة"
+    },
+    "book_ticket": {
+        "en": "I want to book a ticket",
+        "fa": "می‌خوام بلیط رزرو کنم",
+        "ar": "أريد حجز تذكرة"
+    },
+    "search_flight": {
+        "en": "I want to search for a flight",
+        "fa": "می‌خوام پرواز جستجو کنم",
+        "ar": "أريد البحث عن رحلة"
+    },
+    "need_support": {
+        "en": "I need support",
+        "fa": "نیاز به پشتیبانی دارم",
+        "ar": "أحتاج إلى الدعم"
+    },
+    "prev_day": {
+        "en": "Previous day",
+        "fa": "روز قبل",
+        "ar": "اليوم السابق"
+    },
+    "next_day": {
+        "en": "Next day",
+        "fa": "روز بعد",
+        "ar": "اليوم التالي"
+    }
+}

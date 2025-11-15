@@ -1,0 +1,127 @@
+<!-- Get Reserve Flight-->
+<basis core="api" name="api.reserve" url="https://ota.basisfly.com/v2/api/flight/Reserve" method="post"
+    content-type="application/json" run="atclient" if="{##cms.flight.run|(false)##}" triggers="cms.flight"
+    ignoreNullSource="true" body='{
+        "SessionId": "[##cms.form.SessionId##]",
+        "FlightId": "[##cms.form.Id##]",
+        "FlightGroup": [##cms.form.Group##],
+        "Travelers": [##cms.form.Travelers##],
+        "account": [##cms.form.account##],
+        "agencycountername": "[##cms.form.agencycountername##]",
+        "agencycounter": "[##cms.form.agencycounter##]",
+        "rkey": "[##cms.cookie.rkey##]",
+        "dmnid": "[##cms.cms.domainid##]",
+        "clear": "[##cms.form.clear##]",
+        "code": "[##cms.form.code##]",
+        "club_discount": "[##cms.form.club_discount##]",
+        "invoicedesc": "[##cms.form.invoicedesc##]",
+        "ownerid": "[##cms.cms.ownerid##]",
+        "accounttype": "[##cms.form.accounttype##]",
+        "lid": "2",
+        "mid": "[##cms.form.mid##]",
+        "engine_id":"[##cms.form.engine##]",
+        "currency_request":"[##cms.form.currency_request##]"
+    }'>
+</basis>
+<!-- Get Reserve Bus-->
+<basis core="api" name="api.reserve" url="https://www.basisfly.com/api/bus/reserve" method="post"
+    content-type="application/json" run="atclient" if="{##cms.bus.run|(false)##}" triggers="cms.bus"
+    ignoreNullSource="true" body='{
+        "rKey": "[##cms.cookie.rkey##]",
+        "sessionId": "[##cms.form.SessionId##]",
+        "busId": "[##cms.form.Id##]",
+        "busGroup": [##cms.form.Group##],
+        "travelers": [##cms.form.Travelers##] ,
+        "account": [##cms.form.account##],
+        "agencycountername": "[##cms.form.agencycountername##]",
+        "agencycounter": "[##cms.form.agencycounter##]",
+        "clear": "[##cms.form.clear##]",
+        "code": "[##cms.form.code##]",
+        "accounttype": "[##cms.form.accounttype##]",
+        "lid": "2",
+        "mid": "[##cms.form.mid##]",
+        "share": "[##cms.form.share|(0)##]"
+    }'>
+</basis>
+<basis core="callback" run="atclient" triggers="api.reserve" method="setReserve">
+</basis>
+<!-- Get Issue Ticket-->
+<basis core="api" name="api.issueTicket" url="{##cms.issueTicket.url##}" method="post" content-type="application/json"
+    run="atclient" triggers="cms.issueTicket" if="{##cms.issueTicket.run|(false)##}" body='{
+        "SessionId": "[##cms.form.SessionId##]",
+        "BasisFlyBookId": "{##cms.issueTicket.bookId##}",
+        "dmnid": "[##cms.cms.domainid##]",
+        "{##cms.issueTicket.rkey##}": "[##cms.cookie.rkey##]",
+        "lid": "2"
+    }'>
+</basis>
+
+<basis core="callback" run="atclient" triggers="api.issueTicket" method="setIssueTicket">
+</basis>
+<!-- Get Safarmarket Api -->
+<basis core="api" name="api.safarmarket" url="https://safarmarket.com/api/v1/trace/pixel/babanowrouz/3/?smId=[##cms.cookie.safarmarketId##]
+&pnr={##cms.safarmarket.pnr##}&fliNo={##cms.safarmarket.fliNo##}&typ={##cms.safarmarket.typ##}
+&pri={##cms.safarmarket.pri##}&pax={##cms.safarmarket.pax##}&adu={##cms.safarmarket.adu##}
+&chi={##cms.safarmarket.chi##}&inf={##cms.safarmarket.inf##}&from={##cms.safarmarket.from##}
+&to={##cms.safarmarket.to##}&dep={##cms.safarmarket.dep##}&ret={##cms.safarmarket.ret##}
+&nam={##cms.safarmarket.nam##}&pho={##cms.safarmarket.pho##}&ema={##cms.safarmarket.ema##}
+&rFTyp={##cms.safarmarket.rFTyp##}&rPnr={##cms.safarmarket.rPnr##}
+&rFliNo={##cms.safarmarket.rFliNo##}&bck=false" method="get" content-type="application/json" run="atclient"
+    triggers="cms.safarmarket" if="{##cms.safarmarket.run|(false)##}">
+</basis>
+<basis core="group" name="invoice-type" if="'[##cms.form.accounttype##]' <> '1'">
+    <basis core="group" name="pay-type" if="'[##cms.form.payType##]' <> 'credit'">
+        <basis core="group" name="bank-type" if="'[##cms.form.bankIdentifier##]' <> '-1'">
+            <basis core="dbsource" source="hosting" name="db">
+                <member name="siteaddress" type="list" request="siteaddress" />
+            </basis>
+            <basis core="external.fly.ws" source="cmsDbService2" name="db" procedurename="dbsource">
+                <member method="cms" name="webservice_detail" query='{
+                    "name": "db",
+                    "mid": "20",
+                    "member": [
+                        {
+                            "name": "q",
+                            "type": "list",
+                            "request": "webservice_Detail",
+                            "id": [##cms.form.bankIdentifier##],
+                            "dmnid": [##cms.cms.domainid##],
+                            "lid":"2"
+                        }
+                    ]
+                }' />
+            </basis>
+            <basis core="group" name="Delay_1">
+                <basis core="inlinesource" name="db">
+                    <member name="bankid" format="json" postsql="select value from [db.bankid] where field = 'bankid'">
+                        {"root":[##db.webservice_detail.result##]}
+                    </member>
+                </basis>
+
+                <basis core="api" name="api.token" run="atclient" triggers="cms.token" if="{##cms.token.run|(false)##}"
+                    url='https://basisfly.com/pay/Token/[##cms.cookie.rkey##]' method="post" body='{
+                    "bankid": [##db.bankid.Value##],
+                    "factorid": {##cms.token.bookId##},
+                    "site_url": "[##db.siteaddress.domain##]",
+                    "callback_url": "book/callback?iN={##cms.token.bookId##}",
+                    "mobile": "{##cms.token.accountMobile##}",
+                    "email": "{##cms.token.accountEmail##}",
+                    "description": "booking",
+                    "tax_amount": "0",
+                    "discount_amount": "0",
+                    "lid":"2",
+                    "flight_data": "{##cms.token.flightData##}",
+                    "doc_type": "5",
+                    "cart_items": {
+                        "title": "{##cms.token.title##}",
+                        "source": "",
+                        "destination": "",
+                        "service_type": "",
+                        "travel_type": ""
+                    }
+                }'></basis>
+                <basis core="callback" run="atclient" triggers="api.token" method="setToken"></basis>
+            </basis>
+        </basis>
+    </basis>
+</basis>
