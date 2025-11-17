@@ -44,7 +44,7 @@ let selectedCountryCode = null;
 let selectedCity = null;
 let selectedCityId = null;
 let currencyRequest = null;
-let TemporaryHold = null;
+let TemporaryHold = "false";
 
 // Function to load translate
 const loadTranslations = async (lang = 'fa') => {
@@ -3171,6 +3171,7 @@ const close_bank_info = (element) => {
 
 const sendDataWithFetch = () => {
     try {
+
         let passengerList = [];
         let buyerData = {};
         const isFlight = selectedMode === "flight";
@@ -3317,7 +3318,7 @@ const sendDataWithFetch = () => {
                     : ""
             ),
             currency_request: currencyRequest,
-            TemporaryHold: TemporaryHold != null
+            TemporaryHold: TemporaryHold
 
         };
         // Create and submit form

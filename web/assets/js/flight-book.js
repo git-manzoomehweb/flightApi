@@ -1441,8 +1441,10 @@ const setProductGroup = async () => {
         ExcessService = sessionBookStorage.FlightGroup?.[0]?.ExcessService || false;
         SeatSelection = sessionBookStorage.FlightGroup?.[0]?.SeatSelection || false;
         lastDepartureDate = sessionBookStorage.FlightGroup?.[0].DepartureDate;
-        TemporaryHold = sessionBookStorage.TemporaryHold
+        if (sessionBookStorage.TemporaryHold) {
 
+            TemporaryHold = String(sessionBookStorage.TemporaryHold)
+        }
         if (ExcessService || SeatSelection) {
             const container = document.querySelector(".book-passengers__container");
             if (!container) throw new Error("Passengers container not found");
@@ -1687,5 +1689,3 @@ const toggleSessionRouteTab = (routeIndex) => {
         activeContent.classList.remove("book-hidden");
     }
 }
-
-
