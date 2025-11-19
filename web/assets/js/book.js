@@ -3312,11 +3312,18 @@ const sendDataWithFetch = () => {
             code: document.querySelector(".book-coupon__code").value,
             club_discount: "",
             invoicedesc: document.querySelector(".book-invoicedesc").value,
-            engine: (
-                (utmSource === "safarmarket" || (getSearchCookie("safarmarketId") && domainId.includes("4869")))
-                    ? 2
-                    : ""
-            ),
+            engine_id: (() => {
+                // Check if flight_id exists in sessionBookStorage
+                if (sessionBookStorage?.flight_id) {
+                    return 1;
+                }
+                // Check for safarmarket conditions
+                if (utmSource === "safarmarket" || (getSearchCookie("safarmarketId") && domainId.includes("4869"))) {
+                    return 2;
+                }
+                // Default: empty string
+                return "";
+            })(),
             currency_request: currencyRequest,
             TemporaryHold: TemporaryHold
 

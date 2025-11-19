@@ -251,7 +251,7 @@
     },
     "total_after_commission_per_passenger": {
         "en": "Total after commission per passenger",
-        "fa": "قیمت با کمیسیون برای هر نفر",
+        "fa": "قیمت کسر کمیسیون برای هر نفر",
         "ar": "المبلغ بعد خصم العمولة (لكل مسافر)"
     },
     "total_per_passenger": {

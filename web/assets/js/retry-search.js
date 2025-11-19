@@ -457,7 +457,7 @@ const handleCityListClick = async (element) => {
         // Decide classes based on device
         const containerClasses = (typeof isMobile !== "undefined" && isMobile)
             ? "book-suggestedCity__list__container book-fixed book-inset-x-0 book-top-0 book-bottom-0 book-w-full book-transition book-bg-white book-z-[9999999999]  book-overflow-auto book-overscroll-contain book-h-dvh"
-            : "book-suggestedCity__list__container book-max-h-80 book-overflow-auto book-absolute book-top-14 book-left-0 book-bg-white book-shadow-md book-rounded-lg book-p-3 book-w-full book-z-10";
+            : "book-suggestedCity__list__container book-max-h-80 book-overflow-auto book-absolute book-top-14 book-left-0 book-bg-white book-shadow-lg book-rounded-lg book-p-3 book-w-full book-z-10";
 
         // Use cached HTML if available
         if (cachedSuggestedCityHTML) {
@@ -628,7 +628,7 @@ const handleCitySearch = (element) => {
                 manageCityLoader(parent, "hide");
                 if (html) {
                     appendCityList(html, parent,
-                        "book-searchedCity__list__container book-max-h-80 book-overflow-auto book-absolute book-top-14 book-left-0 book-bg-white book-shadow-md book-rounded-lg book-p-3 book-w-full book-z-10");
+                        "book-searchedCity__list__container book-max-h-80 book-overflow-auto book-absolute book-top-14 book-left-0 book-bg-white book-shadow-lg book-rounded-lg book-p-3 book-w-full book-z-10");
                 }
             }, 400);
             return;

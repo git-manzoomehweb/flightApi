@@ -537,26 +537,63 @@ const setCalendarLookUp = async (args) => {
 const bodyMakerFunction = (context, sourceId, params) => {
     try {
         const sessionSearchData = JSON.parse(sessionStorage.getItem("sessionSearch")) || {};
-        const cleanedData = { ...sessionSearchData };
 
+        // Check for flightid in URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const flightId = urlParams.get("flight_id");
+
+        let cleanedData;
+
+        if (flightId) {
+            // Complete the incomplete sessionSearch data
+            const completeSessionData = {
+                TripGroup: [
+                    {
+                        Origin: "",
+                        Destination: "",
+                        OriginName: "",
+                        DestinationName: "",
+                        DepartureDate: ""
+                    }
+                ],
+                CabinClass: "Economy",
+                Adults: "1",
+                Children: "0",
+                Infants: "0",
+                SchemaId: 291,
+                Type: "flight",
+                share: "",
+                lid: "1",
+                ...sessionSearchData // Add existing SessionId and rkey
+            };
+
+            // Save completed session to sessionStorage
+            sessionStorage.setItem("sessionSearch", JSON.stringify(completeSessionData));
+
+            cleanedData = { ...completeSessionData };
+            cleanedData.flightid = flightId;
+        } else {
+            // Normal flow without flight_id
+            cleanedData = { ...sessionSearchData };
+        }
         // Remove unnecessary fields
         delete cleanedData.SchemaId;
         delete cleanedData.Type;
         delete cleanedData.Expiry;
+
         (cleanedData.TripGroup || []).forEach(trip => {
             delete trip.OriginName;
             delete trip.DestinationName;
         });
-
-        // Add domain ID and merge with params
+        // Add domain ID
         cleanedData.dmnid = document.querySelector("main").getAttribute("data-dmnid");
+
         return Object.assign({}, params, cleanedData);
     } catch (error) {
         console.error("bodyMakerFunction: " + error.message);
         return params;
     }
 };
-
 /**
  * Handles connection closure, updating UI based on success or failure
  * @param {Object} param - Parameters containing context and error status
@@ -832,6 +869,7 @@ const manipulation = async (args) => {
     let dynamicFlightProposalsCount = 0;
     elseExecuted = false;
     startProgressBar();
+
     // ============= PAGINATION HANDLERS =============
     if (args.source.id === 'cms.page') {
         scrollToMainContent();
@@ -1600,7 +1638,6 @@ const manipulation = async (args) => {
                 allFlightProposals = [];
                 dictionaries = [];
             }
-
             const existingFlightIds = new Set(allFlightProposals.map(flight => flight.FlightId));
             source.rows.forEach(row => {
                 if (Array.isArray(row.FlightProposals)) {
@@ -1619,8 +1656,6 @@ const manipulation = async (args) => {
             newDataCame = false;
             allDataProcessed = true;
         }
-
-        const flightList = args.context.tryToGetSource("flight.updated");
 
         // ============= SORTING LOGIC =============
         if (allDataProcessed) {
@@ -2236,6 +2271,58 @@ const manipulation = async (args) => {
             prevPage.classList.add("book-hidden");
             nextPage.classList.add("book-hidden");
             buttons.forEach(button => button.remove());
+        }
+        // ============= CHECK FLIGHT_ID AND POPULATE FIELDS =============
+        const urlParams = new URLSearchParams(window.location.search);
+        const flightId = urlParams.get("flight_id");
+        if (flightId && allFlightProposals && allFlightProposals.length > 0) {
+            const firstFlight = allFlightProposals[0];
+            const firstFlightGroup = firstFlight.FlightGroup?.[0];
+            if (firstFlightGroup) {
+                const departureLocationName = document.querySelector(".departure__location__name");
+                const arrivalLocationName = document.querySelector(".arrival__location__name");
+                const departureDate = document.querySelector(".departure__date");
+
+                // Check if fields already have values
+                const hasExistingValues =
+                    departureLocationName?.value &&
+                    arrivalLocationName?.value &&
+                    departureDate?.value &&
+                    departureLocationName?.dataset?.id &&
+                    arrivalLocationName?.dataset?.id;
+
+                if (!hasExistingValues) {
+                    // Get values from firstFlightGroup
+                    const Origin = firstFlightGroup.Origin || "";
+                    const Destination = firstFlightGroup.Destination || "";
+                    const DepartureDate = firstFlightGroup.DepartureDate || "";
+
+                    // Get location names from dictionaries
+                    const mergedLocation = {};
+                    dictionaries.forEach(item => {
+                        Object.assign(mergedLocation, item.location || {});
+                    });
+
+                    const OriginName = mergedLocation[Origin]?.city || mergedLocation[Origin]?.airport || "";
+                    const DestinationName = mergedLocation[Destination]?.city || mergedLocation[Destination]?.airport || "";
+
+                    // Populate fields
+                    if (departureLocationName) {
+                        departureLocationName.value = OriginName;
+                        departureLocationName.dataset.id = Origin;
+                    }
+
+                    if (arrivalLocationName) {
+                        arrivalLocationName.value = DestinationName;
+                        arrivalLocationName.dataset.id = Destination;
+                    }
+
+                    if (departureDate) {
+                        departureDate.value = convertToSearchedDate(DepartureDate);
+                        departureDate.dataset.gregorian = DepartureDate;
+                    }
+                }
+            }
         }
     }
 };
@@ -4009,6 +4096,12 @@ const submitCard = (element, idToFind) => {
         // If found in either source, proceed
         if (foundObject) {
             foundObject.dictionaries = dictionaries;
+            // Check for flight_id in URL and add it to foundObject
+            const urlParams = new URLSearchParams(window.location.search);
+            const flightId = urlParams.get("flight_id");
+            if (flightId) {
+                foundObject.flight_id = flightId;
+            }
             sessionStorage.setItem("sessionBook", JSON.stringify(foundObject));
             window.location.href = "/flight/book";
         } else {
@@ -5588,7 +5681,9 @@ const scrollToMainContent = () => {
 */
 const convertToSearchedDate = (element) => {
     try {
-
+        if (!element || typeof element !== 'string' || element.trim() === '') {
+            return "";
+        }
         const [year, month, day] = element.split('-').map(Number);
         const gregorianDate = new Date(Date.UTC(year, month - 1, day));
 
@@ -5951,4 +6046,3 @@ const shiftPrev = () => { try { shiftAndGo(-1); } catch (e) { console.error(e); 
 
 /** Go to next day for all segments */
 const shiftNext = () => { try { shiftAndGo(1); } catch (e) { console.error(e); } };
-
