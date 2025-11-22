@@ -1,5 +1,6 @@
 @import url("../../css/customized.ui.min.css");
 @import url("../css/multiLang-calendar.ui.min.css");
+
 :root {
     --bookSpecial-1: #F8F8F8;
     --bookSpecial-2: #1084E3;
@@ -477,6 +478,10 @@ textarea:focus {
     right: 0px;
 }
 
+.book-right-9 {
+    right: 2.25rem;
+}
+
 .book-right-10 {
     right: 2.5rem;
 }
@@ -489,6 +494,13 @@ textarea:focus {
     right: 7rem;
 }
 
+.book-top-1\/5 {
+    top: 0.25rem;
+}
+
+.book-top-2 {
+    top: 0.5rem;
+}
 
 .book-top-2\.5 {
     top: 0.625rem;

@@ -1052,13 +1052,13 @@ const toggleDropItem = (element, type, load) => {
             if (currentLanguage === "fa") {
                 if (element.closest(".book-code__item__container") || element.closest(".book-counter__container")) {
                     left = "book-left-9";
-                    top = "book-top-2.5";
+                    top = "book-top-2";
                 }
             } else {
                 left = "book-right-12"; // If not "fa", set to right
                 if (element.closest(".book-code__item__container") || element.closest(".book-counter__container")) {
                     left = "book-right-9";
-                    top = "book-top-2.5";
+                    top = "book-top-1/5";
                 }
             }
 
@@ -1356,7 +1356,15 @@ const onProcessedJsonCountryCode = async (args) => {
                 // Generate HTML for country code list items
                 let output = "";
                 for (const item of responseJson) {
-                    output += `<li class="book-li-item book-cursor-pointer book-p-2" data-id="${item.code}" data-value="${item.fa}" onclick="selectDropItem(this,'book-code__item__container')">${item.fa}<span class="book-mr-2">(${item.code})</span></li>`;
+
+                    output += `
+                    <li class="book-li-item book-cursor-pointer book-p-2" 
+                        data-id="${item.code}" 
+                        data-value="${currentLanguage === 'fa' ? item.fa : item.en}" 
+                        onclick="selectDropItem(this,'book-code__item__container')">
+                        ${currentLanguage === 'fa' ? item.fa : item.en}
+                        <span class="book-mr-2 book-ltr book-inline">(${item.code})</span>
+                    </li>`;
                 }
 
                 // Update all code dropdowns in buyer info containers

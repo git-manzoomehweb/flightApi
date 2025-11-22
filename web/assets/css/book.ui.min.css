@@ -1,5 +1,6 @@
 @import url("../../css/customized.ui.min.css");
 @import url("../css/multiLang-calendar.ui.min.css");
+
 :root {
     --bookSpecial-1: #F8F8F8;
     --bookSpecial-2: #1084E3;
@@ -274,26 +275,9 @@ textarea:focus {
     direction: ltr;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .book--left-full {
     left: -100%;
 }
-
-
 
 .book-transition {
     transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
@@ -311,6 +295,14 @@ textarea:focus {
 
 .book-top-\[3px\] {
     top: 3px;
+}
+
+.book-top-2 {
+    top: 0.5rem;
+}
+
+.book-top-1\/5 {
+    top: 0.25rem;
 }
 
 .book-top--3 {
@@ -501,6 +493,10 @@ textarea:focus {
 
 .book-right-0 {
     right: 0px;
+}
+
+.book-right-9 {
+    right: 2.25rem;
 }
 
 .book-right-10 {
