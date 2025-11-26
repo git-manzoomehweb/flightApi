@@ -356,7 +356,7 @@ const confirmBookingProcesse = async (bookId) => {
                             responseFirst.classList.add("book-hidden");
                         }
                         responseLast.classList.remove("book-hidden");
-                        lastMessage.innerHTML = translate('preBooking_success');
+                        lastMessage.textContent = translate('preBooking_success');
 
                         // Add button if not already added
                         const existingButton = responseLast?.querySelector("button");

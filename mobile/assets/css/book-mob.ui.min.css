@@ -2027,7 +2027,10 @@ html:not([lang="fa"]):not([lang="ar"]) .book-info__item__container .book-has__dr
         transform: rotate(360deg);
     }
 }
-
+.book-flex>.book-prev__btn.book-hidden~.book-next__btn {
+    margin-right: auto !important;
+    margin-left: 0 !important;
+}
 @media (min-width: 1024px) {
     .lg\:book-w-4\/12 {
         width: 33.333333%;

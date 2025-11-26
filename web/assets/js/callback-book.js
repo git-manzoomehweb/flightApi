@@ -175,10 +175,11 @@ const setVerify = async (args) => {
         if (!lastMessage) {
             throw new Error('Last message element not found');
         }
-        lastMessage.innerHTML = source[0].title;
+
 
         // Trigger ticket issuance if status is 1
         if (Number(source[0].status) === 1) {
+            lastMessage.textContent = source[0].title;
             if (safarmarketURL && safarmarketURL !== "") {
                 safarmarketURL = safarmarketURL.replace(/\/(\d+)\//, "/4/");
                 $bc.setSource("cms.safarmarket", safarmarketURL)
@@ -194,6 +195,7 @@ const setVerify = async (args) => {
             issueTicketPayload.rkey = (selectedMode === "flight") ? 'rkey' : 'rKey';
             $bc.setSource("cms.issueTicket", [issueTicketPayload]);
         } else {
+            lastMessage.textContent = translate('payment_verify_error');
             if (safarmarketURL && safarmarketURL !== "") {
                 safarmarketURL = safarmarketURL.replace(/\/(\d+)\//, "/5/");
                 $bc.setSource("cms.safarmarket", safarmarketURL)
@@ -284,5 +286,3 @@ const setIssueTicket = async (args) => {
         console.error(`setIssueTicket: ${error.message}`);
     }
 };
-
-

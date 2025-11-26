@@ -15,31 +15,33 @@ loadHolidaysData();  // Call the function to load the holidays data from the JSO
 // Loading the JSON holidays file
 async function loadHolidaysData() {
     try {
-        const response = await fetch('/iran/holidays.json?lid=1');  // Fetch the JSON data from the server
+        const response = await fetch('/iran/holidays.json?lid=1');
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);  // If fetching fails, throw an error
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
-        HOLIDAYS_DATA = await response.json();  // Parse the response as JSON
+        HOLIDAYS_DATA = await response.json();
 
         // Processing fixed holidays
-        FIXED_JALALI_HOLIDAYS = new Map();  // Initialize the map for fixed holidays
-        for (const [key, name] of Object.entries(HOLIDAYS_DATA.fixedHolidays)) {
-            FIXED_JALALI_HOLIDAYS.set(key, name);  // Add fixed holidays to the map
+        FIXED_JALALI_HOLIDAYS = new Map();
+        for (const [key, value] of Object.entries(HOLIDAYS_DATA.fixedHolidays)) {
+            // Store the full object (with fa/en), not just the string
+            FIXED_JALALI_HOLIDAYS.set(key, value);
         }
 
         // Processing lunar holidays
-        LUNAR_HOLIDAYS = new Map();  // Initialize the map for lunar holidays
+        LUNAR_HOLIDAYS = new Map();
         for (const [year, holidays] of Object.entries(HOLIDAYS_DATA.lunarHolidays)) {
-            for (const [monthDay, name] of Object.entries(holidays)) {
+            for (const [monthDay, value] of Object.entries(holidays)) {
                 const fullKey = `${year}-${monthDay}`;
-                LUNAR_HOLIDAYS.set(fullKey, name);  // Add lunar holidays to the map
+                // Store the full object (with fa/en), not just the string
+                LUNAR_HOLIDAYS.set(fullKey, value);
             }
         }
 
-        return true;  // Return true if data is successfully loaded
+        return true;
     } catch (error) {
-        console.warn('⚠️ JSON file not found, using default data:', error.message);  // If there's an error, log it
-        return false;  // Return false if there was an error
+        console.warn('⚠️ JSON file not found, using default data:', error.message);
+        return false;
     }
 }
 
@@ -48,18 +50,24 @@ function isJalaliHoliday(jy, jm, jd) {
     // Checking fixed Jalali holidays
     const fixedKey = `${jm}-${jd}`;
     if (FIXED_JALALI_HOLIDAYS.has(fixedKey)) {
-        return { isHoliday: true, name: FIXED_JALALI_HOLIDAYS.get(fixedKey) };  // Return holiday details if it's a fixed holiday
+        const holidayData = FIXED_JALALI_HOLIDAYS.get(fixedKey);
+        // If it's an object with language keys, get the appropriate one
+        const name = typeof holidayData === 'object' ? holidayData[LANG] : holidayData;
+        return { isHoliday: true, name: name };
     }
+
 
     // Checking lunar holidays
     const lunarKey = `${jy}-${jm}-${jd}`;
     if (LUNAR_HOLIDAYS.has(lunarKey)) {
-        return { isHoliday: true, name: LUNAR_HOLIDAYS.get(lunarKey) };  // Return holiday details if it's a lunar holiday
+        const holidayData = LUNAR_HOLIDAYS.get(lunarKey);
+        // If it's an object with language keys, get the appropriate one
+        const name = typeof holidayData === 'object' ? holidayData[LANG] : holidayData;
+        return { isHoliday: true, name: name };
     }
 
-    return { isHoliday: false, name: null };  // Return false if it's not a holiday
+    return { isHoliday: false, name: null };
 }
-
 /* =========================
    Jalali / Gregorian Core
    ========================= */
@@ -1185,14 +1193,28 @@ class DatePicker {
         });
 
         // Click event to select the date
+
         cell.addEventListener('click', () => {
-            if (cell.classList.contains('book-pointer-events-none')) return; // Prevent selecting disabled dates
+            if (cell.classList.contains('book-pointer-events-none')) return;
             if (!this.currentEl) return;
+
             if (this.currentRole === 'depart') {
                 // Handle selecting "depart" date
+                const oldDepartDate = departDate;
                 updateModuleDate('depart', dUTC);
-                this._write(this.currentEl, dUTC); // Update the input field
+                this._write(this.currentEl, dUTC);
                 lastPickedField = 'depart';
+
+                // If return date exists and new depart date is after or equal to it, clear the return date
+                if (returnDate && ymdKeyFromDateUTC(dUTC) >= ymdKeyFromDateUTC(returnDate)) {
+                    updateModuleDate('return', null);
+                    const pair = getPairInput(this.currentEl);
+                    if (pair) {
+                        pair.value = '';
+                        delete pair.dataset.gregorian;
+                        delete pair.dataset.jalali;
+                    }
+                }
 
                 // Handle multi-city date selection
                 const isMultiCity = currentFlightMode() === 'multi';
@@ -1203,7 +1225,7 @@ class DatePicker {
                 const pair = getPairInput(this.currentEl);
                 const returnEnabled = pair && !pair.disabled && pair.offsetParent !== null;
                 if (returnEnabled) {
-                    this.open(pair, true); // Open the return date picker
+                    this.open(pair, true);
                     return;
                 }
             }
@@ -1213,17 +1235,18 @@ class DatePicker {
                 if (!departDate) {
                     const departInput = getPairInput(this.currentEl);
                     if (departInput && departInput.dataset.gregorian) {
-                        updateModuleDate('depart', parseISOasUTC(departInput.dataset.gregorian)); // Sync depart date
+                        updateModuleDate('depart', parseISOasUTC(departInput.dataset.gregorian));
                     } else {
-                        updateModuleDate('depart', calToday); // Default to today
+                        updateModuleDate('depart', calToday);
                         if (departInput) this._write(departInput, departDate);
                     }
                 }
 
-                // Handle return date selection after depart date is selected
-                if (ymdKeyFromDateUTC(dUTC) < ymdKeyFromDateUTC(departDate)) {
-                    // Select return date immediately after depart date
+                // If selected return date is before or equal to depart date
+                if (ymdKeyFromDateUTC(dUTC) <= ymdKeyFromDateUTC(departDate)) {
+                    // Set depart date to selected date
                     updateModuleDate('depart', dUTC);
+                    // Set return date to one day after
                     const next = new Date(Date.UTC(dUTC.getUTCFullYear(), dUTC.getUTCMonth(), dUTC.getUTCDate()));
                     next.setUTCDate(next.getUTCDate() + 1);
                     updateModuleDate('return', next);
@@ -1240,8 +1263,10 @@ class DatePicker {
                 lastPickedField = 'return';
             }
 
-            this._renderWithScrollPreserved(); // Re-render the calendar
+            this._renderWithScrollPreserved();
         });
+
+
     }
 
 

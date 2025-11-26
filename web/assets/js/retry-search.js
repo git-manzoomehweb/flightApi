@@ -1174,9 +1174,17 @@ document.addEventListener('click', (event) => {
 
         // Close cabin dropdown
         if (isOutsideCabin) {
-            document.querySelectorAll(".book-cabinClass__searched__items").forEach(el =>
-                el.classList.add("book-hidden")
-            );
+            document.querySelectorAll(".book-cabinClass__searched__items").forEach(el => {
+                el.classList.add("book-hidden");
+                const container = el.closest(".book-cabinClass__searched__container");
+                if (container) {
+                    const svg = container.querySelector("svg use");
+                    if (svg) {
+                        svg.setAttribute("xlink:href", "/booking/images/sprite-booking-icons.svg#down-arrow-icon");
+                        svg.setAttribute("href", "/booking/images/sprite-booking-icons.svg#down-arrow-icon");
+                    }
+                }
+            });
         }
 
         // Close passenger dropdown
@@ -1217,4 +1225,3 @@ const mobileSearchLoader = (overlay, action = "show") => {
         if (loader) loader.remove();
     }
 };
-
