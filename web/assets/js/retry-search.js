@@ -1146,7 +1146,7 @@ const toggleArrowIcon = (element) => {
 const convertToPersianDate = (element) => {
     try {
         const [year, month, day] = element.split('-').map(Number);
-        const gregorianDate = new Date(Date.UTC(year, month - 1, day));
+        const gregorianDate = new Date(Date.UTC(year, month - 1, day, 12, 0, 0));
         const formatter = new Intl.DateTimeFormat('fa-IR', {
             calendar: 'persian',
             day: 'numeric',

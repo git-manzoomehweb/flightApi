@@ -3336,6 +3336,11 @@ const sendDataWithFetch = () => {
             TemporaryHold: TemporaryHold
 
         };
+        // check extraParams
+        if (sessionSearchStorage?.extraParams && sessionSearchStorage.extraParams.engine === 3) {
+            formData.nationalCode = sessionSearchStorage.extraParams.nationalCode;
+            formData.customer_mobile = sessionSearchStorage.extraParams.mobile;
+        };
         // Create and submit form
         const form = document.createElement("form");
         form.method = "POST";
@@ -4156,9 +4161,11 @@ const nextStep = (element) => {
                         accounttype: document.querySelector(".book-buyers__container").dataset.accounttype,
                         run: true
                     };
-
+                    // check engine id
                     if (utmSource === "safarmarket" || (getSearchCookie("safarmarketId") && domainId.includes("4869"))) {
                         bankListData.engine = 2;
+                    } else if (sessionSearchStorage?.extraParams && sessionSearchStorage.extraParams.engine === 3) {
+                        bankListData.engine = 3;
                     }
 
                     $bc.setSource("cms.bankList", [bankListData]);

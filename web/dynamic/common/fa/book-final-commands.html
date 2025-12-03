@@ -75,6 +75,7 @@
             <basis core="dbsource" source="hosting" name="db">
                 <member name="siteaddress" type="list" request="siteaddress" />
             </basis>
+            <!-- Get Bank Webservice Detail -->
             <basis core="external.fly.ws" source="cmsDbService2" name="db" procedurename="dbsource">
                 <member method="cms" name="webservice_detail" query='{
                     "name": "db",
@@ -93,19 +94,21 @@
             </basis>
             <basis core="group" name="Delay_1">
                 <basis core="inlinesource" name="db">
-                    <member name="bankid" format="json" postsql="select value from [db.bankid] where field = 'bankid'">
+                    <member name="bankId" format="json" postsql="select value from [db.bankId] where field = 'bankid'">
                         {"root":[##db.webservice_detail.result##]}
                     </member>
                 </basis>
-
+                <!-- Get Bank Token -->
                 <basis core="api" name="api.token" run="atclient" triggers="cms.token" if="{##cms.token.run|(false)##}"
                     url='https://basisfly.com/pay/Token/[##cms.cookie.rkey##]' method="post" body='{
-                    "bankid": [##db.bankid.Value##],
+                    "bankid": [##db.bankId.Value##],
                     "factorid": {##cms.token.bookId##},
                     "site_url": "[##db.siteaddress.domain##]",
                     "callback_url": "book/callback?iN={##cms.token.bookId##}",
                     "mobile": "{##cms.token.accountMobile##}",
                     "email": "{##cms.token.accountEmail##}",
+                    "nationalCode": "[##cms.form.nationalCode##]",
+                    "customer_mobile": "[##cms.form.customer_mobile##]",
                     "description": "{##cms.token.title##}",
                     "tax_amount": "0",
                     "discount_amount": "0",

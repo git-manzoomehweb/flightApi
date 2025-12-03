@@ -6,7 +6,7 @@ let translations = {};
 let currentLanguage = document.documentElement.lang || 'fa';
 let isRTL = document.documentElement.dir === 'rtl' || currentLanguage === 'fa' || currentLanguage === 'ar';
 const isMobile = document.querySelector("main").dataset.mob === "true";
-var selectedMode, share, accounttype, payType, bankIdentifier, schemaId, sessionId, productGroup, PriceInfo, email, mobile, fullname, BasisFlyBookId, tokenBankTitle;
+var selectedMode, share, accounttype, payType, bankIdentifier, bankId, schemaId, sessionId, productGroup, PriceInfo, email, mobile, fullname, BasisFlyBookId, tokenBankTitle;
 const loadTranslations = async (lang = 'fa') => {
     try {
         const response = await fetch(`/json/translations?lid=1`);
@@ -76,6 +76,7 @@ async function runApiLogic() {
             accounttype,
             payType,
             bankIdentifier,
+            bankId,
             schemaId,
             sessionId,
             productGroup,
@@ -634,6 +635,7 @@ const setToken = async (args) => {
                 },
                 body: new URLSearchParams({
                     bankIdentifier,
+                    bankId,
                     schemaid: schemaId,
                     sessionId,
                     BasisFlyBookId,

@@ -331,43 +331,67 @@ const setSession = async (args) => {
  */
 const setCalendarLookUp = async (args) => {
     try {
-
         const result = [];
-        const today = new Date();
+
+        // Get today's date in a specific timezone (e.g., Tehran or UTC)
+        // Option 1: Use UTC
+        const now = new Date();
+        const utcNow = new Date(Date.UTC(
+            now.getUTCFullYear(),
+            now.getUTCMonth(),
+            now.getUTCDate(),
+            12, 0, 0
+        ));
+        const today = new Date(utcNow);
+
+        // OR Option 2: Use Tehran timezone
+        // const tehranTime = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Tehran" }));
+        // const today = new Date(Date.UTC(
+        //     tehranTime.getFullYear(),
+        //     tehranTime.getMonth(),
+        //     tehranTime.getDate(),
+        //     12, 0, 0
+        // ));
+
         const prices = args.source.rows.slice(0, 30)
             .map(row => row.min_price);
 
         // This code is for the mobile version
         const unit = document.querySelectorAll(".book-currency")[0]?.textContent?.trim();
-        const now = new Date();
 
         // Get month and year names based on current language
         let month, year;
         if (currentLanguage === 'fa') {
             month = new Intl.DateTimeFormat("fa-IR", {
                 calendar: "persian",
-                month: "long"
-            }).format(now);
+                month: "long",
+                timeZone: "UTC"
+            }).format(utcNow);
             year = new Intl.DateTimeFormat("fa-IR", {
                 calendar: "persian",
-                year: "numeric"
-            }).format(now);
+                year: "numeric",
+                timeZone: "UTC"
+            }).format(utcNow);
         } else if (currentLanguage === 'ar') {
             month = new Intl.DateTimeFormat("ar-SA", {
                 calendar: "islamic",
-                month: "long"
-            }).format(now);
+                month: "long",
+                timeZone: "UTC"
+            }).format(utcNow);
             year = new Intl.DateTimeFormat("ar-SA", {
                 calendar: "islamic",
-                year: "numeric"
-            }).format(now);
+                year: "numeric",
+                timeZone: "UTC"
+            }).format(utcNow);
         } else {
             month = new Intl.DateTimeFormat("en-US", {
-                month: "long"
-            }).format(now);
+                month: "long",
+                timeZone: "UTC"
+            }).format(utcNow);
             year = new Intl.DateTimeFormat("en-US", {
-                year: "numeric"
-            }).format(now);
+                year: "numeric",
+                timeZone: "UTC"
+            }).format(utcNow);
         }
 
         if (document.querySelector(".book_today__date")) {
@@ -376,7 +400,7 @@ const setCalendarLookUp = async (args) => {
 
         for (let i = 0; i < 30; i++) {
             const date = new Date(today);
-            date.setDate(today.getDate() + i);
+            date.setUTCDate(today.getUTCDate() + i);
 
             // Format Gregorian date (YYYY-MM-DD)
             const gregorian = date.toISOString().split("T")[0];
@@ -390,27 +414,32 @@ const setCalendarLookUp = async (args) => {
                     calendar: "persian",
                     year: "numeric",
                     month: "2-digit",
-                    day: "2-digit"
+                    day: "2-digit",
+                    timeZone: "UTC"
                 }).format(date).replace(/‏/g, "");
 
                 weekday = new Intl.DateTimeFormat("fa-IR", {
                     calendar: "persian",
-                    weekday: "long"
+                    weekday: "long",
+                    timeZone: "UTC"
                 }).format(date);
 
                 monthName = new Intl.DateTimeFormat("fa-IR", {
                     calendar: "persian",
-                    month: "long"
+                    month: "long",
+                    timeZone: "UTC"
                 }).format(date);
 
                 monthNumber = new Intl.DateTimeFormat("fa-IR", {
                     calendar: "persian",
-                    month: "2-digit"
+                    month: "2-digit",
+                    timeZone: "UTC"
                 }).format(date);
 
                 day = new Intl.DateTimeFormat("fa-IR", {
                     calendar: "persian",
-                    day: "2-digit"
+                    day: "2-digit",
+                    timeZone: "UTC"
                 }).format(date);
             } else if (currentLanguage === 'ar') {
                 // Arabic (Hijri) calendar
@@ -418,49 +447,59 @@ const setCalendarLookUp = async (args) => {
                     calendar: "islamic",
                     year: "numeric",
                     month: "2-digit",
-                    day: "2-digit"
+                    day: "2-digit",
+                    timeZone: "UTC"
                 }).format(date);
 
                 weekday = new Intl.DateTimeFormat("ar-SA", {
-                    weekday: "long"
+                    weekday: "long",
+                    timeZone: "UTC"
                 }).format(date);
 
                 monthName = new Intl.DateTimeFormat("ar-SA", {
                     calendar: "islamic",
-                    month: "long"
+                    month: "long",
+                    timeZone: "UTC"
                 }).format(date);
 
                 monthNumber = new Intl.DateTimeFormat("ar-SA", {
                     calendar: "islamic",
-                    month: "2-digit"
+                    month: "2-digit",
+                    timeZone: "UTC"
                 }).format(date);
 
                 day = new Intl.DateTimeFormat("ar-SA", {
                     calendar: "islamic",
-                    day: "2-digit"
+                    day: "2-digit",
+                    timeZone: "UTC"
                 }).format(date);
             } else {
                 // English (Gregorian) calendar
                 shamsi = new Intl.DateTimeFormat("en-US", {
                     year: "numeric",
                     month: "2-digit",
-                    day: "2-digit"
+                    day: "2-digit",
+                    timeZone: "UTC"
                 }).format(date);
 
                 weekday = new Intl.DateTimeFormat("en-US", {
-                    weekday: "long"
+                    weekday: "long",
+                    timeZone: "UTC"
                 }).format(date);
 
                 monthName = new Intl.DateTimeFormat("en-US", {
-                    month: "long"
+                    month: "long",
+                    timeZone: "UTC"
                 }).format(date);
 
                 monthNumber = new Intl.DateTimeFormat("en-US", {
-                    month: "2-digit"
+                    month: "2-digit",
+                    timeZone: "UTC"
                 }).format(date);
 
                 day = new Intl.DateTimeFormat("en-US", {
-                    day: "2-digit"
+                    day: "2-digit",
+                    timeZone: "UTC"
                 }).format(date);
             }
 
@@ -483,7 +522,7 @@ const setCalendarLookUp = async (args) => {
         setTimeout(() => {
             if (document.querySelectorAll('.book-price__swiper .swiper-slide').length) {
                 new Swiper(".book-price__swiper", {
-                    slidesPerView: 'auto',   // یا 2
+                    slidesPerView: 'auto',
                     spaceBetween: 20,
                     speed: 400,
                     centeredSlides: false,
@@ -3480,26 +3519,29 @@ const renderFormatDate = async (element) => {
     try {
         // Parse date as local timezone
         const [year, month, day] = element.split('-').map(Number);
-        const gregorianDate = new Date(Date.UTC(year, month - 1, day)); // month is 0-indexed
+        const gregorianDate = new Date(Date.UTC(year, month - 1, day, 12, 0, 0));// month is 0-indexed
 
         let formatter;
         if (currentLanguage === 'fa') {
             formatter = new Intl.DateTimeFormat('fa-IR-u-ca-persian', {
                 weekday: 'long',
                 day: 'numeric',
-                month: 'long'
+                month: 'long',
+                timeZone: 'UTC'
             });
         } else if (currentLanguage === 'ar') {
             formatter = new Intl.DateTimeFormat('ar-SA-u-ca-islamic', {
                 weekday: 'long',
                 day: 'numeric',
-                month: 'long'
+                month: 'long',
+                timeZone: 'UTC'
             });
         } else {
             formatter = new Intl.DateTimeFormat('en-US', {
                 weekday: 'long',
                 day: 'numeric',
-                month: 'long'
+                month: 'long',
+                timeZone: 'UTC'
             });
         }
         return formatter.format(gregorianDate);
@@ -3508,27 +3550,24 @@ const renderFormatDate = async (element) => {
         return "";
     }
 };
-const renderPrettyDate = async (element) => {
+const renderPrettyDate = (element) => {
     try {
         const months = [
             "Jan", "Feb", "Mar", "Apr", "May", "Jun",
             "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
         ];
-
-        // Parse date as local timezone
         const [year, month, day] = element.split('-').map(Number);
-        const date = new Date(year, month - 1, day); // month is 0-indexed
-
-        const dayNum = date.getDate();
-        const monthName = months[date.getMonth()];
-        const yearNum = date.getFullYear();
-
+        const date = new Date(Date.UTC(year, month - 1, day)); // month is 0-indexed
+        const dayNum = date.getUTCDate();
+        const monthName = months[date.getUTCMonth()];
+        const yearNum = date.getUTCFullYear();
         return `${dayNum} ${monthName} ${yearNum}`;
     } catch (error) {
         console.error(`renderPrettyDate: ${error.message}`);
         return "";
     }
 };
+
 /**
 * Renders the airport name for a given location code.
 * @param {string} element - Location code for the airport.
@@ -5685,7 +5724,7 @@ const convertToSearchedDate = (element) => {
             return "";
         }
         const [year, month, day] = element.split('-').map(Number);
-        const gregorianDate = new Date(Date.UTC(year, month - 1, day));
+        const gregorianDate = new Date(Date.UTC(year, month - 1, day, 12, 0, 0));
 
         // Check currentLanguage and format accordingly
         if (currentLanguage === 'fa') {
@@ -5694,7 +5733,8 @@ const convertToSearchedDate = (element) => {
                 calendar: 'persian',
                 day: 'numeric',
                 month: 'long',
-                year: 'numeric'
+                year: 'numeric',
+                timeZone: 'UTC'
             });
             return formatter.format(gregorianDate);
         }
@@ -5704,7 +5744,8 @@ const convertToSearchedDate = (element) => {
                 calendar: 'gregory',
                 day: 'numeric',
                 month: 'long',
-                year: 'numeric'
+                year: 'numeric',
+                timeZone: 'UTC'
             });
             return formatter.format(gregorianDate);
         }
@@ -5714,7 +5755,8 @@ const convertToSearchedDate = (element) => {
                 calendar: 'islamic',
                 day: 'numeric',
                 month: 'long',
-                year: 'numeric'
+                year: 'numeric',
+                timeZone: 'UTC'
             });
             return formatter.format(gregorianDate);
         }
@@ -5724,7 +5766,8 @@ const convertToSearchedDate = (element) => {
                 calendar: 'gregory',
                 day: 'numeric',
                 month: 'long',
-                year: 'numeric'
+                year: 'numeric',
+                timeZone: 'UTC'
             });
             return formatter.format(gregorianDate);
         }

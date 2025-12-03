@@ -2005,7 +2005,7 @@ html:not([lang="fa"]):not([lang="ar"]) .book-info__item__container .book-has__dr
     background-color: rgb(228 228 231 / var(--tw-bg-opacity, 1));
 }
 
-.book-active__module__flight__type {
+.book-active__module__type {
     background-color: var(--primary-500);
     --tw-text-opacity: 1;
     color: rgb(255 255 255 / var(--tw-text-opacity, 1));

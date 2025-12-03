@@ -321,26 +321,29 @@ const renderFormatDate = async (element) => {
     try {
         // Parse date as local timezone
         const [year, month, day] = element.split('-').map(Number);
-        const gregorianDate = new Date(Date.UTC(year, month - 1, day)); // month is 0-indexed
+        const gregorianDate = new Date(Date.UTC(year, month - 1, day, 12, 0, 0));// month is 0-indexed
 
         let formatter;
         if (currentLanguage === 'fa') {
             formatter = new Intl.DateTimeFormat('fa-IR-u-ca-persian', {
                 weekday: 'long',
                 day: 'numeric',
-                month: 'long'
+                month: 'long',
+                timeZone: 'UTC'
             });
         } else if (currentLanguage === 'ar') {
             formatter = new Intl.DateTimeFormat('ar-SA-u-ca-islamic', {
                 weekday: 'long',
                 day: 'numeric',
-                month: 'long'
+                month: 'long',
+                timeZone: 'UTC'
             });
         } else {
             formatter = new Intl.DateTimeFormat('en-US', {
                 weekday: 'long',
                 day: 'numeric',
-                month: 'long'
+                month: 'long',
+                timeZone: 'UTC'
             });
         }
         return formatter.format(gregorianDate);
@@ -737,7 +740,7 @@ const convertToSearchedDate = (element) => {
     try {
 
         const [year, month, day] = element.split('-').map(Number);
-        const gregorianDate = new Date(Date.UTC(year, month - 1, day));
+        const gregorianDate = new Date(Date.UTC(year, month - 1, day, 12, 0, 0));
 
         // Check currentLanguage and format accordingly
         if (currentLanguage === 'fa') {
@@ -746,7 +749,8 @@ const convertToSearchedDate = (element) => {
                 calendar: 'persian',
                 day: 'numeric',
                 month: 'long',
-                year: 'numeric'
+                year: 'numeric',
+                timeZone: 'UTC'
             });
             return formatter.format(gregorianDate);
         }
@@ -756,7 +760,8 @@ const convertToSearchedDate = (element) => {
                 calendar: 'gregory',
                 day: 'numeric',
                 month: 'long',
-                year: 'numeric'
+                year: 'numeric',
+                timeZone: 'UTC'
             });
             return formatter.format(gregorianDate);
         }
@@ -766,7 +771,8 @@ const convertToSearchedDate = (element) => {
                 calendar: 'islamic',
                 day: 'numeric',
                 month: 'long',
-                year: 'numeric'
+                year: 'numeric',
+                timeZone: 'UTC'
             });
             return formatter.format(gregorianDate);
         }
@@ -776,7 +782,8 @@ const convertToSearchedDate = (element) => {
                 calendar: 'gregory',
                 day: 'numeric',
                 month: 'long',
-                year: 'numeric'
+                year: 'numeric',
+                timeZone: 'UTC'
             });
             return formatter.format(gregorianDate);
         }
