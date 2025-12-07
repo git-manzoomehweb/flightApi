@@ -2365,19 +2365,8 @@ const manipulation = async (args) => {
         }
     }
 };
-
-
-
-
-/**
- * Global state and cached DOM elements for rendering functions.
- */
-let defaultTotalCommission = 0; // Default totalCommission for fare comparison
-let defaultTotal = 0; // Default tota for fare comparison
 // Cached DOM elements
 const pagingContainer = document.querySelector(".book-paging__cards__container");
-const apiContainer = document.querySelector(".book-api__container__rendering");
-
 /**
  * Renders a pagination button for flight search results.
  * @param {Object} element - Pagination data with index, page, isActive, and isVisible properties
@@ -3231,14 +3220,15 @@ const renderRoutesInfoMob = async (element) => {
          * Renders HTML for a single route with flight details and optional title for first route in group.
          * @param {Object} item - Route information.
          * @param {Object} baggage - Baggage information for the route.
-         * @param {number} index - Index of the route.
+         * @param {number} baggageIndex - Index for accessing baggage array.
+         * @param {number} routeIndex - Index of the route within the group.
          * @param {boolean} isFirstInGroup - Whether this is the first route in the group.
          * @param {number} groupIndex - Index of the flight group.
          * @returns {Promise<string>} HTML string for the route.
          */
-        const routeHtml = async (item, baggage, index, isFirstInGroup, groupIndex) => {
+        const routeHtml = async (item, baggage, baggageIndex, routeIndex, isFirstInGroup, groupIndex) => {
             let titleDiv = "";
-            if (isFirstInGroup && index === 0) {
+            if (isFirstInGroup && routeIndex === 0) {
 
                 if (schemaId === 290) {
                     titleDiv = `
@@ -3326,8 +3316,8 @@ const renderRoutesInfoMob = async (element) => {
         for (let groupIndex = 0; groupIndex < (element.FlightGroup || []).length; groupIndex++) {
             const flightGroup = element.FlightGroup[groupIndex];
             const routeHtmls = await Promise.all(
-                (flightGroup.RoutesInfo || []).map((item) =>
-                    routeHtml(item, element.Baggages?.[item.SegmentId - 1], item.SegmentId - 1, true, groupIndex)
+                (flightGroup.RoutesInfo || []).map((item, routeIndex) =>
+                    routeHtml(item, element.Baggages?.[item.SegmentId - 1], item.SegmentId - 1, routeIndex, true, groupIndex)
                 )
             );
 
@@ -3363,15 +3353,16 @@ const renderRoutesInfoPc = async (element) => {
         };
 
         // Added new parameters: isFirstInGroup (first route in the group), groupIndex (group number)
-        const routeHtml = async (item, baggage, index, isFirstInGroup, groupIndex) => {
+        const routeHtml = async (item, baggage, baggageIndex, routeIndex, isFirstInGroup, groupIndex) => {
             let titleDiv = "";
-            if (isFirstInGroup && index === 0) {
+            if (isFirstInGroup && routeIndex === 0) {
                 if (schemaId === 290) {
                     titleDiv = `
             <div class="book-route__title book-text-lg book-font-bold book-mb-4">
                 ${groupIndex === 0 ? translate("outbound_flight") : translate("return_flight")}
             </div>`;
                 } else if (schemaId === 292) {
+
                     // Names for first to fourth routes
                     const routeNames = [translate("first_route"), translate("second_route"), translate("third_route"), translate("fourth_route")];
                     const name = routeNames[groupIndex];
@@ -3463,9 +3454,18 @@ const renderRoutesInfoPc = async (element) => {
         for (let groupIndex = 0; groupIndex < (element.FlightGroup || []).length; groupIndex++) {
             const flightGroup = element.FlightGroup[groupIndex];
 
+
+
             const routeHtmls = await Promise.all(
-                (flightGroup.RoutesInfo || []).map((item) =>
-                    routeHtml(item, element.Baggages?.[item.SegmentId - 1], item.SegmentId - 1, true, groupIndex)
+                (flightGroup.RoutesInfo || []).map((item, routeIndex) =>
+                    routeHtml(
+                        item,
+                        element.Baggages?.[item.SegmentId - 1],
+                        item.SegmentId - 1,
+                        routeIndex,
+                        true,
+                        groupIndex
+                    )
                 )
             );
 
@@ -3519,7 +3519,7 @@ const renderFormatDate = async (element) => {
     try {
         // Parse date as local timezone
         const [year, month, day] = element.split('-').map(Number);
-        const gregorianDate = new Date(Date.UTC(year, month - 1, day, 12, 0, 0));// month is 0-indexed
+        const gregorianDate = new Date(Date.UTC(year, month - 1, day, 12, 0, 0));
 
         let formatter;
         if (currentLanguage === 'fa') {
@@ -3773,9 +3773,10 @@ const renderAmenities = async (element) => {
 */
 const renderBaseFare = async (element, unit, id) => {
     try {
-        const differencePrice = parseInt(element) - parseInt(defaultTotalCommission);
+        const cardContainer = document.querySelector(".book-card__container__selected");
+        let defaultTotalCommission = cardContainer.querySelector(".book-cart__price__container").getAttribute('data-original-price');
+        const differencePrice = parseFloat(element) - parseFloat(defaultTotalCommission);
         if (differencePrice === 0) {
-            const cardContainer = apiContainer?.closest(".book-card__container");
             if (cardContainer) {
                 cardContainer.querySelector(".book-modal__btn__container").setAttribute("onclick", `submitCard(this,${id})`);
             }
@@ -3800,7 +3801,8 @@ const renderBaseFare = async (element, unit, id) => {
 */
 const renderSelectedAmenities = async (element) => {
     try {
-        const differencePrice = parseInt(element.PriceInfo.TotalCommission) - parseInt(defaultTotalCommission);
+        let defaultTotalCommission = document.querySelector(".book-card__container__selected").querySelector(".book-cart__price__container").getAttribute('data-original-price');
+        const differencePrice = parseFloat(element.PriceInfo.TotalCommission) - parseFloat(defaultTotalCommission);
         if (differencePrice === 0) {
             const foundObject = element;
             sessionStorage.setItem("sessionAmenities", JSON.stringify(foundObject));
@@ -3922,8 +3924,6 @@ const selectModalContainer = (element, idToFind) => {
                 });
             }
             element.setAttribute("data-run", "1");
-            defaultTotalCommission = foundObject?.PriceInfo.TotalCommission || 0;
-            defaultTotal = foundObject?.PriceInfo.Total || 0;
         }
     } catch (error) {
         console.error(`selectModalContainer: ${error.message}`);
@@ -4022,6 +4022,7 @@ const selectAmenities = async (element, idToFind) => {
         const parent = element.parentNode;
         const siblings = parent.children;
         const modalContainer = element.closest(".book-modal__container");
+        let defaultTotalCommission = modalContainer.querySelector(".book-cart__price__container").getAttribute('data-original-price');
         const foundObject = FlightAmenitiesProposalsSource.find(item => item.FlightId === idToFind);
         if (foundObject) {
             sessionStorage.setItem("sessionAmenities", JSON.stringify(foundObject));
@@ -4042,6 +4043,8 @@ const selectAmenities = async (element, idToFind) => {
         const additionPrice = additionPriceContainer
             ? parseInt(additionPriceContainer.textContent.replace(/,/g, ""), 10)
             : 0;
+        console.log("additionPrice")
+        console.log(additionPrice)
 
         // Update submit button text and action with translations
         const submitButton = modalContainer.querySelector(".book-modal__btn__container");
@@ -4050,10 +4053,11 @@ const selectAmenities = async (element, idToFind) => {
 
         // Update total price display
         modalContainer.querySelector(".book-cart__price__container").textContent =
-            priceWithCurrency(parseInt(defaultTotalCommission) + parseInt(additionPrice));
+            priceWithCurrency(parseFloat(defaultTotalCommission) + parseFloat(additionPrice));
         if (modalContainer.querySelector(".book-cart__initial_price__container")) {
+            let defaultTotal = modalContainer.querySelector(".book-cart__initial_price__container").getAttribute('data-original-price');
             modalContainer.querySelector(".book-cart__initial_price__container").textContent =
-                priceWithCurrency(parseInt(defaultTotal) + parseInt(additionPrice));
+                priceWithCurrency(parseFloat(defaultTotal) + parseFloat(additionPrice));
         }
 
         const priceElements = modalContainer.querySelector(".book-flight__price");

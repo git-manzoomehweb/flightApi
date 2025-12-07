@@ -35,14 +35,15 @@ const renderRoutesInfoMob = async (element) => {
          * Renders HTML for a single route with flight details and optional title for first route in group.
          * @param {Object} item - Route information.
          * @param {Object} baggage - Baggage information for the route.
-         * @param {number} index - Index of the route.
+         * @param {number} baggageIndex - Index for accessing baggage array.
+         * @param {number} routeIndex - Index of the route within the group.
          * @param {boolean} isFirstInGroup - Whether this is the first route in the group.
          * @param {number} groupIndex - Index of the flight group.
          * @returns {Promise<string>} HTML string for the route.
          */
-        const routeHtml = async (item, baggage, index, isFirstInGroup, groupIndex) => {
+        const routeHtml = async (item, baggage, baggageIndex, routeIndex, isFirstInGroup, groupIndex) => {
             let titleDiv = "";
-            if (isFirstInGroup && index === 0) {
+            if (isFirstInGroup && routeIndex === 0) {
                 if (schemaId === 290) {
                     titleDiv = `
             <div class="book-route__title book-text-lg book-font-bold book-mb-4">
@@ -127,8 +128,8 @@ const renderRoutesInfoMob = async (element) => {
             const flightGroup = element.FlightGroup[groupIndex];
 
             const routeHtmls = await Promise.all(
-                (flightGroup.RoutesInfo || []).map((item) =>
-                    routeHtml(item, element.Baggages?.[item.SegmentId - 1], item.SegmentId - 1, true, groupIndex)
+                (flightGroup.RoutesInfo || []).map((item, routeIndex) =>
+                    routeHtml(item, element.Baggages?.[item.SegmentId - 1], item.SegmentId - 1, routeIndex, true, groupIndex)
                 )
             );
 
@@ -167,10 +168,10 @@ const renderRoutesInfoPc = async (element) => {
             }
         };
 
-        const routeHtml = async (item, baggage, index, isFirstInGroup, groupIndex) => {
+        const routeHtml = async (item, baggage, baggageIndex, routeIndex, isFirstInGroup, groupIndex) => {
             let titleDiv = "";
 
-            if (isFirstInGroup && index === 0) {
+            if (isFirstInGroup && routeIndex === 0) {
 
                 if (schemaId === 290) {
 
@@ -267,8 +268,8 @@ const renderRoutesInfoPc = async (element) => {
         for (let groupIndex = 0; groupIndex < (element.FlightGroup || []).length; groupIndex++) {
             const flightGroup = element.FlightGroup[groupIndex];
             const routeHtmls = await Promise.all(
-                (flightGroup.RoutesInfo || []).map((item) =>
-                    routeHtml(item, element.Baggages?.[item.SegmentId - 1], item.SegmentId - 1, true, groupIndex)
+                (flightGroup.RoutesInfo || []).map((item, routeIndex) =>
+                    routeHtml(item, element.Baggages?.[item.SegmentId - 1], item.SegmentId - 1, routeIndex, true, groupIndex)
                 )
             );
             output += routeHtmls.join('');

@@ -1450,12 +1450,6 @@ html:not([lang="fa"]):not([lang="ar"]) .swiper-button-next {
     color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
 
-@media (min-width: 768px) {
-    .md\:book-w-1\/8 {
-        width: 12.5%;
-    }
-}
-
 .book-min-w-54 {
     min-width: 13.5rem;
 }
@@ -1806,6 +1800,18 @@ html:not([lang="fa"]):not([lang="ar"]) .book-progress__bar::before {
 }
 
 @media (min-width: 768px) {
+    .md\:book-w-1\/8 {
+        width: 12.5%;
+    }
+
+    .md\:book-w-full {
+        width: 100%;
+    }
+
+    .md\:book-w-1\/2 {
+        width: 50%;
+    }
+
     .md\:book-w-1\/4 {
         width: 25%;
     }
@@ -1832,6 +1838,14 @@ html:not([lang="fa"]):not([lang="ar"]) .book-progress__bar::before {
 }
 
 @media (min-width: 1024px) {
+    .lg\:book-w-3\/5 {
+        width: 60%;
+    }
+
+    .lg\:book-w-2\/5 {
+        width: 40%;
+    }
+
     .lg\:book-mb-0 {
         margin-bottom: 0px;
     }
@@ -1843,4 +1857,50 @@ html:not([lang="fa"]):not([lang="ar"]) .book-progress__bar::before {
     .lg\:book-w-3\/4 {
         width: 75%;
     }
+}
+
+@media (min-width: 1024px) and (max-width: 1366px) {
+    #route__template {
+        width: 100% !important;
+    }
+
+    #route__template .book-w-full.md\:book-w-1\/2 {
+        width: 50% !important;
+    }
+
+    .date__searched__container.book-w-full.md\:book-w-1\/2 {
+        width: 50% !important;
+    }
+}
+
+/* Captcha Input Styles */
+.contactUsInput.codeinputm {
+    width: 100%;
+    padding: 0.5rem 2.5rem 0.5rem 0.5rem;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    border: 1px solid rgb(212 212 216 / var(--tw-border-opacity, 1));
+    border-radius: 0.375rem;
+    background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+    color: rgb(24 24 27 / var(--tw-text-opacity, 1));
+    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.contactUsInput.codeinputm:focus {
+    outline: none;
+    border-color: var(--primary-400);
+    box-shadow: 0 0 0 3px rgb(44 85 241 / 0.1);
+}
+
+.contactUsInput.codeinputm::placeholder {
+    color: rgb(161 161 170 / var(--tw-text-opacity, 1));
+    opacity: 1;
+}
+
+.book-flex-row {
+    flex-direction: row;
+}
+
+.book-flex-row-reverse {
+    flex-direction: row-reverse;
 }

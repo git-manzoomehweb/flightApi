@@ -2077,6 +2077,18 @@ html:not([lang="fa"]):not([lang="ar"]) .book-info__item__container .book-has__dr
         width: 66.666667%;
     }
 
+    .lg\:book-w-1\/4 {
+        width: 25%;
+    }
+
+    .lg\:book-w-2\/5 {
+        width: 40%;
+    }
+
+    .lg\:book-w-3\/5 {
+        width: 60%;
+    }
+
 
 }
 
@@ -2102,6 +2114,14 @@ html:not([lang="fa"]):not([lang="ar"]) .book-info__item__container .book-has__dr
 @media (min-width: 768px) {
     .md\:book-w-1\/4 {
         width: 25%;
+    }
+
+    .md\:book-w-1\/2 {
+        width: 50%;
+    }
+
+    .md\:book-w-full {
+        width: 100%;
     }
 
     .md\:book-w-1\/5 {
@@ -2137,4 +2157,18 @@ html:not([lang="fa"]):not([lang="ar"]) .book-info__item__container .book-has__dr
         width: 12.5%;
     }
 
+}
+
+@media (min-width: 1024px) and (max-width: 1366px) {
+    #route__template {
+        width: 100% !important;
+    }
+
+    #route__template .book-w-full.md\:book-w-1\/2 {
+        width: 50% !important;
+    }
+
+    .date__searched__container.book-w-full.md\:book-w-1\/2 {
+        width: 50% !important;
+    }
 }

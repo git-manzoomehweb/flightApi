@@ -743,12 +743,15 @@
                                                     <div
                                                         class="book-flex book-justify-between book-items-center book-text-xs">
                                                         <div class="book-slider__value__container book-rtl">
-                                                            <span class="book-min__value"></span><span
-                                                                class="book-mr-1 book-unit__value"></span>
+                                                            <span class="book-min__value book-price__check__currency"
+                                                                data-original-price=""></span><span
+                                                                class="book-mr-1 book-unit__value book-unit__check__currency"></span>
                                                         </div>
                                                         <div class="book-slider__value__container book-rtl">
-                                                            <span class="book-max__value"></span>
-                                                            <span class="book-mr-1 book-unit__value"></span>
+                                                            <span class="book-max__value book-price__check__currency"
+                                                                data-original-price=""></span>
+                                                            <span
+                                                                class="book-mr-1 book-unit__value book-unit__check__currency"></span>
                                                         </div>
                                                     </div>
                                                     <div
@@ -1631,13 +1634,13 @@
                                                                         if($data.PriceInfo.Commission !== '0'){
                                                                         return `<div class="book-mb-2"><h6 class="book-text-zinc-500 book-mb-2">مبلغ : </h6>
                                                                                 <div class="book-text-lg book-font-bold book-text-zinc-900">
-                                                                                    <span class="book-cart__initial_price__container">${await
+                                                                                    <span class="book-price__check__currency book-cart__initial_price__container"  data-original-price="${$data.PriceInfo.Total}">${await
                                                                                         priceWithCurrency($data.PriceInfo.Total)}</span>
                                                                                    ${await
                                                                                   renderCurrency($data.PriceInfo.Currency)}</div></div><div class="book-mb-2"><h6 class="book-text-zinc-500 book-mb-2">کمیسیون : </h6>
                                                                                     <div class="book-text-lg book-font-bold book-text-zinc-900">
-                                                                                        ${await
-                                                                                            priceWithCurrency($data.PriceInfo.Commission)}
+                                                                                        <span class="book-price__check__currency" data-original-price="${$data.PriceInfo.Commission}">${await
+                                                                                            priceWithCurrency($data.PriceInfo.Commission)}</span>
                                                                                        ${await
                                                                                       renderCurrency($data.PriceInfo.Currency)}</div></div>`
                                                                         }
@@ -1647,7 +1650,7 @@
                                                                         پرداخت:
                                                                     </h6>
                                                                     {{
-                                                                        return `<div class="book-text-2xl book-font-bold book-text-zinc-900"><span class="book-cart__price__container">
+                                                                        return `<div class="book-text-2xl book-font-bold book-text-zinc-900"><span class="book-cart__price__container book-price__check__currency" data-original-price="${$data.PriceInfo.TotalCommission}">
                                                                             ${await
                                                                                 priceWithCurrency($data.PriceInfo.TotalCommission)}
                                                                             </span>${await

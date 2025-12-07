@@ -1254,12 +1254,12 @@ const onProcessedUserCredit = async (args) => {
             const responseJson = await response.json();
             if (responseJson) {
                 const userCredit = parseFloat(responseJson.user_credit);
-                const firstPay = parseFloat(document.querySelector(".book-firstpay__cost").textContent.replace(/,/g, ""));
+                const costText = document.querySelector(".book-firstpay__cost").textContent;
+                const firstPay = parseFloat(convertPersianToEnglish(costText).replace(/,/g, ""));
                 if (userCredit > firstPay) {
                     const container = document.querySelector(".book-invoice__container");
                     const currencyUnit = document.querySelector(".book-unit__content span").textContent;
                     const isWallet = document.querySelector(".book-buyers__container").dataset.accounttype === "3";
-
 
                     const html = `
                         <div class="book-invoice__content book-cursor-pointer book-p-2" data-run="0" onclick="submitInvoice(this,'credit__Invoice')">
@@ -1295,7 +1295,19 @@ const onProcessedUserCredit = async (args) => {
         console.error("onProcessedUserCredit: " + error.message);
     }
 };
-
+/** convert Persian To English */
+const convertPersianToEnglish = (str) => {
+    const persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+    const arabicNumbers = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+    let result = str;
+    persianNumbers.forEach((num, index) => {
+        result = result.replace(new RegExp(num, 'g'), index);
+    });
+    arabicNumbers.forEach((num, index) => {
+        result = result.replace(new RegExp(num, 'g'), index);
+    });
+    return result;
+};
 
 /**
  * Processes country ID API response and renders country list in dropdowns.
