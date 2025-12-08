@@ -242,7 +242,7 @@ const selectModuleFlightType = (element, schemaId) => {
             } else {
                 container.querySelectorAll(".departure__date__container").forEach(e => e.classList.add("book-w-full"));
             }
-            container.querySelectorAll(".book-min-w-48").forEach(el => el.classList.remove("book-min-w-48"));
+
 
             routeBlocks = container.querySelectorAll(".route-content");
             if (routeBlocks.length < 2) {

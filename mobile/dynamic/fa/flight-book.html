@@ -319,16 +319,8 @@
                                 <basis core="call" file="book/passenger" lid="1" pageindexid="2"></basis>
                             </div>
                             <div class="book-buyers__container book-hidden" data-run="0">
-                                <div id="ballsWaveG">
-                                    <div id="ballsWaveG_1" class="ballsWaveG"></div>
-                                    <div id="ballsWaveG_2" class="ballsWaveG"></div>
-                                    <div id="ballsWaveG_3" class="ballsWaveG"></div>
-                                    <div id="ballsWaveG_4" class="ballsWaveG"></div>
-                                    <div id="ballsWaveG_5" class="ballsWaveG"></div>
-                                    <div id="ballsWaveG_6" class="ballsWaveG"></div>
-                                    <div id="ballsWaveG_7" class="ballsWaveG"></div>
-                                    <div id="ballsWaveG_8" class="ballsWaveG"></div>
-                                </div>
+                                <span
+                                class="book-api__container__loader book-flex book-bg-white book-relative book-w-3 book-h-3 book-rounded-full book-mx-auto book-mb-3"></span>
                                 <basis core="call" run="atclient" file="/book/buyer" triggers="cms.buyer"
                                     if="{##cms.buyer##}" method="get" lid="1" pageindex="[##cms.cms.pageindex|(1)##]">
                                 </basis>

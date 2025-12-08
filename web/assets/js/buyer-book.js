@@ -145,7 +145,7 @@ const onProcessedBuyerSchema = async (args) => {
             if (responseJson && !responseJson.errorMessage) {
                 const buyersContainer = document.querySelector(".book-buyers__container");
                 // Remove loader
-                const loader = buyersContainer.querySelector("#ballsWaveG");
+                const loader = buyersContainer.querySelector(".book-api__container__loader");
                 if (loader) loader.remove();
                 buyersContainer.setAttribute("data-load", 1);
 
