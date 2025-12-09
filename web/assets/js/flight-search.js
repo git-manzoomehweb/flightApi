@@ -2294,12 +2294,15 @@ const manipulation = async (args) => {
             InUpdateUIProcess = false;
 
             // Display no flights found message using translations
-            document.querySelector(".book-list__cards__container").innerHTML = `
+            if (document.querySelector(".book-list__cards__container")) {
+                document.querySelector(".book-list__cards__container").innerHTML = `
                 <div class="book-text-center">
                     <div>${translate('no_flights_matching_filters')}</div>
                     <div class="book-text-zinc-900 book-text-xs book-mt-2">${translate('clear_filters_to_see_results')}</div>
                 </div>
             `;
+            }
+
 
             // Hide pagination controls when no results
             const container = document.querySelector(".book-paging__cards__container");
@@ -2513,8 +2516,8 @@ const renderFlightGroupMob = async (element) => {
               ${await renderBaggages(Array.isArray(element.Baggages) && element.Baggages.length > 0 ? element.Baggages[0] : null, 'style')}
            
             </div>
-            <div class="book-flex book-text-secondary-600">
-              <svg width="17" height="17" class="book-fill-secondary-500 book-scale-x--100" version="1.0" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
+            <div class="book-flex book-text-secondary-900">
+              <svg width="17" height="17" class="book-fill-secondary-900 book-scale-x--100" version="1.0" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
                 <use href="/booking/images/sprite-booking-icons.svg#seat-flight-icon"></use>
               </svg>
               <span class="${positionRelativeClass}">

@@ -477,16 +477,14 @@ function getModuleDates() {
 function syncModuleDates() {
     const mod = getCurrentModule();
 
-    // اگر الان در flighthotel هستیم و پیکر روی ورودی «بخشی» باز شده،
-    // تاریخ‌های سطلِ بخشی را به متغیرهای نمایشی تزریق کن.
+
     if (mod === 'flighthotel' && picker?._enforceFHRange) {
         departDate = HOTEL_PARTIAL_DATES.depart;
         returnDate = HOTEL_PARTIAL_DATES.return;
         return;
     }
 
-    // در غیر این صورت (اصلی یا ماژول‌های دیگر) از همان منطق قبلی استفاده کن
-    const dates = getModuleDates(); // همان Map قبلی
+    const dates = getModuleDates();
     departDate = dates.depart;
     returnDate = dates.return;
 }
@@ -496,7 +494,6 @@ function syncModuleDates() {
 function updateModuleDate(field, value) {
     const mod = getCurrentModule();
 
-    // اگر در flighthotel و ورودی «بخشی» است → در سطلِ بخشی ذخیره کن
     if (mod === 'flighthotel' && picker?._enforceFHRange) {
         if (field === 'depart') {
             HOTEL_PARTIAL_DATES.depart = value;
@@ -508,7 +505,6 @@ function updateModuleDate(field, value) {
         return;
     }
 
-    // بقیه حالت‌ها: همان رفتار قبلی (سطل اصلی ماژول)
     const dates = getModuleDates();
     if (field === 'depart') {
         dates.depart = value;
@@ -1243,7 +1239,7 @@ class DatePicker {
                 }
 
                 // If selected return date is before or equal to depart date
-                if (ymdKeyFromDateUTC(dUTC) <= ymdKeyFromDateUTC(departDate)) {
+                if (ymdKeyFromDateUTC(dUTC) < ymdKeyFromDateUTC(departDate)) {
                     // Set depart date to selected date
                     updateModuleDate('depart', dUTC);
                     // Set return date to one day after
