@@ -700,6 +700,10 @@
     border-color: rgb(243 244 246 / var(--tw-divide-opacity, 1));
 }
 
+.book-scale-100 {
+    transform: scale(1);
+}
+
 .book--translate-x-1\.2 {
     transform: translateX(-50%);
 }

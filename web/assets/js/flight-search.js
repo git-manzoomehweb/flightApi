@@ -2495,6 +2495,7 @@ const renderFlightGroupMob = async (element) => {
             const marginRightClass = isRTL ? 'book-mr-2' : 'book-ml-2';
             const marginLeftClass = isRTL ? 'book-ml-1' : 'book-mr-1';
             const positionRelativeClass = isRTL ? 'book-relative book-top-[3px]' : '';
+            const scaleClass = isRTL ? 'book-scale-x--100' : '';
             // Render flight group card
             // This code is for the mobile version
             output += `<div class="${cardClass}"><div class="book-card__logo__class__provider">
@@ -2516,8 +2517,8 @@ const renderFlightGroupMob = async (element) => {
               ${await renderBaggages(Array.isArray(element.Baggages) && element.Baggages.length > 0 ? element.Baggages[0] : null, 'style')}
            
             </div>
-            <div class="book-flex book-text-secondary-900">
-              <svg width="17" height="17" class="book-fill-secondary-900 book-scale-x--100" version="1.0" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
+            <div class="book-flex book-text-secondary-900 book-items-center">
+              <svg width="17" height="17" class="book-fill-secondary-900 ${scaleClass}" version="1.0" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
                 <use href="/booking/images/sprite-booking-icons.svg#seat-flight-icon"></use>
               </svg>
               <span class="${positionRelativeClass}">
@@ -2602,6 +2603,7 @@ const renderFlightGroupPc = async (element) => {
             const marginRightClass = isRTL ? 'book-mr-1' : 'book-ml-1';
             const positionRelativeClass = isRTL ? 'book-relative book-top-[3px]' : '';
             const minWidthClass = isRTL ? 'book-min-w-24' : 'book-min-w-28';
+            const scaleClass = isRTL ? 'book-scale-x--100' : '';
             const marginTopClass2 = (element.FlightGroup.length === 1 && element.PriceInfo?.PassengerFare?.[0]?.Commission !== '0')
                 ? "book-mt-18"
                 : "book-mt-3";
@@ -2619,8 +2621,8 @@ const renderFlightGroupPc = async (element) => {
             <div class="book-text-xs book-text-zinc-500 book-my-3">
                 ${translate("flight_number")}<span class="${marginRightClass}">${item.RoutesInfo[0].FlightNumber}</span>
             </div>
-            <div class="book-text-xs book-flex book-text-secondary-600 ${marginTopClass1} book-min-w-32">
-                  <svg width="20" height="20" class="book-fill-secondary-500 book-scale-x--100" version="1.0" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
+            <div class="book-text-xs book-items-center book-flex book-text-secondary-600 ${marginTopClass1} book-min-w-32">
+                  <svg width="20" height="20" class="book-fill-secondary-500 ${scaleClass}" version="1.0" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
                    <use href="/booking/images/sprite-booking-icons.svg#seat-flight-icon"></use>
                  </svg><span class="${positionRelativeClass}">
                 ${translate("remaining_seats")} :<span class="book-mx-1">${item.AvailableSeats}</span>${translate("seats")}</span>

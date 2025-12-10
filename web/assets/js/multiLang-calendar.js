@@ -1709,4 +1709,4 @@ function _ensurePriceLoaderCSS() {
     el.id = 'price-loader-css'; // Set the ID of the new style element
     el.textContent = css; // Add the CSS content
     document.head.appendChild(el); // Append the CSS to the document head
-}
+};

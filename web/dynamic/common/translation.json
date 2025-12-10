@@ -150,13 +150,13 @@
         "ar": "بدون أمتعة"
     },
     "system_flight": {
-        "en": "Scheduled Flight",
-        "fa": "پرواز سیستمی",
-        "ar": "رحلة نظامية"
+        "en": "Scheduled",
+        "fa": "سیستمی",
+        "ar": "نظامية"
     },
     "charter_flight": {
-        "en": "Charter Flight",
-        "fa": "پرواز چارتر",
+        "en": "Charter",
+        "fa": "چارتر",
         "ar": "رحلة مستأجرة"
     },
     "club_points": {
