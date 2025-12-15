@@ -710,17 +710,56 @@ const onCloseConnection = (param) => {
 
 
 /**
- * Sets up event listeners for book card buttons
- * @returns {void}
+ * Setup book card buttons with intelligent retry mechanism
+ * Removes 'book-card__btn__not__active' class from all buttons
+ * @param {number} attempt - Current attempt number (internal use)
+ * @param {number} maxAttempts - Maximum retry attempts
  */
-const setupBookCardButtons = () => {
+const setupBookCardButtons = (attempt = 1, maxAttempts = 3) => {
     try {
-        let btn;
-        while ((btn = document.querySelector('.book-card__btn.book-card__btn__not__active'))) {
-            btn.classList.remove('book-card__btn__not__active');
-        }
+        const processButtons = () => {
+            let btn;
+            let count = 0;
+
+            // Remove not__active class from all buttons
+            while ((btn = document.querySelector('.book-card__btn.book-card__btn__not__active'))) {
+                btn.classList.remove('book-card__btn__not__active');
+                count++;
+
+                // Safety check to prevent infinite loop
+                if (count > 1000) {
+                    console.error('setupBookCardButtons: Too many iterations, stopping to prevent infinite loop');
+                    break;
+                }
+            }
+
+            return count;
+        };
+
+        // Use requestAnimationFrame to ensure DOM is fully rendered
+        requestAnimationFrame(() => {
+            const processedCount = processButtons();
+
+            if (processedCount > 0) {
+                // Success - buttons were found and processed
+                console.log(`setupBookCardButtons: Successfully processed ${processedCount} buttons`);
+            } else if (attempt < maxAttempts) {
+                // No buttons found, retry with exponential backoff
+                const delay = 100 * Math.pow(2, attempt - 1); // 100ms, 200ms, 400ms
+
+                console.warn(`setupBookCardButtons: No buttons found on attempt ${attempt}/${maxAttempts}, retrying in ${delay}ms...`);
+
+                setTimeout(() => {
+                    setupBookCardButtons(attempt + 1, maxAttempts);
+                }, delay);
+            } else {
+                // All retries exhausted, no buttons found
+                console.warn('setupBookCardButtons: No buttons found after all retry attempts');
+            }
+        });
+
     } catch (error) {
-        console.error('setupBookCardButtons:', error.message);
+        console.error('setupBookCardButtons error:', error.message);
     }
 };
 
@@ -2277,9 +2316,10 @@ const manipulation = async (args) => {
                     document.querySelectorAll(".book-onewaytrip__content").forEach(e => e.classList.add("book-hidden"));
                 }
             } else {
-                setTimeout(() => {
-                    setupBookCardButtons();
-                }, 0);
+                setupBookCardButtons();
+                // setTimeout(() => {
+                //     setupBookCardButtons();
+                // }, 0);
             }
 
             // Update flight list
@@ -3177,7 +3217,7 @@ const renderProvider = (element) => {
         const providerData = providerDataList.find(provider => provider.id === parseInt(element));
         if (providerData) {
             const marginLeftClass = isRTL ? 'book-mr-1' : 'book-ml-1';
-            return `<div class="book-bg-secondary-100 book-text-zinc-500 book-flex book-gap-1 book-rounded-full book-text-xs ${minWidthClass} book-py-2 book-items-center book-justify-center ${marginLeftClass}">
+            return `<div class="book-bg-secondary-100 book-text-zinc-500 book-flex book-gap-1 book-rounded-full book-text-xs ${minWidthClass} book-py-2 book-items-center book-justify-center ${marginLeftClass} book-provider__name__content">
               <span>${providerData.name}</span>
           </div>`;
         }
