@@ -1,29 +1,26 @@
-// 🎯 بهترین و امن‌ترین روش - تضمین اجرای یکبار
+//  Best and safest approach - guaranteed single execution
 (function () {
     'use strict';
 
-    // ✅ گام 1: چک کردن اجرای قبلی
+    //  Step 1: Check for previous execution
     if (window.__BANK_SETUP_INITIALIZED__) {
-        console.warn('⚠️ Bank setup already running, skipping duplicate execution');
+        console.warn('Bank setup already running, skipping duplicate execution');
         return;
     }
 
-    // ✅ گام 2: فلگ گذاری فوری (قبل از async)
+    //  Step 2: Set flag immediately (before async)
     window.__BANK_SETUP_INITIALIZED__ = true;
 
-    // ✅ گام 3: تابع اصلی
+    // Step 3: Main function
     async function setupBankParameters() {
         try {
-            console.log('🚀 Bank setup started at:', new Date().toISOString());
-
-            // Load mapping
-            await loadRequestMapping();
+            console.log('Bank setup started at:', new Date().toISOString());
 
             // Set CMS data
             window.cmsData = {
-                selectedMode: "[##db.selectedMode.value##]",
-                safarmarketURL: "[##db.safarmarketURL.value##]",
-                bookId: "[##db.id.value##]"
+                selectedMode: "[##db.selectedMode.value|()##]",
+                safarmarketURL: "[##db.safarmarketURL.value|()##]",
+                bookId: "[##db.id.value|()##]"
             };
 
             // Run API logic
@@ -121,15 +118,51 @@
                         "RefNum": "[##cms.form.RefNum##]"
                     };
                     break;
-                    case "69": // Fadax
+                case "69": // Fadax
                     params = {
-                        "paymentToken": "",
-                        "paymentToken": "",
+                        "RefId": "[##cms.form.RefId##]",
+                        "refId": "[##cms.form.refId##]",
+                        "fadax_tracking_number": "[##cms.form.fadax_tracking_number##]",
+                        "fadaxTrackingNumber": "[##cms.form.fadaxTrackingNumber##]",
+                        "supplierInvoice": "[##cms.form.supplierInvoice##]",
+                        "transactionId": "[##cms.form.transactionId##]"
+                    };
+                    break;
+                case "199": // FadaxMellat
+                    params = {
+                        "RefId": "[##cms.form.RefId##]",
+                        "refId": "[##cms.form.refId##]",
+                        "fadax_tracking_number": "[##cms.form.fadax_tracking_number##]",
+                        "fadaxTrackingNumber": "[##cms.form.fadaxTrackingNumber##]",
+                        "supplierInvoice": "[##cms.form.supplierInvoice##]",
+                        "transactionId": "[##cms.form.transactionId##]"
+                    };
+                    break;
+                case "202": // Thawani
+                    params = {
+                        "session": "[##db.session.value##]",
+                    };
+                    break;
+                case "209": // Muscat
+                    params = {
+                        "order_id": "[##cms.form.order_id##]",
+                        "enc_response": "[##cms.form.enc_response##]"
+                    };
+                    break;
+                case "203": // Omidpay
+                    params = {
+                        "RefNum": "[##cms.form.RefNum##]",
+                        "session": "[##db.session.value##]"
+                    };
+                    break;
+                case "205": // MyFatoorn
+                    params = {
+                        "paymentId": "[##cms.query.paymentId##]"
                     };
                     break;
 
                 default:
-                    console.warn('⚠️ Unknown bank identifier:', bankIdentifier);
+                    console.warn('Unknown bank identifier:', bankIdentifier);
             }
 
             // Set params
@@ -138,25 +171,25 @@
                 run: true
             });
 
-            console.log('✅ Bank setup completed successfully');
-            console.log('🏦 Bank:', bankIdentifier);
-            console.log('📦 Params:', params);
+            console.log('Bank setup completed successfully');
+            console.log('Bank:', bankIdentifier);
+            console.log('Params:', params);
 
         } catch (err) {
-            console.error('❌ Bank setup failed:', err.message);
+            console.error(' Bank setup failed:', err.message);
             console.error('Stack:', err.stack);
-            // در صورت خطا، flag رو reset کن برای retry
+            // Reset flag on error for retry
             window.__BANK_SETUP_INITIALIZED__ = false;
             throw err;
         }
     }
 
-    // ✅ گام 4: اجرا بر اساس وضعیت DOM
+    // Step 4: Execute based on DOM state
     if (document.readyState === 'loading') {
-        // DOM هنوز لود نشده - منتظر بمون
+        // DOM not yet loaded - wait for it
         document.addEventListener('DOMContentLoaded', setupBankParameters, { once: true });
     } else {
-        // DOM آماده است - فوری اجرا کن
+        // DOM is ready - execute immediately
         setupBankParameters();
     }
 
