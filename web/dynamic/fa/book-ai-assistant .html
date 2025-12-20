@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <basis core="call" file="book/taglist" lid="1"></basis>
+    <title>دستیار هوشمند پرواز</title>
+    <meta name="description" content="دستیار هوشمند پرواز">
+    <link href="[##cms.cms.cdn##]/booking/css/ai-search.ui.min.css?ver=[##cms.cms.date2##][##cms.cms.time2##]"
+        type="text/css" rel="stylesheet" />
+</head>
+
+<body>
+    <!-- Header -->
+    <basis core="call" file="header.inc" lid="1" pageindex="[##cms.cms.pageindex|(1)##]"></basis>
+    <!-- Main-->
+    <main data-sessionid="[##db.dmntoken.dmntoken##]" data-dmnid="[##cms.cms.domainid##]"
+        class="ai-flight__bg ai-w-full">
+        <!-- Commands / Requests -->
+        <basis core="call" file="ai/search/commands" lid="1"></basis>
+        <!-- Layout Section -->
+        <section class="ai-layout__main ai-flex ai-flex-col ai-items-center ai-justify-center ai-py-11">
+            <div class="ai-px-4 ai-w-full lg:ai-px-4 xl:!ai-max-w-7xl xl:!ai-px-0 ai-flex ai-flex-col ai-gap-3 ">
+                <!-- Header Container-->
+                <div class="ai-w-full ai-flex ai-items-center ai-gap-5">
+                    <div
+                        class="ai-flex ai-justify-center ai-w-28 ai-h-24 ai-bg-zinc-800 ai-rounded-2xl ai-items-center">
+                        <svg width="60" height="60" class="align-middle">
+                            <use xlink:href="/booking/images/sprite-ai-icons.svg#flight-ai-robot"></use>
+                        </svg>
+                    </div>
+                    <div class="ai-flex ai-flex-col ai-gap-2">
+                        <h1 class="ai-text-zinc-900 ai-font-medium">دستیار هوشمند پرواز [##db.compamy-name.Answer##]
+                        </h1>
+                        <p class="ai-text-xs ai-text-zinc-800">برای یافتن بهترین پرواز ها در خدمات شما آنلاین و
+                            آماده کمک
+                        </p>
+                    </div>
+                </div>
+                <!-- Body Container-->
+                <div class="ai-w-full ai-flex ai-gap-5">
+                    <aside
+                        class="ai-w-28 ai-h-818 ai-bg-zinc-800 ai-rounded-2xl ai-flex ai-flex-col ai-justify-between ai-py-4 ai-px-2">
+                        <div class="ai-w-full ai-flex ai-items-center ai-justify-center ai-flex-col ai-gap-9">
+                            <button type="button"
+                                class="ai-w-full group ai-flex ai-flex-col ai-gap-2 ai-justify-center ai-items-center">
+                                <span
+                                    class="ai-w-11 ai-h-11 ai-flex ai-border ai-border-zinc-700 group-hover:ai-bg-primary-700 group-hover:ai-border-zinc-950 ai-justify-center ai-items-center ai-bg-zinc-700 ai-rounded-full">
+                                    <svg width="24" height="24" class="align-middle">
+                                        <use xlink:href="/booking/images/sprite-ai-icons.svg#flight-ai-status">
+                                        </use>
+                                    </svg>
+                                </span>
+                                <p class="ai-text-white ai-text-center ai-text-sm">وضعیت پرواز</p>
+                            </button>
+
+                            <button type="button"
+                                class="ai-w-full group ai-flex ai-flex-col ai-gap-2 ai-justify-center ai-items-center">
+                                <span
+                                    class="ai-w-11 ai-h-11 ai-flex ai-border ai-border-zinc-700 group-hover:ai-bg-primary-700 group-hover:ai-border-zinc-950 ai-justify-center ai-items-center ai-bg-zinc-700 ai-rounded-full">
+                                    <svg width="24" height="24" class="align-middle">
+                                        <use xlink:href="/booking/images/sprite-ai-icons.svg#flight-ai-ticket">
+                                        </use>
+                                    </svg>
+                                </span>
+                                <p class="ai-text-white ai-text-center ai-text-sm"> رزرو بلیط</p>
+                            </button>
+
+
+                            <button type="button"
+                                class="ai-w-full group ai-flex ai-flex-col ai-gap-2 ai-justify-center ai-items-center">
+                                <span
+                                    class="ai-w-11 ai-h-11 ai-flex ai-border ai-border-zinc-700 group-hover:ai-bg-primary-700 group-hover:ai-border-zinc-950 ai-justify-center ai-items-center ai-bg-zinc-700 ai-rounded-full">
+                                    <svg width="24" height="24" class="align-middle">
+                                        <use xlink:href="/booking/images/sprite-ai-icons.svg#flight-ai-search">
+                                        </use>
+                                    </svg>
+                                </span>
+                                <p class="ai-text-white ai-text-center ai-text-sm">جستجوی پرواز</p>
+                            </button>
+
+                            <button type="button"
+                                class="ai-w-full group ai-flex ai-flex-col ai-gap-2 ai-justify-center ai-items-center">
+                                <span
+                                    class="ai-w-11 ai-h-11 ai-flex ai-border ai-border-zinc-700 group-hover:ai-bg-primary-700 group-hover:ai-border-zinc-950 ai-justify-center ai-items-center ai-bg-zinc-700 ai-rounded-full">
+                                    <svg width="24" height="24" class="align-middle">
+                                        <use xlink:href="/booking/images/sprite-ai-icons.svg#flight-ai-support">
+                                        </use>
+                                    </svg>
+                                </span>
+                                <p class="ai-text-white ai-text-center ai-text-sm"> پشتیبانی </p>
+                            </button>
+                        </div>
+                        <div class="ai-w-full ai-flex ai-flex-col ai-gap-3">
+                            <a href="" class="hover:ai-scale-150 ai-flex ai-justify-center">
+                                <svg width="52" height="51" class="align-middle">
+                                    <use xlink:href="/booking/images/sprite-ai-icons.svg#flight-ai-twitter"></use>
+                                </svg>
+                            </a>
+
+                            <a href="" class="hover:ai-scale-150 ai-flex ai-justify-center">
+                                <svg width="52" height="51" class="align-middle">
+                                    <use xlink:href="/booking/images/sprite-ai-icons.svg#flight-ai-linkedin"></use>
+                                </svg>
+                            </a>
+
+                            <a href="" class="hover:ai-scale-150 ai-flex ai-justify-center">
+                                <svg width="52" height="51" class="align-middle">
+                                    <use xlink:href="/booking/images/sprite-ai-icons.svg#flight-ai-facebook"></use>
+                                </svg>
+                            </a>
+                        </div>
+                    </aside>
+                    <div
+                        class="ai-w-873 ai-ligr2 ai-bg-transparent ai-rounded-2xl ai-relative ai-border ai-border-primary-400 ai-flex ai-flex-col ai-gap-4 ai-py-7 ai-px-7">
+
+                        <!-- Header -->
+                        <div class="ai-w-full ai-relative ai-flex ai-items-center ai-justify-between ai-shrink-0">
+                            <div class="ai-flex ai-gap-2 ai-flex-col">
+                                <div class="ai-flex ai-items-center ai-gap-1">
+                                    <span class="shine">
+                                        <svg width="31" height="32" class="align-middle ai-fill-primary-600">
+                                            <use xlink:href="/booking/images/sprite-ai-icons.svg#flight-ai-shine">
+                                            </use>
+                                        </svg>
+                                    </span>
+                                    <p class="ai-flex ai-items-center ai-font-bold ai-gap-1">
+                                        چت با دستیار
+                                        <span class="ai-text-primary-700">[##db.compamy-name.Answer##]</span>
+                                    </p>
+                                </div>
+                                <p class="ai-text-xs">برای شروع سوال یا درخواست خود را یاداشت کنید</p>
+                            </div>
+                            <a href="" class="ai-flex ai-items-center ai-text-sm ai-supp__container">
+                                <svg width="28" height="48" class="align-middle smile ai-transition">
+                                    <use xlink:href="/booking/images/sprite-ai-icons.svg#flight-ai-smile"></use>
+                                </svg>
+                                راهنمایی های من
+                                <svg width="48" height="48" class="align-middle">
+                                    <use xlink:href="/booking/images/sprite-ai-icons.svg#flight-ai-arrow-left">
+                                    </use>
+                                </svg>
+                            </a>
+                        </div>
+
+                        <!-- Messages Content -->
+                        <div class="ai-messages__content ai-w-full ai-flex ai-flex-1 ai-pl-1 ai-flex-col ai-gap-3">
+                        </div>
+
+
+
+                        <!-- Form -->
+                        <form
+                            class="ai-form__container ai-w-full ai-flex ai-relative ai-justify-between ai-items-center ai-h-60px ai-bg-white ai-rounded-full ai-border ai-border-zinc-400 ai-shrink-0">
+                            <label for="ai-messages__container" class="ai-z-10">
+                                <svg width="48" height="48" class="align-middle">
+                                    <use xlink:href="/booking/images/sprite-ai-icons.svg#flight-ai-message"></use>
+                                </svg>
+                            </label>
+                            <input type="text" id="ai-messages__container" autocomplete="off"
+                                placeholder="پیام خود را اینجا تایپ کنید..."
+                                class="ai-absolute ai-line-clamp-1 ai-w-11/12 ai-right-9 ai-pr-4 ai-pl-10 ai-bg-transparent ai-accent-primary-600 ai-rounded-full ai-h-full ai-border-none ai-outline-none ai-truncate">
+                            <button type="button" class="ai-z-10 ai-pl-3">
+                                <svg width="48" height="48" class="align-middle ai-fill-primary-600">
+                                    <use xlink:href="/booking/images/sprite-ai-icons.svg#flight-ai-send"></use>
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <!-- Footer Container-->
+                <div class="ai-text-xs ai-text-zinc-600 ai-font-bold ai-text-center ai-ml-32">
+                    Powered by BasisFly AI
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Footer-->
+    <basis core="call" file="footer.inc" lid="1" pageindex="[##cms.cms.pageindex|(1)##]"></basis>
+    <script src="[##cms.cms.cdn##]/booking/js/ai-search.js?ver=[##cms.cms.date2##][##cms.cms.time2##]"
+        type="text/javascript"></script>
+</body>
+
+</html>

@@ -2138,18 +2138,16 @@ const manipulation = async (args) => {
                 // Deduplicate airlines and select lowest price
                 const nameToMinPrice = {};
                 allAirlineItems.forEach(item => {
-                    if (!nameToMinPrice[item.Name] || nameToMinPrice[item.Name].Price > item.Price) {
+                    if (!nameToMinPrice[item.Name] || parseFloat(nameToMinPrice[item.Name].Price) > parseFloat(item.Price)) {
                         nameToMinPrice[item.Name] = item;
                     }
                 });
                 const airlineListResult = Object.values(nameToMinPrice).sort((a, b) => a.Price - b.Price);
-
-
                 if (schemaId === 290 || schemaId === 291) {
                     // Outbound airline filter
                     const nameToMinPriceOutbound = {};
                     allOutboundAirlineItems.forEach(item => {
-                        if (!nameToMinPriceOutbound[item.Name] || nameToMinPriceOutbound[item.Name].Price > item.Price) {
+                        if (!nameToMinPriceOutbound[item.Name] || parseFloat(nameToMinPriceOutbound[item.Name].Price) > parseFloat(item.Price)) {
                             nameToMinPriceOutbound[item.Name] = item;
                         }
                     });
@@ -2159,7 +2157,7 @@ const manipulation = async (args) => {
                     // Inbound airline filter
                     const nameToMinPriceInbound = {};
                     allInboundAirlineItems.forEach(item => {
-                        if (!nameToMinPriceInbound[item.Name] || nameToMinPriceInbound[item.Name].Price > item.Price) {
+                        if (!nameToMinPriceInbound[item.Name] || parseFloat(nameToMinPriceInbound[item.Name].Price) > parseFloat(item.Price)) {
                             nameToMinPriceInbound[item.Name] = item;
                         }
                     });
@@ -2661,7 +2659,7 @@ const renderFlightGroupPc = async (element) => {
             <div class="book-text-xs book-text-zinc-500 book-my-3">
                 ${translate("flight_number")}<span class="${marginRightClass}">${item.RoutesInfo[0].FlightNumber}</span>
             </div>
-            <div class="book-text-xs book-items-center book-flex book-text-secondary-600 ${marginTopClass1} book-min-w-32">
+            <div class="book-text-xs book-items-center book-flex book-text-secondary-600 book-justify-center ${marginTopClass1} book-min-w-32">
                   <svg width="20" height="20" class="book-fill-secondary-500 ${scaleClass}" version="1.0" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
                    <use href="/booking/images/sprite-booking-icons.svg#seat-flight-icon"></use>
                  </svg><span class="${positionRelativeClass}">
@@ -2679,7 +2677,7 @@ const renderFlightGroupPc = async (element) => {
             </div>
             <div class="book-relative book-mx-4 book-mt-4 book-text-center">
                 <div class="book-w-full">
-                    <div class="book-flight__progress__line book-min-w-[29rem] book-relative">
+                    <div class="book-flight__progress__line book-min-w-[28rem] book-relative">
                         <svg width="26" height="26" class="book-fill-secondary-500 book-absolute book--bottom-3 ${isRTL ? 'book-right-0' : 'book-left-0 book-scale-x--100'}">
                             <use href="/booking/images/sprite-booking-icons.svg#flight-icon"></use>
                         </svg>
@@ -2910,7 +2908,7 @@ const renderFlightGroupPcB2B = async (element) => {
         </div>
   
         <div>
-          <div class="book-text-xs book-flex book-items-center book-mb-1 book-px-1 book-pb-[0.15rem] book-pt-[0.15rem] book-gap-1 book-rounded-xl  book-bg-specialcolor-4">
+          <div class="book-text-xs book-flex book-items-center book-justify-center book-mb-1 book-px-1 book-pb-[0.15rem] book-pt-[0.15rem] book-gap-1 book-rounded-xl  book-bg-specialcolor-4">
               <svg width="20" height="20" version="1.0" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
                 <use href="/booking/images/sprite-booking-icons.svg#seat-flight-icon"></use>
               </svg>

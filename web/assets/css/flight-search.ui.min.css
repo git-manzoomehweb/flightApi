@@ -607,7 +607,9 @@
 .book-min-w-\[29rem\] {
     min-width: 29rem;
 }
-
+.book-min-w-\[28rem\] {
+    min-width: 28rem;
+}
 .book-max-w-7xl {
     max-width: 80rem;
 }
@@ -635,6 +637,9 @@
 }
 
 
+.book-justify-center {
+    justify-content: center;
+}
 
 
 

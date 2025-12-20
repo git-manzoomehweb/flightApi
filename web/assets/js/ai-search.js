@@ -1,40 +1,101 @@
+// ===============================
 // Constants
-const DMNID = document.querySelector(".book-layout__main").dataset.dmnid;
-const LID = document.querySelector(".book-layout__main").dataset.lid; // Language ID, defaults to 2 (English) if not specified
+// - Read dmnid and lid from <main> data attributes.
+// - LID is used to localize labels/messages (1=FA, 2=EN, 3=AR).
+// ===============================
+let translations = {};
+let currentLanguage = document.documentElement.lang || 'fa';
+const DMNID = document.querySelector("main").dataset.dmnid;
+const isMobile = document.querySelector('main')?.dataset.mob === "true";
+const LID = (() => {
+    // Try <html lang="fa|en|ar"> first; fallback to dir attribute
+    const lang = (document.documentElement.getAttribute('lang') || '').toLowerCase();
+    const dir = (document.documentElement.getAttribute('dir') || '').toLowerCase();
 
-// DOM Elements
-const messagesContainer = document.getElementById('messages-container');
-const messageInput = document.getElementById('message-input');
-const sendButton = document.getElementById('send-button');
+    if (lang.startsWith('fa') || dir === 'rtl') return "1";   // Persian
+    if (lang.startsWith('ar')) return "3";                    // Arabic
+    return "2";                                               // Default: English
+})();
+let userFullName = '';
+
+// ===============================
+// DOM Elements (mapped to the new HTML structure)
+// - messagesContainer: chat messages stream wrapper
+// - messageInput: the text input users type into
+// - sendButton: the submit button of the chat form
+// - resultsContainer: the container where API results (offers) render
+// - hasReceivedApiResponse: flag to stop/change loading indicators
+// ===============================
+const messagesContainer = document.querySelector('.ai-messages__content');
+const messageInput = document.getElementById('ai-messages__container');
+const sendButton = document.querySelector('.ai-form__container button[type="button"]');
+const resultsContainer = document.querySelector('#ai-response__container > div.ai-response__content');
 let hasReceivedApiResponse = false;
 
-// State
+// ===============================
+// State & Helpers
+// - ObjectId(): quick unique session-like id generator
+// - sessionId: unique id per page session
+// - isLoading: guards multiple concurrent sends
+// - storedEntities: keeps last parsed entities from AI response
+// ===============================
 const ObjectId = (m = Math, d = Date, h = 16, s = s => m.floor(s).toString(h)) =>
     s(d.now() / 1000) + ' '.repeat(h).replace(/./g, () => s(m.random() * h));
-const sessionId = ObjectId(); // Generate a unique session ID
+const sessionId = ObjectId();
 let isLoading = false;
+let storedEntities = null;
 
-// Utility Functions
-/**
- * Scrolls the messages container to the bottom.
- */
+// ===============================
+// Function to load translations based on the language code
+// - lang is the default parameter (can be 'fa' for Persian, 'en' for English, etc.)
+// - It fetches translation data from a server endpoint `/json/translations?lid=1`
+// - The translations are stored in the `translations` variable for later use
+const loadTranslations = async (lang = 'fa') => {
+    try {
+        // Fetching translation data based on the language ID (LID)
+        const response = await fetch(`/json/translations?lid=1`);
+        const allTranslations = await response.json();
+        translations = allTranslations;  // Store all translations in the translations variable
+    } catch (error) {
+        console.error('loadTranslations:', error);  // Catch and log any errors
+    }
+}
+// ===============================
+// Function to translate text
+// - Takes the text string as input
+// - Returns the translated text based on the current language (currentLanguage)
+// - If no translation is found, returns the original text
+const translate = (text) => {
+    try {
+        // Check if translation exists for the given text and currentLanguage
+        return translations[text] ? translations[text][currentLanguage] : text;
+    } catch (error) {
+        console.error('translate:', error);  // Catch and log any errors
+    }
+};
+
+// ===============================
+// Utility: Smoothly scroll chat to the latest message
+// - Also ensures the main container is in view if results are open
+// ===============================
 const scrollToBottom = () => {
     try {
         if (!messagesContainer) throw new Error("Messages container not found");
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+        // If results box is present, scroll main for a better UX
+        const mainContainer = document.querySelector('main');
+        if (mainContainer) {
+            mainContainer.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        }
     } catch (err) {
-        console.error(`scrollToBottom: ${err.message}, Line: ${err.lineNumber || 'unknown'}`);
+        console.error(`scrollToBottom: ${err.message}`);
     }
 };
 
-// Global variable to store entities
-let storedEntities = null;
-
-/**
- * Helper function to get search cookie
- * @param {string} name - Cookie name
- * @returns {string} Cookie value
- */
+// ===============================
+// Utility: Read a cookie by name (used to fetch rkey)
+// ===============================
 const getSearchCookie = (name) => {
     try {
         const value = `; ${document.cookie}`;
@@ -47,225 +108,103 @@ const getSearchCookie = (name) => {
     }
 };
 
-/**
- * Generates a random session ID.
- * @returns {string} A unique session ID.
- */
-const generateSessionId = () => {
-    try {
-        return Math.random().toString(36).substring(2, 15) +
-            Math.random().toString(36).substring(2, 15);
-    } catch (err) {
-        console.error(`generateSessionId: ${err.message}, Line: ${err.lineNumber || 'unknown'}`);
-        return ''; // Fallback to empty string if generation fails
-    }
-};
-
-/**
- * Formats a price by adding thousand separators.
- * @param {number|string} price - The price to format.
- * @returns {string} The formatted price with commas.
- */
+// ===============================
+// Utility: Add thousand separators to prices
+// ===============================
 const formatPrice = (price) => {
     try {
         return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     } catch (err) {
-        console.error(`formatPrice: ${err.message}, Line: ${err.lineNumber || 'unknown'}`);
-        return price.toString(); // Fallback to unformatted price
+        console.error(`formatPrice: ${err.message}`);
+        return price.toString();
     }
 };
 
-/**
- * Formats a date-time string to a localized date and time.
- * @param {string} dateTimeStr - The date-time string to format.
- * @returns {string} The formatted date-time string.
- */
+// ===============================
+// Utility: Format ISO datetime to locale date + HH:MM
+// ===============================
 const formatDateTime = (dateTimeStr) => {
     try {
         const date = new Date(dateTimeStr);
         if (isNaN(date.getTime())) throw new Error("Invalid date-time string");
         return `${date.toLocaleDateString()} ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
     } catch (err) {
-        console.error(`formatDateTime: ${err.message}, Line: ${err.lineNumber || 'unknown'}`);
-        return ' '; // Fallback to space as in original
+        console.error(`formatDateTime: ${err.message}`);
+        return ' ';
     }
 };
 
-// Helper function to get appropriate icon for each tab
-const getTabIcon = (title) => {
-    if (!title) return "📋";
-
-    const titleLower = title.toLowerCase();
-    if (titleLower.includes('بیسیس') || titleLower.includes('basis')) return "⭐";
-    if (titleLower.includes('ارزان') || titleLower.includes('cheap')) return "💰";
-    if (titleLower.includes('سریع') || titleLower.includes('fast')) return "⚡";
-    if (titleLower.includes('بار') || titleLower.includes('baggage')) return "🧳";
-
-    return "📋";
-};
-
-/**
- * Switches between flight tabs with enhanced styling and animation
- * @param {HTMLElement} clickedButton - The clicked tab button
- * @param {number} tabIndex - Index of the tab to show
- */
+// ===============================
+// Tabs: activate the clicked tab and show its content
+// ===============================
 const switchFlightTab = (clickedButton, tabIndex) => {
     try {
-        // Remove active class from all tab buttons
-        const allTabButtons = clickedButton.closest(".flight-offers-container").querySelectorAll('.tab-button');
+        const allTabButtons = clickedButton.closest(".ai-response__container").querySelectorAll('.ai-clicker__list li');
         allTabButtons.forEach(button => {
             button.classList.remove('active');
-            button.classList.remove('border-cyan-500', 'bg-cyan-50', 'text-cyan-600', 'shadow-md');
-            button.classList.add('border-gray-200', 'bg-white', 'text-gray-600');
         });
 
-        // Add active class to clicked button
         clickedButton.classList.add('active');
-        clickedButton.classList.remove('border-gray-200', 'bg-white', 'text-gray-600');
-        clickedButton.classList.add('border-cyan-500', 'bg-cyan-50', 'text-cyan-600', 'shadow-md');
 
-        // Hide all tab contents
-        const allTabContents = clickedButton.closest(".flight-offers-container").querySelectorAll('.tab-content');
+        const allTabContents = clickedButton.closest(".ai-response__container").querySelectorAll('.tab-content');
         allTabContents.forEach(content => {
-            content.style.display = 'none';
+            content.classList.add("ai-hidden");
         });
 
-        // Show selected tab content with animation
-        const selectedTabContent = clickedButton.closest(".flight-offers-container").querySelector(`#tab-content-${tabIndex}`);
+        const selectedTabContent = clickedButton.closest(".ai-response__container").querySelector(`#tab-content-${tabIndex}`);
         if (selectedTabContent) {
-            selectedTabContent.style.display = 'block';
-            selectedTabContent.style.opacity = '0';
-            selectedTabContent.style.transform = 'translateY(10px)';
-
-            // Animate in
-            setTimeout(() => {
-                selectedTabContent.style.transition = 'all 0.3s ease-out';
-                selectedTabContent.style.opacity = '1';
-                selectedTabContent.style.transform = 'translateY(0)';
-            }, 10);
+            selectedTabContent.classList.remove("ai-hidden");
         }
     } catch (err) {
-        console.error(`switchFlightTab: ${err.message}, Line: ${err.lineNumber || 'unknown'}`);
+        console.error(`switchFlightTab: ${err.message}`);
     }
 };
 
-/**
- * Formats flight offers into an HTML string for display with tabs.
- * @param {Object} data - Object containing offers array and count.
- * @returns {string} HTML string representing the flight offers with tabs.
- */
+// ===============================
+// Renderer: Build flight offers HTML for the new UI structure
+// - Handles localization labels via LID
+// - Protects against malformed/empty data
+// ===============================
 const formatFlightsResponse = (data) => {
     try {
         console.log("formatFlightsResponse called with:", data);
-
+        const paddingRightClass = LID === "2" ? "ai-pr-3" : "ai-pl-3";
+        const paddingRotateClass = LID === "2" ? "ai-scale-x--100" : "";
         const rawOffers = data.offers || [];
         const totalCount = data.count || 0;
 
-        // فیلتر کردن offers معتبر (فقط آنهایی که offer دارند)
         const offers = rawOffers.filter(item => {
-            return item &&
-                item.offer &&
-                typeof item.offer === 'object' &&
-                Object.keys(item.offer).length > 0;
+            return item && item.offer && typeof item.offer === 'object' && Object.keys(item.offer).length > 0;
         });
-
         if (!offers.length) {
-            return '<div class="text-center text-gray-500 py-8">🔍 هیچ پروازی یافت نشد</div>';
+            return `<div class="ai-text-center ai-text-zinc-500 ai-py-8">${translate("no_flights_found")}</div>`;
         }
 
-        const arrowByLID = {
-            "1": "←", // Persian
-            "2": "→", // English
-            "3": "←", // Arabic
-        };
-
-        const buyLabelsByLID = {
-            "1": "خرید",  // Persian
-            "2": "Buy",   // English
-            "3": "احجز الآن", // Arabic
-        };
-
-        const departureLabelsByLID = {
-            "1": "تاریخ پرواز",  // Persian
-            "2": "Departure",     // English
-            "3": "المغادرة",      // Arabic
-        };
-
-        const arrivalLabelsByLID = {
-            "1": "تاریخ رسیدن",  // Persian
-            "2": "Arrival",     // English
-            "3": "الوصول",      // Arabic
-        };
-
-        const durationLabelsByLID = {
-            "1": "مدت پرواز",  // Persian
-            "2": "Duration",     // English
-            "3": "المدة",      // Arabic
-        };
-
-        const baggageLabelsByLID = {
-            "1": "بار مجاز",  // Persian
-            "2": "Baggage",     // English
-            "3": "الأمتعة",      // Arabic
-        };
-
-        const seatsLabelsByLID = {
-            "1": "صندلی موجود",  // Persian
-            "2": "Available Seats",     // English
-            "3": "المقاعد المتاحة",      // Arabic
-        };
-
-        const allOffersLabelsByLID = {
-            "1": (count) => `مشاهده همه ${count} پیشنهاد`,  // Persian
-            "2": (count) => `View All ${count} offers`,   // English
-            "3": (count) => `عرض جميع ${count} العروض`,  // Arabic
-        };
-
-        const buyLabel = buyLabelsByLID[LID] || "Buy";
-        const departureLabel = departureLabelsByLID[LID] || "Departure";
-        const arrivalLabel = arrivalLabelsByLID[LID] || "Arrival";
-        const durationLabel = durationLabelsByLID[LID] || "Duration";
-        const baggageLabel = baggageLabelsByLID[LID] || "Baggage";
-        const seatsLabel = seatsLabelsByLID[LID] || "Available Seats";
-        const allOffersLabel = allOffersLabelsByLID[LID]
-            ? allOffersLabelsByLID[LID](totalCount)
-            : `View All ${totalCount} offers`;
 
         let html = `
-        <div class="flight-offers-container w-full">
-            <!-- Tabs Header -->
-            <div class="tabs-header flex flex-wrap gap-2 border-b border-gray-200 mb-4 pb-2">`;
-
-        // Generate tabs with improved styling
+<div class="flight-offers-container ai-w-full">
+    <!-- Tabs Header -->
+    <ul class="ai-flex ai-clicker__list filter ai-gap-3 ai-w-full ai-items-center ai-pb-3 ai-relative ai-overflow-hidden ai-border-b ai-border-zinc-300">`;
         offers.forEach((item, index) => {
             const isActive = index === 0 ? 'active' : '';
             html += `
-                <button 
-                    class="tab-button ${isActive} px-3 py-2 text-sm font-medium border-2 rounded-lg transition-all duration-300 hover:scale-105 ${isActive
-                    ? 'border-cyan-500 bg-cyan-50 text-cyan-600 shadow-md'
-                    : 'border-gray-200 bg-white text-gray-600 hover:border-cyan-300 hover:text-cyan-600 hover:bg-cyan-50'
-                }" 
-                    data-tab="${index}"
-                    onclick="switchFlightTab(this, ${index})">
-                    <span class="flex items-center gap-1">
-                        <span class="text-xs">${getTabIcon(item.title)}</span>
-                        <span>${item.title || 'پیشنهاد ' + (index + 1)}</span>
-                    </span>
-                </button>`;
+        <li class="${isActive}  ${isMobile ? 'ai-text-xs ai-px-3 ai-text-center' : 'ai-text-sm ai-px-5'} ai-text-sm ai-cursor-pointer ai-text-zinc-600 ai-relative"
+            data-tab="${index}"
+            onclick="switchFlightTab(this, ${index})">
+            ${item.title || `${translate("offer")} ` + (index + 1)}
+        </li>`;
         });
 
         html += `
-            </div>
-            
-            <!-- Tabs Content -->
-            <div class="tabs-content">`;
+    </ul>
+    
+    <!-- Tabs Content -->
+    <div class="ai-w-full ai-mt-6 ai-flex ai-flex-col ai-gap-7">`;
 
-        // Generate content for each tab with enhanced design
         offers.forEach((item, index) => {
             const flight = item.offer;
-            const isActive = index === 0 ? 'block' : 'none';
+            const isActive = index === 0 ? '' : 'ai-hidden';
 
-            // Safe price extraction
             let priceText = '';
             let unitText = '';
 
@@ -277,218 +216,218 @@ const formatFlightsResponse = (data) => {
                 }
             } catch (priceErr) {
                 console.warn("Price formatting error:", priceErr);
-                priceText = 'قیمت موجود نیست';
+                priceText = '-';
             }
 
             html += `
-                <div class="tab-content" id="tab-content-${index}" style="display: ${isActive};">
-                    <div class="flight-card bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-100 hover:border-cyan-200">
-                        
-                        <!-- Price Header -->
-                        <div class="price-header bg-gradient-to-r from-cyan-500 to-blue-500 text-white p-3">
-                            <div class="flex justify-between items-center">
-                                <div class="price-section">
-                                    <div class="text-xl font-bold">${unitText} ${priceText}</div>
-                                </div>
-                                <div class="badge bg-white/20 px-2 py-1 rounded-full text-xs font-medium">
-                                    ${item.title}
-                                </div>
-                            </div>
-                        </div>
+        <div class="tab-content ${isActive}" id="tab-content-${index}">
+            <article class="ai-w-full ai-response__item ai-p-4 ai-rounded-xl ai-border ai-border-zinc-500 ai-flex ai-flex-col ai-gap-3">
+                <div class="ai-w-full ai-flex ai-justify-between ${isMobile ? 'ai-flex-col ai-gap-2' : ''}">`;
 
-                        <!-- Flight Details -->
-                        <div class="flight-content p-4">`;
+            // Airline logo (if available)
+            if (flight.Routes && flight.Routes[0] && flight.Routes[0].AirlineName) {
+                html += `<img src="/${flight.Routes[0].AirlineName.image || ''}" class="ai-h-10" width="100" height="40" alt="${flight.Routes[0].AirlineName.name || ''}">`;
+            }
 
+            html += `
+                    <ul class="ai-flex ai-items-center ai-gap-1 label-list ai-mt-2">`;
+
+            // Baggage (badge)
+            if (flight.Baggage) {
+                const baggageText = flight.Baggage.value === "0" ? `${translate("no_baggage")}` : `${flight.Baggage.value} ${flight.Baggage.unit}`;
+                html += `
+                        <li class="ai-h-8 ai-text-xs ai-text-special-4 ai-rounded-full ai-bg-special-3 ai-px-2 ai-items-center ai-flex ai-justify-center ai-gap-1">
+                            <svg width="17" height="18" class="align-middle">
+                                <use xlink:href="/booking/images/sprite-ai-icons.svg#flight-ai-bar"></use>
+                            </svg>
+                           <span class="ai-inline-block ai-ltr">${baggageText}</span>
+                        </li>`;
+            }
+
+            // Stops (badge)
+            if (flight.Stops !== undefined) {
+                const stopsText = flight.Stops === "0" ? `${translate("direct_flight")}` : `${flight.Stops} ${translate("stop")}`;
+                html += `
+                        <li class="ai-h-8 ai-text-xs ai-rounded-full ai-bg-special-2 ai-px-2 ai-items-center ai-flex ai-justify-center ai-gap-1">
+                            <svg width="17" height="18" class="align-middle">
+                                <use xlink:href="/booking/images/sprite-ai-icons.svg#flight-ai-stop"></use>
+                            </svg>
+                            ${stopsText}
+                        </li>`;
+            }
+
+            html += `
+                    </ul>
+                </div>`;
+
+            // Each route (leg) box
             if (flight.Routes && Array.isArray(flight.Routes)) {
                 flight.Routes.forEach((route, routeIndex) => {
+                    // Extract city info
+                    const originCity = route.OriginCity || {};
+                    const destCity = route.DestCity || {};
+
+                    // Format connection time (convert minutes to hours and minutes)
+                    let connectionTimeText = '';
+                    if (route.ConnectionTime && routeIndex < flight.Routes.length - 1) {
+                        const minutes = route.ConnectionTime.parsedValue || route.ConnectionTime.source || route.ConnectionTime;
+                        const hours = Math.floor(minutes / 60);
+                        const mins = minutes % 60;
+                        connectionTimeText = hours > 0
+                            ? `${translate("connection_time")}: ${hours}h ${mins}m `
+                            : `${translate("connection_time")}: ${mins}m`;
+                    }
+
+                    // Format dates based on LID
+                    const departureDate = LID === "1"
+                        ? `${route.DepartureDate || ''} ${route.DepartureJalaliDate ? `(${route.DepartureJalaliDate})` : ''}`
+                        : route.DepartureDate || '';
+                    const arrivalDate = LID === "1"
+                        ? `${route.ArrivalDate || ''} ${route.ArrivalJalaliDate ? `(${route.ArrivalJalaliDate})` : ''}`
+                        : route.ArrivalDate || '';
+
                     html += `
-                        <div class="route-section mb-2 ${routeIndex > 0 ? 'pt-2 border-t border-gray-100' : ''}">
-                            
-                            <!-- Route Header -->
-                            <div class="route-header flex justify-between items-center mb-3">
-                                <div class="route-path flex items-center gap-3">
-                                    <div class="origin text-center">
-                                        <div class="text-lg font-bold text-gray-800">${route.Origin || ''}</div>
-                                    </div>
-                                    
-                                    <div class="flight-path flex-1 flex items-center justify-center">
-                                        <div class="path-line flex items-center gap-1">
-                                            <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
-                                            <div class="flex-1 h-px bg-gradient-to-r from-cyan-500 to-blue-400"></div>
-                                            <div class="flight-icon text-sm ${LID === '1' ? 'flip-rtl' : ''}">✈️</div>
-                                            <div class="flex-1 h-px bg-gradient-to-r from-blue-400 to-cyan-500"></div>
-                                            <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="destination text-center">
-                                        <div class="text-lg font-bold text-gray-800">${route.Destination || ''}</div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Airline Logo -->
-                                <div class="airline-section text-center">
-                                    <img src="/${route.AirlineName?.image || ''}" 
-                                         width="60" height="22" 
-                                         alt="${route.AirlineName?.name || ''}" 
-                                         class="mx-auto mb-1 rounded shadow-sm"/>
-                                    <div class="text-xs text-gray-600">${route.AirlineName?.name || route.Airline || ''}</div>
-                                </div>
-                            </div>
-                            
-                            <!-- Time Details -->
-                            <div class="time-details grid grid-cols-3 gap-3 bg-gray-50 rounded-lg p-2">
-                                <div class="departure-time text-center">
-                                    <div class="text-sm font-semibold text-gray-800">${route.DepartureTime || ''}</div>
-                                    <div class="text-xs text-gray-600">${route.DepartureDate || ''}</div>
-                                    <div class="text-xs text-gray-500">${departureLabel}</div>
-                                </div>
-                                
-                                <div class="duration text-center">
-                                    <div class="text-sm font-semibold text-cyan-600">⏱️ ${route.Duration || ''}</div>
-                                    <div class="text-xs text-gray-500">${durationLabel}</div>
-                                </div>
-                                
-                                <div class="arrival-time text-center">
-                                    <div class="text-sm font-semibold text-gray-800">${route.ArrivalTime || ''}</div>
-                                    <div class="text-xs text-gray-600">${route.ArrivalDate || ''}</div>
-                                    <div class="text-xs text-gray-500">${arrivalLabel}</div>
-                                </div>
-                            </div>
-                        </div>`;
+        <div class="ai-w-full ${isMobile ? '' : ' ai-min-h-28'} ai-flex ai-flex-col ai-items-center ai-p-3 ai-justify-between ai-bg-zinc-100 ai-border ai-rounded-xl ai-border-dashed ai-border-zinc-300">
+            <div class="ai-w-full ai-flex ai-justify-between ai-items-center">
+                <div class="ai-flex ai-flex-col ai-gap-1 ${isMobile ? 'ai-text-center' : ''}">
+                    <b class="ai-text-base">${route.DepartureTime || ''}</b>
+                    <span class="ai-text-sm ai-font-medium">${originCity.city || route.Origin || ''}<span class="ai-text-zinc-600 ai-text-xs ${isMobile ? 'ai-block ai-mt-1' : 'ai-px-1'}">(${originCity.cityCode || route.Origin || ''})</span></span>
+                    ${originCity.airport ? `<span class="ai-text-zinc-400 ai-text-xs ${isMobile ? 'ai-block' : ''}">${originCity.airport}</span>` : ''}
+                </div>
+                
+                <div class="ai-w-3/5 ai-h-1 ai-flex ai-justify-center ai-relative ai-bg-primary-700 ai-rounded-full">
+                    <span class="ai-absolute -ai-top-2">
+                        <svg width="26" height="21" class="align-middle ${paddingRotateClass}">
+                            <use xlink:href="/booking/images/sprite-ai-icons.svg#flight-ai-airplane"></use>
+                        </svg>
+                    </span>
+                </div>
+                
+                <div class="ai-flex ai-flex-col ai-gap-1  ${isMobile ? 'ai-text-center' : 'ai-items-end'}">
+                    <b class="ai-text-base">${route.ArrivalTime || ''}</b>
+                    <span class="ai-text-sm ai-font-medium">${destCity.city || route.Destination || ''}<span class="ai-text-zinc-600 ai-text-xs ${isMobile ? 'ai-block ai-mt-1' : 'ai-px-1'}">(${destCity.cityCode || route.Destination || ''})</span></span>
+                    ${destCity.airport ? `<span class="ai-text-zinc-400 ai-text-xs ${isMobile ? 'ai-block ai-text-center' : 'ai-text-right'}">${destCity.airport}</span>` : ''}
+                </div>
+            </div>
+            
+            <!-- Flight details row -->
+            ${isMobile ? `
+            <div class="ai-w-full ai-mt-4">
+                <p class="ai-text-zinc-900 ai-text-xs ai-mb-2">${translate("flight_time")}: ${route.Duration || ''}</p>
+                <div class="ai-w-full ai-flex ai-items-center ai-justify-between ai-mb-2">
+                    <p class="ai-text-zinc-900 ai-text-xs">${translate("flight")}: <span class="ai-inline-block">${departureDate}</span></p>
+                    <p class="ai-text-zinc-900 ai-text-xs">${translate("arrival")}: <span class="ai-inline-block">${arrivalDate}</span></p>
+                </div>
+                ${connectionTimeText ? `<div class="ai-w-full ai-mt-3">
+                <p class="ai-text-xs ai-font-medium">${connectionTimeText}</p>
+            </div>` : ''}
+            </div>
+            ` : `
+            <div class="ai-w-full ai-flex ai-items-center ai-justify-between ai-mt-4">
+                <p class="ai-text-zinc-900 ai-text-xs">${translate("flight")}: <span class="ai-inline-block">${departureDate}</span></p>
+                <p class="ai-text-zinc-900 ai-text-xs">${translate("arrival")}: <span class="ai-inline-block">${arrivalDate}</span></p>
+                <p class="ai-text-zinc-900 ai-text-xs">${translate("flight_time")}: ${route.Duration || ''}</p>
+            </div>
+            ${connectionTimeText ? `
+            <div class="ai-w-full ai-mt-3">
+                <p class="ai-text-xs ai-font-medium">${connectionTimeText}</p>
+            </div>` : ''}
+            `}
+        </div>`;
                 });
             }
 
-            // Flight Info Grid
             html += `
-                        <div class="flight-info-grid grid grid-cols-1 md:grid-cols-3 gap-4 mb-3">`;
+                <div class="${isMobile ? 'ai-text-xs' : 'ai-flex ai-justify-between ai-items-center'}">`;
 
-            // Baggage Info
-            if (flight.Baggage) {
-                const baggageIcon = flight.Baggage.value === "0" ? "🎒" : "🧳";
-                const baggageText = flight.Baggage.value === "0" ? "بدون بار" : `${flight.Baggage.value} ${flight.Baggage.unit}`;
-                html += `
-                    <div class="info-card bg-blue-50 rounded-lg p-3 text-center">
-                        <div class="text-2xl mb-1">${baggageIcon}</div>
-                        <div class="text-sm font-medium text-gray-800 inline-block ltr">${baggageText}</div>
-                        <div class="text-xs text-gray-500">${baggageLabel}</div>
-                    </div>`;
-            }
-
-            // Stops Info
-            if (flight.Stops !== undefined) {
-                const stopsIcon = flight.Stops === "0" ? "🛫" : "🔄";
-                const stopsText = flight.Stops === "0" ? "مستقیم" : `${flight.Stops} توقف`;
-                html += `
-                    <div class="info-card bg-cyan-50 rounded-lg p-3 text-center">
-                        <div class="text-2xl mb-1">${stopsIcon}</div>
-                        <div class="text-sm font-medium text-gray-800">${stopsText}</div>
-                        <div class="text-xs text-gray-500">نوع پرواز</div>
-                    </div>`;
-            }
-
-            // Available Seats
+            // Remaining seats (badge)
             if (flight.AvailableSeats !== undefined) {
-                const seatsIcon = "💺";
-                const seatsText = flight.AvailableSeats === "0" ? "تکمیل" : `${flight.AvailableSeats} صندلی`;
-                const seatsColor = flight.AvailableSeats === "0" ? "bg-red-50" : "bg-purple-50";
+                const seatsText = flight.AvailableSeats === "0" ? `${translate("completed")}` : `${flight.AvailableSeats} ${translate("seat")}`;
                 html += `
-                    <div class="info-card ${seatsColor} rounded-lg p-3 text-center">
-                        <div class="text-2xl mb-1">${seatsIcon}</div>
-                        <div class="text-sm font-medium text-gray-800">${seatsText}</div>
-                        <div class="text-xs text-gray-500">${seatsLabel}</div>
+                    <div class="ai-flex ai-items-center ai-gap-1 ${isMobile ? 'ai-mb-3' : ''}">
+                        <svg width="17" height="18" class="align-middle">
+                            <use xlink:href="/booking/images/sprite-ai-icons.svg#flight-ai-passenger"></use>
+                        </svg>
+                        <span class="ai-text-special-5 ai-text-sm">${translate("remaining_seats")}:</span>
+                        <span class="ai-text-special-5 ai-text-sm">${seatsText}</span>
                     </div>`;
             }
 
-
-
             html += `
-                        </div>
-                        
-                        <!-- Action Button -->
-                        <div class="action-section border-t border-gray-100 p-4 bg-gray-50">
-                            <button 
-                                class="buy-button w-full bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg transform active:scale-95"
-                                data-id="${flight.FlightId || ''}"
-                                onclick="selectApiOption(this)">
-                                <span class="flex items-center justify-center gap-2">
-                                    <span>🛒</span>
-                                    <span>${buyLabel}</span>
-                                    <span>←</span>
-                                </span>
-                            </button>
-                        </div>
+                    <div class="ai-flex ai-gap-7 ai-items-center ai-buy__btn hover:ai-bg-primary-500 ai-h-12 ai-p-4 ai-bg-special-6 ai-rounded-xl !ai-text-white ai-cursor-pointer"
+                         data-id="${flight.FlightId || ''}"
+                         onclick="selectApiOption(this)">
+                        <p><span class="ai-text-xs ai-px-1">${unitText}</span><span class="ai-text-base">${priceText}</span></p>
+                        <span class="ai-font-bold ai-flex ai-items-center ai-text-sm">
+                        ${translate("book")}
+                            <span class="ai-invert ${paddingRotateClass}">
+                                <svg width="48" height="48" class="align-middle">
+                                    <use xlink:href="/booking/images/sprite-ai-icons.svg#flight-ai-arrow-left"></use>
+                                </svg>
+                            </span>
+                        </span>
                     </div>
                 </div>
-            </div>`;
+            </article>
+        </div>`;
         });
 
         html += `
-            </div>
-            
-            <!-- All Offers Button -->
-            <div class="all-offers-section mt-4 text-center">
-                <button 
-                    class="all-offers-button bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold px-4 py-2 rounded-md transition-all duration-300 hover:scale-105 hover:shadow-lg transform active:scale-95"
-                    onclick="showAllOffers()">
-                    <span class="flex items-center justify-center gap-2">
-                        <span>📋</span>
-                        <span>${allOffersLabel}</span>
-                        <span>→</span>
-                    </span>
-                </button>
-            </div>
-        </div>`;
+    </div>
+    
+    <!-- View All Button -->
+    <div class="ai-w-full ai-flex ai-justify-center ai-mt-6">
+        <button type="button"
+            class="ai-flex ai-rounded-xl ${paddingRightClass} ai-text-xs see-all ai-relative ai-text-primary-600 ai-border-primary-600 ai-border ai-items-center"
+            onclick="showAllOffers()">
+            <svg width="38" height="38" class="align-middle ai-fill-primary-600">
+                <use xlink:href="/booking/images/sprite-ai-icons.svg#flight-ai-eye"></use>
+            </svg>
+             ${translate("view_all")}<span class="ai-px-1">${totalCount}</span>${translate("offer")}
+        </button>
+    </div>
+</div>`;
 
         return html;
     } catch (err) {
         console.error(`formatFlightsResponse error:`, err);
-        console.error(`Data received:`, data);
-        return '<div class="text-center text-red-500 p-8">❌ خطا در نمایش پروازها</div>';
+        return `<div class="ai-text-center ai-text-red-500 ai-p-8">${translate("error_displaying_flights")}</div>`;
     }
 };
 
-/**
- * Shows all offers - creates flight search JSON and redirects
- */
+// ===============================
+// Action: "See all offers" → builds a search payload and opens search page
+// - Requires storedEntities to be present
+// ===============================
 const showAllOffers = () => {
     try {
         if (!storedEntities) {
             console.warn("No stored entities found");
-            alert("اطلاعات پرواز یافت نشد");
             return;
         }
 
-        console.log("Building flight search with entities:", storedEntities);
-
-        // Extract values from stored entities with defaults
         const cabinClass = storedEntities.cabin_class || "Economy";
         const adults = storedEntities.adults || "1";
         const children = storedEntities.children || "0";
         const infants = storedEntities.infants || "0";
 
-        // Determine schema ID based on return_date presence
-        let schemaId = 291; // One-way default
-        if (storedEntities.return_date) {
-            schemaId = 290; // Round-trip
+        let schemaId = 291;
+
+        const rd = storedEntities?.return_date ?? '';
+        if (rd && String(rd).trim().toLowerCase() !== 'none') {
+            schemaId = 290;
         }
 
-        // Build TripGroup based on schema ID
         let TripGroup = [];
-
         if (schemaId === 291) {
-            // One-way trip
-            TripGroup = [
-                {
-                    "Origin": storedEntities.origin || "",
-                    "Destination": storedEntities.destination || "",
-                    "OriginName": storedEntities.origin_name || storedEntities.origin || "",
-                    "DestinationName": storedEntities.destination_name || storedEntities.destination || "",
-                    "DepartureDate": storedEntities.departure_date || ""
-                }
-            ];
-        } else if (schemaId === 290) {
-            // Round-trip
+            TripGroup = [{
+                "Origin": storedEntities.origin || "",
+                "Destination": storedEntities.destination || "",
+                "OriginName": storedEntities.origin_name || storedEntities.origin || "",
+                "DestinationName": storedEntities.destination_name || storedEntities.destination || "",
+                "DepartureDate": storedEntities.departure_date || ""
+            }];
+        } else {
             TripGroup = [
                 {
                     "Origin": storedEntities.origin || "",
@@ -507,7 +446,6 @@ const showAllOffers = () => {
             ];
         }
 
-        // Build the flight search object
         const flightSearch = {
             "TripGroup": TripGroup,
             "CabinClass": cabinClass,
@@ -522,23 +460,26 @@ const showAllOffers = () => {
             "lid": LID
         };
 
-        console.log("Generated flight search:", flightSearch);
-
-        // Store in session storage and redirect
         sessionStorage.setItem('sessionSearch', JSON.stringify(flightSearch));
-        window.open('/flight/search', '_blank');
+        window.open(
+            document.querySelector('main')?.dataset.b2b === "true" ? "/flight/search/B2B" : "/flight/search",
+            '_blank'
+        );
 
     } catch (err) {
         console.error(`showAllOffers: ${err.message}`);
     }
 };
 
+// ===============================
+// Action: User selects a specific offer → open booking page with token
+// ===============================
 const selectApiOption = (element) => {
     try {
-        // Determine schema ID based on return_date presence
-        let schemaId = 291; // One-way default
-        if (storedEntities.return_date) {
-            schemaId = 290; // Round-trip
+        let schemaId = 291;
+        const rd = storedEntities?.return_date ?? '';
+        if (rd && String(rd).trim().toLowerCase() !== 'none') {
+            schemaId = 290;
         }
         const foundObject = {
             FlightId: element.dataset.id,
@@ -550,18 +491,20 @@ const selectApiOption = (element) => {
         sessionStorage.setItem('sessionSearch', JSON.stringify(foundObject));
         window.open('/flight/book', '_blank');
     } catch (err) {
-        console.error(`selectApiOption: ${err.message}, Line: ${err.lineNumber || 'unknown'}`);
+        console.error(`selectApiOption: ${err.message}`);
     }
 };
 
-/**
- * Processes API response and displays it as a system message.
- * @param {string|Object} response - The API response (string or object with offers).
- */
+// ===============================
+// Response Orchestrator:
+// - Renders text/system messages
+// - Drives login/select-user flow
+// - Pushes offers into chat stream
+// - Controls loading lifecycle + rate-limit lock
+// ===============================
 const processResponse = (response) => {
     try {
         console.log("processResponse called with:", response);
-        console.log(typeof response)
 
         if (typeof response === 'string') {
             addMessage(response, 'system');
@@ -570,10 +513,79 @@ const processResponse = (response) => {
 
         let formattedResponse = response.text || response.message;
 
+        // Handle rkey & optional user selection list
+        if (response.rkey) {
+            if (response.rkey.rkey) {
+                document.cookie = `rkey=${response.rkey.rkey}; path=/; SameSite=Strict`;
+                $bc.setSource('login.response', { rkey: response.rkey.rkey });
+            }
+
+            if (Array.isArray(response.rkey.users) && response.rkey.users.length > 0) {
+                const textClass = LID === "2" ? "ai-text-left" : "ai-text-right";
+                const arrowClass = LID === "2" ? "ai-scale-x--100" : "";
+                const userListHtml = response.rkey.users.map((user, index) => {
+                    return `
+                    <button 
+                        class="user-select-btn ai-w-full ai-p-1 ai-mb-3 ai-bg-white  ai-border-2  ai-rounded-xl ai-transition-all ai-duration-300 hover:ai-shadow-lg ai-group"
+                        onclick="handleUserSelection('${user.userid}','${user.username}', '${response.rkey.hashid || ''}')">
+                        <div class="ai-flex ai-items-center ai-gap-3">
+                            <div class="ai-w-10 ai-h-10 ai-bg-zinc-700 ai-rounded-full ai-flex ai-items-center ai-justify-center ai-text-white ai-font-bold ai-text-lg">
+                                ${index + 1}
+                            </div>
+                            <div class="${textClass} ai-flex-1">
+                                <p class="ai-text-zinc-800 ai-font-medium">${user.username}</p>
+                            </div>
+                            <svg class="ai-w-5 ai-h-5 ai-text-zinc-600 ${arrowClass}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                            </svg>
+                        </div>
+                    </button>
+                `;
+                }).join('');
+
+                const mainText = formattedResponse || response.text || "Please choose your account.";
+                const containerHtml = `
+                <div class="ai-p-5">
+                    <div class="ai-my-2">
+                        <p>${mainText}</p>
+                    </div>
+                    <div class="user-selection-box">
+                        <div class="ai-flex ai-flex-col">
+                            ${userListHtml}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+                addMessage(containerHtml, 'system');
+                return;
+            }
+        }
+
+        // Auth required (no side effects, only inform)
+        if (response.authentication_required === true && !response.is_authenticated) {
+
+            if (formattedResponse && formattedResponse.trim()) {
+                addMessage(formattedResponse, 'system');
+            }
+            return;
+        }
+
+        // Bot needs more info from the user
+        if (response.status === 'need_more_info') {
+
+            if (formattedResponse && formattedResponse.trim()) {
+                addMessage(formattedResponse, 'system');
+            }
+            return;
+        }
+
+        // Task complete (e.g., parsed flight search entities)
         if (response.status === 'complete') {
-            const mainEl = document.querySelector('main.book-layout__main');
+
+            const mainEl = document.querySelector('main');
             const sessionId = mainEl?.dataset?.sessionid || '';
-            const lid = parseInt(mainEl?.dataset?.lid) || null;
+            const lid = LID;
 
             if (response.intent === 'search_flight' && response.entities) {
                 storedEntities = response.entities;
@@ -583,314 +595,273 @@ const processResponse = (response) => {
                     lid
                 };
 
-                // فقط اگر text وجود دارد و خالی نیست، آن را نمایش بده
-                if (
-                    formattedResponse &&
-                    formattedResponse.trim() !== '' &&
-                    formattedResponse.trim() !== '```'
-                ) {
+                if (formattedResponse && formattedResponse.trim() !== '' && formattedResponse.trim() !== '```') {
                     addMessage(formattedResponse, 'system');
                 }
 
-                // درخواست offers را ارسال کن
                 $bc.setSource('offers.request', JSON.stringify(fullRequest));
-
-                // loading indicator را شروع کن برای offers
-                showLoading();
                 handleLoadingResponse({});
-
-                return; // از تابع خارج شو تا addMessage دوباره اجرا نشه
+                //showLoading();
+                return;
             }
         }
 
-        if (response.rkey) {
-            if (response.rkey.rkey) {
-                document.cookie = `rkey=${response.rkey.rkey}; path=/; SameSite=Strict`;
-                $bc.setSource('login.response', { rkey: response.rkey.rkey });
-            }
+        // Handle offers:
+        // Case 1) Single object with error info
+        if (typeof response.offers === 'object' && !Array.isArray(response.offers) && response.offers.error) {
 
-            if (Array.isArray(response.rkey.users) && response.rkey.users.length > 0) {
-                // لیست انتخابی کاربر بساز
-                const userListHtml = response.rkey.users.map((user, index) => {
-                    return `
-                        <button 
-                            class="user-select-btn bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-2 mb-2 rounded-lg transition-colors w-full text-right"
-                            onclick="handleUserSelection('${user.userid}','${user.username}')">
-                             ${user.username}
-                        </button>
-                    `;
-                }).join('');
-
-                // استفاده از response.text به جای پیام فارسی
-                const mainText = formattedResponse || response.text || "Please choose your account.";
-
-                const containerHtml = `
-                    <div class="mb-3 text-gray-700">${mainText}</div>
-                    <div class="user-selection-box">
-                        <div class="flex flex-col gap-2">
-                            ${userListHtml}
-                        </div>
-                    </div>
-                `;
-
-                addMessage(containerHtml, 'system');
-                return; // اضافه کردن return برای جلوگیری از پیام دوباره
-            }
-        }
-
-        // Check for offers in response - اینجا مشکل بود
-        if (response.offers) {
-            // حتماً loading رو متوقف کن قبل از نمایش offers
-            hasReceivedApiResponse = true;
             removeLoadingIndicator();
+            hasReceivedApiResponse = true;
 
-            if (response.offers.length > 0) {
-                formattedResponse = formatFlightsResponse(response);
-                addMessage(formattedResponse, 'system');
-                // 🚀 اضافه کردن smooth scroll برای نمایش تب‌ها
-                setTimeout(() => {
-                    const messagesContainer = document.getElementById('messages-container');
-                    if (messagesContainer) {
-                        // پیدا کردن آخرین پیام AI که حاوی flight offers است
-                        const lastAiMessage = messagesContainer.querySelector('.ai__chat:last-of-type');
-                        if (lastAiMessage) {
-                            lastAiMessage.scrollIntoView({
-                                behavior: 'smooth',
-                                block: 'start'
-                            });
-                        }
-                    }
-                }, 500); // تاخیر بیشتر
-            } else {
-                if (response.count !== undefined) {
-                    const noOffersMessages = {
-                        "1": "پروازی برای این مسیر یافت نشد.",
-                        "2": "No flights found for this route.",
-                        "3": "لم يتم العثور على رحلات لهذا المسار."
-                    };
+            const errorMessages = {
+                "1": "متأسفانه پروازی یافت نشد. لطفاً دوباره تلاش کنید.",
+                "2": "Unfortunately, no flights were found. Please try again.",
+                "3": "للأسف، لم يتم العثور على رحلات. يرجى المحاولة مرة أخرى."
+            };
 
-                    formattedResponse = noOffersMessages[LID] || noOffersMessages["2"];
+            addMessage(errorMessages[LID] || errorMessages["2"], 'system');
+            return;
+        }
+        // Case 2) Non-empty array of offers
+        if (Array.isArray(response.offers) && response.offers.length > 0) {
+            removeLoadingIndicator();
+            hasReceivedApiResponse = true;
+
+            // Validate offers content
+            const validOffers = response.offers.filter(item =>
+                item && item.offer && typeof item.offer === 'object' && Object.keys(item.offer).length > 0
+            );
+
+            console.log("Valid offers:", validOffers);
+
+            // If we have valid offers, render them into the chat stream
+            if (validOffers.length > 0) {
+                formattedResponse = formatFlightsResponse({
+                    offers: validOffers,
+                    count: response.count || validOffers.length
+                });
+
+                // Push results block as a system message container
+                const resultsHtml = `
+<div id="ai-response__container-${Date.now()}" class="ai-response__container ai-w-full ai-bg-white ai-rounded-3xl ${isMobile ? 'ai-px-3 ai-py-4' : 'ai-p-6'}  ai-shadow-lg">
+<div class="ai-response__content ai-w-full  ai-flex ai-flex-col ai-gap-7">
+${formattedResponse}
+</div>
+</div>
+`;
+
+                addMessage(resultsHtml, 'system');
+
+                if (response.text && response.text.trim()) {
+                    addMessage(response.text, 'system');
                 }
-
-                addMessage(formattedResponse, 'system');
+                return;
+            } else {
+                // No valid offers after filtering
+                const noOffersMessages = {
+                    "1": "پروازی برای این مسیر یافت نشد.",
+                    "2": "No flights found for this route.",
+                    "3": "لم يتم العثور على رحلات لهذا المسار."
+                };
+                addMessage(noOffersMessages[LID] || noOffersMessages["2"], 'system');
+                return;
             }
-            return; // از تابع خارج شو
         }
 
-        // اگر هیچ offers نداشت، پیام معمولی رو نمایش بده
-        if (formattedResponse && formattedResponse.trim() && !response.rkey?.users) {
+        // Default: show any non-empty text as a system message
+        if (formattedResponse && formattedResponse.trim()) {
             addMessage(formattedResponse, 'system');
         }
 
+        // Rate limited → lock input with a localized placeholder
         if (response.status_code === 429) {
             const placeholderByLID = {
                 "1": "دیگه تمومه...",
                 "2": "It's over now...",
                 "3": "انتهى الأمر..."
             };
-            const input = document.querySelector("#message-input");
-            input.placeholder = placeholderByLID[LID];
-            input.disabled = true;
+            messageInput.placeholder = placeholderByLID[LID];
+            messageInput.disabled = true;
         }
     } catch (err) {
         console.error(`processResponse error:`, err);
-        console.error(`Response received:`, response);
-
-        // در صورت خطا، loading رو متوقف کن
         hasReceivedApiResponse = true;
         removeLoadingIndicator();
-
         addMessage("خطا در پردازش پاسخ", 'system');
     }
 };
 
-/**
- * Handles user selection and sends username as message
- * @param {string} userid - Selected user ID
- * @param {string} username - Selected username
- */
-const handleUserSelection = (userid, username) => {
+// ===============================
+// User selection (multi-account flow)
+// - Sends a selectuser request through BasisCore ($bc)
+// ===============================
+const handleUserSelection = (userid, username, hashid) => {
     try {
-        // پیام کاربر که username انتخاب شده رو نشان می‌ده
         addMessage(username, 'user');
-
-        // شروع loading
         showLoading();
-
-        // Reset the API response flag for new request
         hasReceivedApiResponse = false;
 
-        // ارسال درخواست برای login
+        // Dispatch selectuser API call via BasisCore source
         $bc.setSource('flight.request', {
             text: userid,
             dmnid: DMNID,
             sessionId: sessionId,
             run: true
         });
-
     } catch (err) {
         console.error(`handleUserSelection: ${err.message}`);
     }
 };
 
-/**
- * Shows a loading indicator in the messages container.
- */
+// ===============================
+// Loading bubble: show a typing/progress indicator
+// - Creates a message-like block with animated dots
+// ===============================
 const showLoading = () => {
     try {
         isLoading = true;
         const loadingEl = document.createElement('div');
         loadingEl.id = 'loading-indicator';
-        loadingEl.className = 'message flex gap-4 max-w-4xl';
+        loadingEl.className = 'ai-bot__answers ai-w-full ai-flex ai-justify-start';
+        const paddingRightClass = LID === "2" ? "ai-pl-10" : "ai-pr-10";
         loadingEl.innerHTML = `
-            <div class="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-400 rounded-full flex items-center justify-center text-white text-xl shadow-lg">
-                 <img src="/booking/images/chat-ai-icon.png" width="" height=""
-                                alt="chat-ai-icon" class="mx-auto">
-            </div>
-            <div class="bg-white rounded-2xl rounded-br-md p-5 shadow-lg border border-gray-100">
-                <div class="flex items-center gap-3">
-                    <span class="text-gray-600 text-sm">در حال پردازش</span>
-                    <div class="flex gap-1">
-                        <div class="typing-dot w-2 h-2 bg-gray-400 rounded-full"></div>
-                        <div class="typing-dot w-2 h-2 bg-gray-400 rounded-full"></div>
-                        <div class="typing-dot w-2 h-2 bg-gray-400 rounded-full"></div>
-                    </div>
+        <div class="ai-message ai-w-fit ai-max-w-[80%] ai-p-3 ${paddingRightClass} ${isMobile ? 'ai-text-xs' : 'ai-text-sm'}  ai-rounded-2xl ai-bg-white ai-text-zinc-800 ai-rounded-bl-sm ai-shadow-sm">
+            <div class="ai-flex ai-items-center ai-gap-3">
+                <span>${translate("processing")}</span>
+                <div class="ai-flex ai-gap-1">
+                    <div class="ai-loading__dot ai-w-2 ai-h-2 ai-bg-zinc-100 ai-rounded-full"></div>
+                    <div class="ai-loading__dot ai-w-2 ai-h-2 ai-bg-zinc-100 ai-rounded-full"></div>
+                    <div class="ai-loading__dot ai-w-2 ai-h-2 ai-bg-zinc-100 ai-rounded-full"></div>
                 </div>
             </div>
-        `;
+        </div>
+    `;
 
         if (!messagesContainer) throw new Error("Messages container not found");
         messagesContainer.appendChild(loadingEl);
         scrollToBottom();
     } catch (err) {
-        console.error(`showLoading: ${err.message}, Line: ${err.lineNumber || 'unknown'}`);
+        console.error(`showLoading: ${err.message}`);
         isLoading = false;
     }
 };
 
-/**
- * Removes the loading indicator from the messages container.
- */
+// ===============================
+// Loading bubble: remove all active loading indicators
+// - Clears any running intervals used for rotating loading messages
+// ===============================
 const removeLoadingIndicator = () => {
     try {
         isLoading = false;
-        hasReceivedApiResponse = true; // متوقف کردن interval
+        hasReceivedApiResponse = true;
 
-        const loadingEl = document.getElementById('loading-indicator');
-        if (loadingEl) {
-            // پاک کردن interval اگر وجود دارد
-            const intervalId = loadingEl.dataset.loadingIntervalId;
+        const loadingEls = document.querySelectorAll('#loading-indicator, [data-bc-typing-indicator]');
+        loadingEls.forEach(el => {
+            const intervalId = el.dataset?.loadingIntervalId;
             if (intervalId) {
                 clearInterval(parseInt(intervalId));
             }
-
-            // حذف loading element
-            loadingEl.remove();
-        }
+            el.remove();
+        });
     } catch (err) {
-        console.error(`removeLoadingIndicator: ${err.message}, Line: ${err.lineNumber || 'unknown'}`);
+        console.error(`removeLoadingIndicator: ${err.message}`);
     }
 };
 
-/**
- * Adds a message to the chat interface.
- * @param {string} content - The message content (text or HTML).
- * @param {string} type - The message type ('user' or 'system').
- */
+// ===============================
+// Chat message append helper
+// - Supports plain text and prebuilt HTML blocks
+// - Auto-scrolls and removes loading afterward
+// ===============================
 const addMessage = (content, type) => {
     try {
         if (typeof content !== 'string' || !content.trim()) {
             console.warn("addMessage: Empty or invalid content");
             return;
         }
-        const messageEl = document.createElement('div');
-        messageEl.className = `max-w-[80%] relative ${type === 'user'
-            ? `self-start flex items-end user__chat${LID == 2 ? ` ltr` : ` rtl`}`
-            : `self-end ai__chat${LID == 2 ? ` ltr` : ` rtl`}`
-            }`;
 
-        if (type === 'user') {
-            const existingUserName = messagesContainer.querySelector('.user-name');
-            if (existingUserName) {
-                const clonedUserName = existingUserName.cloneNode(true);
-                messageEl.appendChild(clonedUserName);
+        const messageEl = document.createElement('div');
+        const messageContent = document.createElement('div');
+        // If content is a results container, inject as-is
+        if (content.includes('ai-response__container-')) {
+            messageEl.className = 'ai-w-full ai-mb-4';
+            messageEl.innerHTML = content;
+        } else {
+            // Standard bubble (user or system)
+            messageEl.className = type === 'user' ? 'ai-user__questions ai-w-full ai-flex ai-justify-end' : 'ai-bot__answers ai-w-full ai-flex ai-justify-start';
+            const paddingRightClass = LID === "2" ? "ai-pl-10" : "ai-pr-10";
+
+            messageContent.className = `ai-message ai-w-fit ai-max-w-[80%] ai-p-3 ${paddingRightClass} ${isMobile ? 'ai-text-xs' : 'ai-text-sm'} ai-rounded-2xl ${type === 'user'
+                ? 'ai-bg-cyan-500 ai-text-white ai-rounded-br-sm'
+                : 'ai-bg-white ai-text-zinc-800 ai-rounded-bl-sm ai-shadow-sm'
+                }`;
+
+            if (content.trim().startsWith('<') && content.trim().endsWith('>')) {
+                messageContent.innerHTML = content;
+            } else {
+                const formattedContent = content
+                    .replace(/\n{2,}/g, '<br>')
+                    .replace(/\n/g, '<br>');
+                messageContent.innerHTML = formattedContent;
+            }
+
+            messageEl.appendChild(messageContent);
+        }
+        if (type === 'user' && userFullName) {
+            const span = document.createElement('span');
+            span.className = 'ai-user__name ai-bg-zinc-100 ai-p-2 ai-rounded-xl ai-text-xs';
+            span.textContent = userFullName;
+
+            switch (parseInt(LID, 10)) {
+                case 2:
+                    span.className += ' ai-mr-2';
+                    if (messageContent.firstChild) {
+                        messageContent.insertBefore(span, messageContent.firstChild);
+                    } else {
+                        messageContent.appendChild(span);
+                    }
+                    break;
+                case 1:
+                case 3:
+                default:
+                    span.className += ' ai-ml-2';
+                    if (messageContent.firstChild) {
+                        messageContent.insertBefore(span, messageContent.firstChild);
+                    } else {
+                        messageContent.appendChild(span);
+                    }
             }
         }
-
-        // Add copy button and action buttons for system messages BEFORE content
-        if (type === 'system') {
-            const actionsWrapper = document.createElement('div');
-            actionsWrapper.className = 'absolute mb-2 opacity-70 left-0';
-
-            // Copy button with different labels based on LID
-            const copyLabels = {
-                "1": "📋", // Persian
-                "2": "📋", // English
-                "3": "📋", // Arabic
-            };
-
-            const copyButton = document.createElement('button');
-            copyButton.className = 'action-btn p-2 hover:bg-gray-100 rounded-lg transition-colors';
-            copyButton.innerHTML = copyLabels[LID] || "📋";
-            copyButton.title = LID === "1" ? "کپی کردن" : LID === "3" ? "نسخ" : "Copy";
-            copyButton.onclick = () => copyToClipboard(copyButton, content);
-
-            actionsWrapper.appendChild(copyButton);
-            messageEl.appendChild(actionsWrapper);
-        }
-
-        // Create message content wrapper AFTER action buttons
-        const contentWrapper = document.createElement('div');
-        contentWrapper.className = `p-3 pl-8 rounded-xl ${type === 'user'
-            ? `bg-cyan-500 text-white rounded-br-sm `
-            : `bg-gray-100 text-gray-800 rounded-bl-sm `
-            }`;
-
-        // Check if content is HTML or plain text
-        if (content.trim().startsWith('<') && content.trim().endsWith('>')) {
-            contentWrapper.innerHTML = content;
-        } else {
-            const formattedContent = content
-                .replace(/\n{2,}/g, '<br>')  // چندتا \n پشت سر هم = یک <br>
-                .replace(/\n/g, '<br>');     // باقی \n ها = <br>
-            contentWrapper.innerHTML = formattedContent;
-        }
-
-        messageEl.appendChild(contentWrapper);
 
         if (!messagesContainer) throw new Error("Messages container not found");
         messagesContainer.appendChild(messageEl);
 
-        // Scroll to bottom and remove loading indicator
-        scrollToBottom();
+        // Keep the latest message in view
+        setTimeout(() => {
+            scrollToBottom();
+        }, 100);
+
         removeLoadingIndicator();
     } catch (err) {
-        console.error(`addMessage: ${err.message}, Line: ${err.lineNumber || 'unknown'}`);
+        console.error(`addMessage: ${err.message}`);
     }
 };
 
-/**
- * Sends a user message and triggers an API request.
- */
+// ===============================
+// Send message flow
+// - Reads input, appends user bubble, shows loading, triggers BasisCore source
+// ===============================
 const sendMessage = () => {
     try {
         if (!messageInput) throw new Error("Message input not found");
         const messageText = messageInput.value.trim();
         if (!messageText || isLoading) return;
 
-        // Reset the API response flag for new request
         hasReceivedApiResponse = false;
-
-        // Add user message to the chat
         addMessage(messageText, 'user');
-
-        // Clear input
         messageInput.value = '';
-
-        // Show loading indicator
         showLoading();
 
-        // Set request data to trigger API call
         $bc.setSource('flight.request', {
             text: messageText,
             dmnid: DMNID,
@@ -898,16 +869,15 @@ const sendMessage = () => {
             run: true
         });
     } catch (err) {
-        console.error(`sendMessage: ${err.message}, Line: ${err.lineNumber || 'unknown'}`);
+        console.error(`sendMessage: ${err.message}`);
         isLoading = false;
     }
 };
 
-// BasisCore Callback Handlers
-/**
- * Handles API response from BasisCore and processes the flight data.
- * @param {Object} args - API response object containing the response data.
- */
+// ===============================
+// BasisCore API handler wrapper
+// - Parses JSON and forwards to processResponse()
+// ===============================
 const handleApiResponse = async (args) => {
     try {
         console.log("API response received", args);
@@ -916,128 +886,199 @@ const handleApiResponse = async (args) => {
         hasReceivedApiResponse = true;
         processResponse(responseJson);
     } catch (err) {
-        console.error(`handleApiResponse: ${err.message}, Line: ${err.lineNumber || 'unknown'}`);
-        addMessage("Error receiving API response", 'system'); // Fallback message
+        console.error(`handleApiResponse: ${err.message}`);
+        addMessage("Error receiving API response", 'system');
     }
 };
 
-/**
- * Updates the loading indicator with a message after a delay.
- * @param {Object} args - API request arguments.
- */
-const handleLoadingResponse = (args) => {
+// ===============================
+// Loading message rotator
+// - Periodically swaps messages until a response is received
+// ===============================
+const handleLoadingResponse = () => {
     try {
-        console.log("API request in progress", args);
-
         const messagesByLanguage = {
             "1": [
-                "در حال جستجوی بهترین پیشنهادها...",
-                "در حال بررسی صدها پرواز...",
-                "در حال یافتن ارزان‌ترین قیمت‌ها...",
-                "در حال بررسی سریع‌ترین مسیرها...",
-                "در حال بارگذاری خطوط هوایی موجود...",
-                "تقریباً آماده‌ایم، لطفاً صبر کنید..."
+                "در حال جستجوی بهترین پیشنهادها",
+                "در حال بررسی صدها پرواز",
+                "در حال یافتن ارزان‌ترین قیمت‌ها",
+                "در حال بررسی سریع‌ترین مسیرها",
+                "در حال بارگذاری خطوط هوایی موجود",
+                "تقریباً آماده‌ایم، لطفاً صبر کنید"
             ],
             "2": [
-                "Looking for the best offers...",
-                "Searching hundreds of flights...",
-                "Securing the cheapest prices...",
-                "Finding the fastest connections...",
-                "Loading available airlines...",
+                "Looking for the best offers",
+                "Searching hundreds of flights",
+                "Securing the cheapest prices",
+                "Finding the fastest connections",
+                "Loading available airlines",
                 "Almost there, hang tight!"
             ],
             "3": [
-                "جارٍ البحث عن أفضل العروض...",
-                "جارٍ فحص مئات الرحلات...",
-                "جارٍ تأمين أرخص الأسعار...",
-                "جارٍ إيجاد أسرع الاتصالات...",
-                "جارٍ تحميل شركات الطيران المتاحة...",
-                "اقتربنا من الانتهاء، الرجاء الانتظار..."
+                "جارٍ البحث عن أفضل العروض",
+                "جارٍ فحص مئات الرحلات",
+                "جارٍ تأمين أرخص الأسعار",
+                "جارٍ إيجاد أسرع الاتصالات",
+                "جارٍ تحميل شركات الطيران المتاحة",
+                "اقتربنا من الانتهاء، الرجاء الانتظار"
             ]
         };
 
-        const directionByLID = {
-            "1": "rtl",
-            "2": "ltr",
-            "3": "rtl"
-        };
-
-        const textDirection = directionByLID[LID] || "ltr";
         const messages = messagesByLanguage[LID] || messagesByLanguage["2"];
-
-        // مطمئن بشیم که hasReceivedApiResponse = false
         hasReceivedApiResponse = false;
 
-        // شروع با پیام رندوم
         let currentIndex = Math.floor(Math.random() * messages.length);
 
-        // تابع برای به‌روزرسانی پیام
         const updateLoadingMessage = () => {
             const loadingEl = document.getElementById('loading-indicator');
             if (!loadingEl) return false;
-
-            loadingEl.innerHTML = `<div class="text-gray-500 text-sm ${textDirection}">${messages[currentIndex]}</div>`;
+            const messageDiv = loadingEl.querySelector('.ai-message');
+            if (messageDiv) {
+                messageDiv.innerHTML = ` <div class="ai-flex ai-items-center ai-gap-3"><span>${messages[currentIndex]}</span><div class="ai-flex ai-gap-1">
+                    <div class="ai-loading__dot ai-w-2 ai-h-2 ai-bg-zinc-100 ai-rounded-full"></div>
+                    <div class="ai-loading__dot ai-w-2 ai-h-2 ai-bg-zinc-100 ai-rounded-full"></div>
+                    <div class="ai-loading__dot ai-w-2 ai-h-2 ai-bg-zinc-100 ai-rounded-full"></div>
+                </div></div>`;
+            }
             return true;
         };
 
-        // نمایش اولین پیام
         if (!updateLoadingMessage()) return;
 
-        // شروع interval برای تغییر پیام‌ها
         const intervalId = setInterval(() => {
-            // چک کنیم response دریافت شده یا نه
             if (hasReceivedApiResponse) {
                 clearInterval(intervalId);
                 return;
             }
 
-            // چک کنیم loading element هنوز وجود دارد یا نه
             const loadingEl = document.getElementById('loading-indicator');
             if (!loadingEl) {
                 clearInterval(intervalId);
                 return;
             }
 
-            // انتخاب پیام رندوم جدید (مختلف از قبلی)
             let newIndex;
             let attempts = 0;
             do {
                 newIndex = Math.floor(Math.random() * messages.length);
                 attempts++;
-                if (attempts > 10) break; // جلوگیری از infinite loop
+                if (attempts > 10) break;
             } while (newIndex === currentIndex && messages.length > 1);
 
             currentIndex = newIndex;
-
-            // به‌روزرسانی پیام
             updateLoadingMessage();
+        }, 2000);
 
-        }, 2000); // هر 2 ثانیه
-
-        // ذخیره interval ID برای پاک کردن بعدی
         const loadingEl = document.getElementById('loading-indicator');
         if (loadingEl) {
             loadingEl.dataset.loadingIntervalId = intervalId;
         }
-
     } catch (err) {
-        console.error(`handleLoadingResponse: ${err.message}, Line: ${err.lineNumber || 'unknown'}`);
+        console.error(`handleLoadingResponse: ${err.message}`);
     }
 };
 
-// Initialize
-document.addEventListener('DOMContentLoaded', () => {
+// ===============================
+// Trust Login Schema handler
+// - Extracts first/last name for potential UI usage
+// ===============================
+const handleUserSchema = async (args) => {
     try {
+        const responseJson = await args.response.json();
+
+        const props = responseJson?.errorMessage
+            ? null
+            : responseJson?.sources?.[0]?.data?.[0]?.properties;
+
+        if (!props) return;
+
+        let firstName = '', lastName = '';
+        props.forEach((e) => {
+            if (e?.prpId == 1) {
+                firstName = e?.answers?.[0]?.parts?.[0]?.values?.[0]?.value || translate("no_name");
+            } else if (e?.prpId == 2) {
+                lastName = e?.answers?.[0]?.parts?.[0]?.values?.[0]?.value || '';
+            }
+        });
+
+        const fullName = ([firstName, lastName].filter(Boolean).join(' ') || translate("no_name")).trim();
+        userFullName = fullName;
+        document.querySelectorAll(".ai-user__questions").forEach(element => {
+            const aiMessage = element.querySelector(".ai-message");
+            if (!aiMessage) return;
+
+            if (aiMessage.querySelector('.ai-user__name')) return;
+
+            const span = document.createElement('span');
+            span.className = 'ai-user__name ai-bg-zinc-100 ai-p-2 ai-rounded-xl ai-text-xs';
+            span.textContent = fullName;
+
+            switch (parseInt(LID, 10)) {
+                case 2:
+                    span.className += ' ai-mr-2';
+                    if (aiMessage.firstChild) {
+                        aiMessage.insertBefore(span, aiMessage.firstChild);
+                    } else {
+                        aiMessage.appendChild(span);
+                    }
+                    break;
+                case 1:
+                case 3:
+                default:
+                    span.className += ' ai-ml-2';
+                    if (aiMessage.firstChild) {
+                        aiMessage.insertBefore(span, aiMessage.firstChild);
+                    } else {
+                        aiMessage.appendChild(span);
+                    }
+            }
+        });
+
+    } catch (err) {
+        console.error(`handleUserSchema: ${err.message}`);
+    }
+};
+
+
+// ===============================
+// Sidebar quick actions
+// - Sends predefined intents via the same send flow
+// ===============================
+const handleSidebarAction = (index) => {
+    const messages = {
+        0: `${translate("check_flight_status")}`,
+        1: `${translate("book_ticket")}`,
+        2: `${translate("search_flight")}`,
+        3: `${translate("need_support")}`
+    };
+
+    if (messages[index] && messageInput) {
+        messageInput.value = messages[index];
+        sendMessage();
+    }
+};
+
+// ===============================
+// Init: bootstraps chat on DOM ready
+// - Clears old session cookies/storage
+// - Adds localized welcome
+// - Wires form + keyboard + sidebar handlers
+// ===============================
+document.addEventListener("DOMContentLoaded", async function () {
+    try {
+        // Initialize translation
+        await loadTranslations();
+        // Initialize direction styles
         document.cookie = "rkey=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         sessionStorage.removeItem('searchSession');
         sessionStorage.removeItem('sessionBook');
         sessionStorage.removeItem('sessionAmenities');
-        // Validate DOM elements
+
         if (!messagesContainer) throw new Error("Messages container not found");
         if (!messageInput) throw new Error("Message input not found");
         if (!sendButton) throw new Error("Send button not found");
 
-        // Add welcome message based on LID
+        // Localized welcome message (by LID)
         if (LID === "2") {
             addMessage("Hello! Welcome to the flight search system. Please search for your desired flight.", 'system');
         } else if (LID === "1") {
@@ -1046,116 +1087,41 @@ document.addEventListener('DOMContentLoaded', () => {
             addMessage("مرحبًا! مرحبًا بكم في نظام البحث عن الرحلات. الرجاء البحث عن الرحلة المطلوبة.", 'system');
         }
 
-        // Add event listeners
-        sendButton.addEventListener('click', sendMessage);
+        // Form submit → send message
+        const chatForm = document.querySelector('form');
+        if (chatForm) {
+            chatForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                sendMessage();
+            });
+        }
+
+        // Send button click 
+        if (sendButton) {
+            sendButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                sendMessage();
+            });
+        }
+
+        // Enter to send (Shift+Enter = newline)
         messageInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault(); // این خط مهم است!
+                e.preventDefault();
                 sendMessage();
             }
         });
 
-        // Listen for BasisCore API responses
-        document.addEventListener('basiscore:source:flight.response', (event) => {
-            if (!isLoading) return;
-            const response = event.detail.rows[0];
-            if (!response || response.status !== 'complete') {
-                removeLoadingIndicator();
-            }
-            processResponse(response);
+        // Sidebar buttons → quick intents
+        const sidebarButtons = document.querySelectorAll('aside button');
+        sidebarButtons.forEach((button, index) => {
+            button.addEventListener('click', () => {
+                handleSidebarAction(index);
+            });
         });
+
     } catch (err) {
-        console.error(`DOMContentLoaded: ${err.message}, Line: ${err.lineNumber || 'unknown'}`);
+        console.error(`DOMContentLoaded: ${err.message}`);
     }
 });
 
-const handleUserSchema = async (args) => {
-    try {
-        const response = args.response;
-        const responseJson = await response.json();
-
-        if (!responseJson.errorMessage && responseJson.sources) {
-            const properties = responseJson.sources[0].data[0].properties;
-
-            let firstName = '';
-            let lastName = '';
-
-            properties?.forEach((e) => {
-                if (e.prpId == 1) {
-                    firstName = e.answers[0].parts[0].values[0].value || 'بدون نام';
-                } else if (e.prpId == 2) {
-                    lastName = e.answers[0].parts[0].values[0].value || '';
-                }
-            });
-
-            const fullName = `${firstName} ${lastName}`.trim() || 'بدون نام';
-
-            const userChatElements = document.querySelectorAll('.user__chat');
-
-            userChatElements.forEach(element => {
-                if (!element.querySelector('.user-name')) {
-                    const span = document.createElement('span');
-                    span.className = 'user-name bg-gray-500 text-white p-2 rounded-xl ml-2 text-xs';
-                    span.textContent = fullName;
-                    console.log(LID)
-                    switch (parseInt(LID)) {
-                        case 2:
-                            element.appendChild(span);
-                            break;
-                        case 1:
-                        case 3:
-                        default:
-                            element.insertBefore(span, element.firstChild);
-                    }
-                }
-            });
-        }
-    } catch (err) {
-        console.error(`handleUserSchema: ${err.message}, Line: ${err.lineNumber || 'unknown'}`);
-    }
-};
-
-/**
- * Copies text to clipboard with visual feedback
- * @param {HTMLElement} button - The copy button element
- * @param {string} text - Text to copy
- */
-const copyToClipboard = async (button, text) => {
-    try {
-        // Extract plain text from HTML content
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = text;
-        const plainText = tempDiv.textContent || tempDiv.innerText || '';
-
-        await navigator.clipboard.writeText(plainText);
-
-        // Visual feedback
-        const originalIcon = button.innerHTML;
-        const copiedMessages = {
-            "1": "✅", // Persian
-            "2": "✅", // English
-            "3": "✅", // Arabic
-        };
-
-        button.innerHTML = copiedMessages[LID] || "✅";
-        button.classList.add('bg-green-100');
-
-        setTimeout(() => {
-            button.innerHTML = originalIcon;
-            button.classList.remove('bg-green-100');
-        }, 2000);
-
-    } catch (err) {
-        console.error('Failed to copy text: ', err);
-
-        // Fallback visual feedback for error
-        const originalIcon = button.innerHTML;
-        button.innerHTML = "❌";
-        button.classList.add('bg-red-100');
-
-        setTimeout(() => {
-            button.innerHTML = originalIcon;
-            button.classList.remove('bg-red-100');
-        }, 2000);
-    }
-};
