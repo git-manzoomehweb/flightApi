@@ -20,6 +20,7 @@ let originalServiceTotalCost = 0;
 let lastDepartureDate = "";
 let requestMappingCache = null;
 let checkCouponUrl = null;
+let checkMemberPointUrl = null;
 let supplierCreditUrl = null;
 let commissionUrl = null;
 let paymentStepUrl = null;
@@ -43,8 +44,9 @@ let selectedCountryId = null;
 let selectedCountryCode = null;
 let selectedCity = null;
 let selectedCityId = null;
-let currencyRequest = null;
+let currencyRequest = "";
 let TemporaryHold = "false";
+let clubDiscount = 0;
 
 // Function to load translate
 const loadTranslations = async (lang = 'fa') => {
@@ -1182,6 +1184,99 @@ const onProcessedCheckCoupon = async (args) => {
         console.error("onProcessedCheckCoupon: " + error.message);
     }
 };
+/**
+ * Processes coupon API response, updates UI with messages, and adjusts prices.
+ * @param {Object} args - API response object containing status and data.
+ */
+const onProcessedMemberPoint = async (args) => {
+    try {
+        const response = args.response;
+        if (response.status === 200) {
+            const responseJson = await response.json();
+            const pointContainer = document.querySelector(".book-member__point__container");
+            if (!pointContainer) throw new Error("point container not found");
+            if (responseJson) {
+                const total_point = parseFloat(responseJson.total_point);
+                if (total_point > 0) {
+                    pointContainer.classList.remove("book-hidden");
+                    const responseElement = pointContainer.querySelector(".book-api__container__reponse");
+                    if (!responseElement) throw new Error("Response element not found");
+                    const costText = document.querySelector(".book-firstpay__cost").textContent;
+                    const firstPay = parseFloat(convertPersianToEnglish(costText).replace(/,/g, ""));
+                    responseElement.innerHTML = `
+                    <div class="book-flex book-gap-4">
+    <div>
+        <input type="checkbox" class="book-ml-1 book-align-middle" onchange="onClubDiscountToggle(this,${Math.min(firstPay * responseJson.discount_rate, responseJson.discount.price)})"/>
+        <label class="book-text-xs">${translate("club_customer_points")}:</label>
+    </div>
+    <div><span
+            class="book-ml-1">${translate("points")}:</span><span>${parseFloat(responseJson.total_point).toFixed(3).toString()}</span>
+    </div>
+    <div><span class="book-ml-1">${translate("discount_amount")}:</span>
+        <span>${await priceWithCurrency(responseJson.discount.price)}</span>
+        <span class="book-text-xs book-mx-1">${responseJson.discount.money_type}</span>
+    </div>
+    <div><span class="book-ml-1">${translate("usable_amount")}:</span>
+        <span>
+            ${await priceWithCurrency(Math.min(firstPay * responseJson.discount_rate, responseJson.discount.price))}
+        </span>
+        <span class="book-text-xs book-mx-1">${responseJson.discount.money_type}</span>
+    </div>
+</div>
+
+                    `
+                }
+            }
+        }
+    } catch (error) {
+        console.error("onProcessedMemberPoint: " + error.message);
+    }
+};
+const onClubDiscountToggle = (checkbox, minus) => {
+    try {
+        // 1) set global flag
+        window.clubDiscount = checkbox.checked ? 1 : 0;
+        // 2) coupon container
+        const couponContainer = document.querySelector(".book-coupon__container");
+        if (!couponContainer) return;
+        // 3) response box inside coupon container
+        const couponResponse = couponContainer.querySelector(".book-api__container__reponse");
+        // 4) coupon input
+        const couponInput = couponContainer.querySelector(".book-coupon__code");
+        const couponbtn = couponContainer.querySelector("button");
+        if (checkbox.checked) {
+            // Disable coupon
+            if (couponInput) {
+                couponInput.disabled = true;
+                couponInput.value = "";
+                couponbtn.disabled = true;
+            }
+            // Show message
+            if (couponResponse) {
+                couponResponse.textContent = `
+              ${translate("coupon_disabled_due_to_club_discount")} 
+          `;
+            }
+            const newFirstPay = parseFloat(originalFirstPay) + parseFloat(originalServiceTotalCost) - minus;
+            const newTotalCom = parseFloat(originalTotalCom) + parseFloat(originalServiceTotalCost) - minus;
+            updatePrices(newTotalCom, newFirstPay);
+        } else {
+            // Enable coupon
+            if (couponInput) {
+                couponInput.disabled = false;
+                couponbtn.disabled = false;
+            }
+            // Clear message
+            if (couponResponse) couponResponse.textContent = "";
+            updatePrices(
+                parseFloat(originalTotalCom) + parseFloat(originalServiceTotalCost),
+                parseFloat(originalFirstPay) + parseFloat(originalServiceTotalCost)
+            );
+        }
+    } catch (error) {
+        console.error("onClubDiscountToggle: " + error.message);
+    }
+}
 
 /**
  * Processes supplier credit response and updates UI based on credit status.
@@ -1821,6 +1916,9 @@ function applyCountryToNode(countryObj) {
     });
     document.querySelector(".book-passengers__container").querySelectorAll('.book-PlaceOfBirth').forEach(inp => {
         inp.value = countryObj.country_id != null ? String(countryObj.country_id) : '';
+    });
+    document.querySelector(".book-passengers__container").querySelectorAll('.book-NationalCode').forEach(inp => {
+        inp.value = '-';
     });
 };
 /**
@@ -2567,7 +2665,7 @@ const showSummaryContent = (element) => {
         if (properties.length > 0) {
             const objEditUser = JSON.stringify({
                 data: {
-                    lid: 1,
+                    lid: getLanguageLid(),
                     paramUrl: `/${document.querySelector(".book-check__has__data").dataset.hashid}/fa/schema_name`,
                     properties,
                     schemaId: document.querySelector(".book-check__has__data").dataset.hashid,
@@ -2683,6 +2781,31 @@ const showSummaryContent = (element) => {
             const counterContent = document.querySelector(".book-counter__container");
             counterContent.style.display = "block";
             counterContent.classList.add("book-Required");
+        }
+
+        // Optional checkMemberPoint section (based on domainId)
+
+        if ([4754, 2452, 4824, 2475, 4740, 4889, 4929, 4869].includes(parseInt(domainId))) {
+            const {
+                requests,
+                productGroupField,
+                productIdField
+            } = getServiceMappingInfo(selectedMode);
+
+            const checkMemberPointUrl = requests.checkMemberPoint;
+            const { GroupJson, Id } = getGroupAndId(selectedMode);
+            // Trigger API call to ceck memberPoint
+            $bc.setSource("cms.checkMemberPoint", [{
+                SessionId: sessionSearchStorage.SessionId,
+                Group: GroupJson,
+                Id: Id,
+                selectedMode: selectedMode,
+                rkey: getSearchCookie("rkey") || "",
+                url: checkMemberPointUrl,
+                productIdField: productIdField,
+                productGroupField: productGroupField,
+                run: true
+            }]);
         }
 
     } catch (error) {
@@ -3330,7 +3453,7 @@ const sendDataWithFetch = () => {
             accounttype: document.querySelector(".book-buyers__container").dataset.accounttype,
             mid: document.querySelector(".book-buyers__container").dataset.mid,
             code: document.querySelector(".book-coupon__code").value,
-            club_discount: "",
+            club_discount: clubDiscount,
             invoicedesc: document.querySelector(".book-invoicedesc").value,
             engine_id: (() => {
                 // Check if flight_id exists in sessionBookStorage
@@ -3356,7 +3479,7 @@ const sendDataWithFetch = () => {
         // Create and submit form
         const form = document.createElement("form");
         form.method = "POST";
-        form.action = `/book/final`;
+        form.action = `/book/final?lid=${getLanguageLid()}`;
         for (const key in formData) {
             const input = document.createElement("input");
             input.type = "hidden";
@@ -4160,9 +4283,7 @@ const nextStep = (element) => {
                 } else {
 
                     const {
-                        requests,
-                        productGroupField,
-                        productIdField
+                        requests
                     } = getServiceMappingInfo(selectedMode);
                     const userCreditUrl = requests.userCredit;
                     const bankListData = {
@@ -4426,3 +4547,17 @@ const updateStepItems = (element) => {
         console.error("updateStepItems: " + error.message);
     }
 };
+/**
+ * Gets the language ID based on the current language.
+ */
+const getLanguageLid = () => {
+    if (currentLanguage === 'fa') {
+        return '1'; // Farsi
+    } else if (currentLanguage === 'en') {
+        return '2'; // English
+    } else if (currentLanguage === 'ar') {
+        return '3'; // Arabic
+    }
+    return '1';
+};
+

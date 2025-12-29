@@ -116,6 +116,56 @@ const updatePassengerUI = () => {
         console.error("updatePassengerUI: " + error.message);
     }
 };
+const toEnDigits = (s = "") =>
+    String(s)
+        // Convert Persian digits (۰-۹) to English digits (0-9)
+        .replace(/[۰-۹]/g, (d) => "0123456789"["۰۱۲۳۴۵۶۷۸۹".indexOf(d)])
+        // Convert Arabic digits (٠-٩) to English digits (0-9)
+        .replace(/[٠-٩]/g, (d) => "0123456789"["٠١٢٣٤٥٦٧٨٩".indexOf(d)]);
+
+const readCountFromDOM = (type) => {
+    // Find the <li> for the given passenger type (adult/child/infant)
+    const li = document.querySelector(
+        `.book-passenger__searched__items li[data-type="${type}"]`
+    );
+    if (!li) return 0;
+
+    // Read the displayed count value inside the UI
+    const el = li.querySelector(".book-passenger__count__value");
+    const raw = el?.textContent?.trim() ?? "0";
+
+    // Normalize digits and parse as integer
+    const n = parseInt(toEnDigits(raw), 10);
+
+    // Fallback to 0 if parsing fails
+    return Number.isFinite(n) ? n : 0;
+};
+
+let __passengerSynced = false;
+
+const syncPassengerCountsFromUI = () => {
+    // Sync only if the passenger list exists (and only once by default)
+    const root = document.querySelector(".book-passenger__searched__items");
+    if (!root) return;
+
+    // Hydrate internal state from current UI values
+    adultsCount = readCountFromDOM("adult");
+    childrenCount = readCountFromDOM("child");
+    infantsCount = readCountFromDOM("infant");
+
+    // Apply base constraints:
+    // - At least 1 adult
+    // - Infants must not exceed adults
+    if (adultsCount < 1) adultsCount = 1;
+    if (infantsCount > adultsCount) infantsCount = adultsCount;
+
+    // Children constraint: children <= 3*adults - infants
+    const maxChildren = 3 * adultsCount - infantsCount;
+    if (childrenCount > maxChildren) childrenCount = Math.max(0, maxChildren);
+
+    __passengerSynced = true;
+};
+
 
 /**
  * Increases the passenger count for a specific type and updates the UI.
@@ -123,6 +173,7 @@ const updatePassengerUI = () => {
  */
 const increasePassengerCount = (element) => {
     try {
+        if (!__passengerSynced) syncPassengerCountsFromUI();
         const type = element.closest('li').dataset.type;
 
         const A = adultsCount;
@@ -166,6 +217,7 @@ const increasePassengerCount = (element) => {
  */
 const decreasePassengerCount = (element) => {
     try {
+        if (!__passengerSynced) syncPassengerCountsFromUI();
         const type = element.closest('li').dataset.type;
 
         if (type === 'adult') {
@@ -1068,7 +1120,7 @@ const fetchApi = (element, moduletype) => {
                 lid: getLanguageLid()
             };
             sessionStorage.setItem('sessionSearch', JSON.stringify(flightSearch));
-            window.location.href = document.querySelector('main')?.dataset.b2b === "true" ? "/flight/search/B2B" : "/flight/search";
+            window.location.href = document.querySelector('main')?.dataset.b2b === "true" ? `/flight/search/B2B?lid=${getLanguageLid()}` : `/flight/search?lid=${getLanguageLid()}`;
         }
     } catch (error) {
         console.error("fetchApi: " + error.message);

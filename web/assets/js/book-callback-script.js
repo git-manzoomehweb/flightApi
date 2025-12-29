@@ -140,7 +140,7 @@
                     break;
                 case "202": // Thawani
                     params = {
-                        "session": "",
+                        "session": "[##db.session.value##]",
                     };
                     break;
                 case "209": // Muscat
@@ -149,7 +149,52 @@
                         "enc_response": "[##cms.form.enc_response##]"
                     };
                     break;
-
+                case "203": // Omidpay
+                    params = {
+                        "RefNum": "[##cms.form.RefNum##]",
+                        "session": "[##db.session.value##]"
+                    };
+                    break;
+                case "205": // MyFatoorn
+                    params = {
+                        "paymentId": "[##cms.query.paymentId##]"
+                    };
+                    break;
+                case "59": // ArcaPayment
+                    params = {
+                        "orderId": "[##cms.query.orderId##]"
+                    };
+                    break;
+                case "51": // kipaaPayment
+                    params = {
+                        "reciept_number": "[##cms.form.reciept_number##]",
+                        "payment_token": "[##cms.form.payment_token##]"
+                    };
+                    break;
+                case "214": // eliGasht
+                    params = {
+                        "status": "[##cms.form.status##]",
+                        "RefId": "[##cms.form.RefId##]",
+                        "SaleReferenceId": "[##cms.form.SaleReferenceId##]",
+                        "SaleOrderId": "[##cms.form.SaleOrderId##]",
+                        "Amount": "[##cms.form.Amount##]",
+                        "CardPan": "[##cms.form.CardPan##]",
+                        "OrderId": "[##cms.form.OrderId##]",
+                        "AdditionalData": "[##cms.form.AdditionalData##]"
+                    };
+                    break;
+                case "201": // pod
+                    params = {
+                        "billNumber": "[##cms.query.billNumber##]",
+                        "rrn": "[##cms.query.rrn##]"
+                    };
+                    break;
+                case "95": // pasargad2
+                    params = {
+                        "billNumber": "",
+                        "rrn": ""
+                    };
+                    break;
                 default:
                     console.warn('Unknown bank identifier:', bankIdentifier);
             }

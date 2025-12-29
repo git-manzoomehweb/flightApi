@@ -125,7 +125,7 @@
             <div class="clr"></div>
             <div class="book-agency__information__container">
                 <span
-                    class="book-api__container__loader book-hidden book-bg-white book-relative book-block book-w-3 book-h-3 book-rounded-full book-mx-auto book-m-3"></span>
+                    class="book-api__container__loader book-flex book-hidden book-bg-white book-relative  book-w-3 book-h-3 book-rounded-full book-mx-auto book-m-3"></span>
                 <basis core="call" run="atclient" file="/book/agency/information" triggers="cms.agencyInformation"
                     if="{##cms.agencyInformation.run|(false)##}" lid="1" pageindex="[##cms.cms.pageindex|(1)##]"
                     id="{##cms.agencyInformation.id##}" method="post" OnRendered="renderInfoApi"></basis>

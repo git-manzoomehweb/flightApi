@@ -80,7 +80,6 @@
                 share: "[##cms.form.share##]",
                 payType: "[##cms.form.payType##]",
                 bankIdentifier: "[##cms.form.bankIdentifier##]",
-                bankId: "[##db.bankId.Value|()##]",
                 schemaId: "[##cms.form.SchemaId##]",
                 sessionId: "[##cms.form.SessionId##]",
                 productGroup: productGroup,

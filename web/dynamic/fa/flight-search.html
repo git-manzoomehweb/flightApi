@@ -74,12 +74,29 @@
                 <div class="book-main__container book-flex book-flex-wrap book--mx-2">
                     <!-- Filters Sidebar -->
                     <aside class="book-aside__container book-w-full lg:book-w-1/4 book-px-2 book-mb-4 lg:book-mb-0">
+                        <div style="display: none !important;"
+                            class="book-price__alert__container book-relative book-bg-white book-rounded-xl book-shadow-sm book-p-4 book-mb-4">
+                            <div class="book-flex book-justify-between book-items-center book-cursor-pointer">
+                                <span>ارزان شد, خبرم کن</span>
+                                <svg width="24" height="24" class="book-fill-secondary-500">
+                                    <use xlink:href="/booking/images/sprite-booking-icons.svg#notif-icon">
+                                    </use>
+                                </svg>
+                            </div>
+                            <!-- Price Trigger  Modal-->
+                            <div
+                                class="book-price__alert__modal__container book-modal__container book-fixed book-top-0 book-left-0 book-w-screen book-h-screen book-overflow-hidden book-z-[9999999999] book-hidden">
+                                <div
+                                    class="book-modal__content book-bg-white book-fixed book-inset-x-0 book-top-1.2 book--translate-y-1.2 book-w-[560px] book-rounded-2xl book-mx-auto book-p-5">
+                                </div>
+                            </div>
+                        </div>
                         <div class="book-relative book-bg-white book-rounded-xl book-shadow-sm book-p-2 book-mb-4">
                             <basis core="print" datamembername="flight.outboundairline" run="atclient">
                                 <layout>
                                     <script type="text/template">
-                                                <div
-                                        class="book-filter__container book-selector__container  book-bg-zinc-100 book-rounded-xl  book-mb-4  book-overflow-hidden">
+                                                <div data-included="airline"
+                                        class="book-price__trigger_included book-filter__container book-selector__container  book-bg-zinc-100 book-rounded-xl  book-mb-4  book-overflow-hidden">
                                         <div class="book-inner-scroll book-max-h-[21rem] book-px-4 book-py-6 book-overflow-auto">
                                         <div
                                             class="book-filter__title__container book-flex book-justify-between book-mb-3 book-cursor-pointer"
@@ -923,8 +940,8 @@
                             <basis core="print" datamembername="flight.outboundairport" run="atclient">
                                 <layout>
                                     <script type="text/template">
-                                        <div
-                                        class="book-filter__container book-selector__container  book-bg-zinc-100 book-rounded-xl book-mb-4 book-overflow-hidden">
+                                        <div data-included="airport"
+                                        class="book-price__trigger_included book-filter__container book-selector__container  book-bg-zinc-100 book-rounded-xl book-mb-4 book-overflow-hidden">
                                         <div class="book-inner-scroll book-max-h-[21rem] book-px-4 book-py-6 book-overflow-auto">
                                             <div class="book-filter__title__container book-flex book-justify-between book-mb-3 book-cursor-pointer"
                                                 onclick="toggleContent(this)">
@@ -1591,7 +1608,7 @@
                                                                 <div class="book-content__api book-flex book-justify-between book-items-center book-mb-2 book-cursor-pointer" onclick="{{return `toggleContentApi(this,'','book-flight__price','')`}}" data-run="1">
                                                                     <h6 class="book-text-lg book-font-bold book-text-zinc-800">
                                                                         جزئیات
-                                                                        نرخ</h6>
+                                                                        قیمت</h6>
                                                                     <svg class="book-api__container__arrow" width="24" height="24">
                                                                         <use href="/booking/images/sprite-booking-icons.svg#down-arrow-icon">
                                                                         </use>
@@ -1608,7 +1625,7 @@
                                                                     <div class="book-content__api book-flex book-justify-between book-items-center book-mb-2 book-cursor-pointer"  onclick="{{return `toggleContentApi(this,'AirRules','book-flight__rule','${$data.FlightId}')`}}" data-run="0">
                                                                         <h6 class="book-text-lg book-font-bold book-text-zinc-800">
                                                                             قوانین
-                                                                            کلی
+                                                                            و مقررات
                                                                         </h6>
                                                                         <svg class="book-api__container__arrow" width="24" height="24">
                                                                             <use

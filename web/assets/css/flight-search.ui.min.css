@@ -372,7 +372,9 @@
     flex-shrink: 0;
 }
 
-
+.book-items-start {
+    align-items: flex-start;
+}
 
 .book-grid-cols-\[2fr_4fr_0\.5fr\] {
     grid-template-columns: 2fr 4fr 0.5fr;
@@ -420,6 +422,10 @@
     height: 1rem;
 }
 
+.book-h-6 {
+    height: 1.5rem;
+}
+
 .book-h-8 {
     height: 2rem;
 }
@@ -458,6 +464,10 @@
 
 .book-max-h-80 {
     max-height: 20rem;
+}
+
+.book-max-h-36 {
+    max-height: 9rem;
 }
 
 .book-h-\[21rem\] {
@@ -502,6 +512,10 @@
 
 .book-w-1\/5 {
     width: 20%;
+}
+
+.book-w-6 {
+    width: 1.5rem;
 }
 
 .book-w-8 {
@@ -607,9 +621,11 @@
 .book-min-w-\[29rem\] {
     min-width: 29rem;
 }
+
 .book-min-w-\[28rem\] {
     min-width: 28rem;
 }
+
 .book-max-w-7xl {
     max-width: 80rem;
 }
@@ -936,10 +952,6 @@
     opacity: 0.5;
 }
 
-
-
-
-
 .book-p-4 {
     padding: 1rem;
 }
@@ -1184,7 +1196,8 @@
     border-radius: 0.5rem !important;
 }
 
-.book-expire__message__modal__container {
+.book-expire__message__modal__container,
+.book-price__alert__modal__container {
     -webkit-backdrop-filter: blur(2px) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
     backdrop-filter: blur(2px) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
     background: rgba(0, 0, 0, .3);
@@ -1358,12 +1371,14 @@ html:not([lang="fa"]):not([lang="ar"]) .book-cart__container {
     background-color: var(--primary-50);
 }
 
-.book-checked .book-custom__checkbox {
+.book-checked .book-custom__checkbox,
+.book-price__trigger__checked {
     border-color: var(--primary-400);
     background-color: var(--primary-100);
 }
 
-.book-checked .book-custom__checkbox::after {
+.book-checked .book-custom__checkbox::after,
+.book-price__trigger__checked::after {
     content: '✔';
     color: var(--primary-400);
     font-size: 12px;
@@ -1703,5 +1718,15 @@ html:not([lang="fa"]):not([lang="ar"]) .book-progress__bar::before {
 
     .lg\:book-w-3\/4 {
         width: 75%;
+    }
+
+    .lg\:book-min-w-48 {
+        min-width: 12rem;
+    }
+}
+
+@media (max-width: 1024px) {
+    .max-lg\:book-w-32 {
+        width: 8rem;
     }
 }

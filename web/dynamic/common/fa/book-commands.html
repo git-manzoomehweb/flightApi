@@ -1,7 +1,7 @@
 <!-- Get Userid -->
-<basis core="call" file="Client_CheckRkey.inc" lid="2"></basis>
+<basis core="call" file="Client_CheckRkey.inc"></basis>
 <!-- Get Company Info -->
-<basis core="dbsource" source="basiscore" name="db" mid="5" lid="2" usedforid="[##cms.cms.ownerid##]">
+<basis core="dbsource" source="basiscore" name="db" mid="5" lid="1" usedforid="[##cms.cms.ownerid##]">
     <member core="view" name="phone-company" type="view"
         postsql="select Answer from [db.phone-company] where prpID = '8000'" />
 </basis>
@@ -14,15 +14,15 @@
                 "SessionId": "{##cms.supplierCredit.SessionId##}",
                 "{##cms.supplierCredit.productIdField##}": "{##cms.supplierCredit.Id##}",
                 "{##cms.supplierCredit.productGroupField##}": {##cms.supplierCredit.Group##},
-                "lid": "2"
+                "lid":"1"
             }' onprocessed='onProcessedSupplierCredit'>
 </basis>
 <!-- Get Country CountryCode JSON-->
 <basis core="api" name="api.country" url="/json/country" method="get" content-type="application/json" run="atclient"
-    triggers="cms.country" if="{##cms.country##}" onprocessed='onProcessedJsonCountryId'>
+    triggers="cms.country" if="{##cms.country##}" lid="1" onprocessed='onProcessedJsonCountryId'>
 </basis>
 <basis core="api" name="api.countryCode" url="/json/country" method="get" content-type="application/json" run="atclient"
-    triggers="cms.countryCode" if="{##cms.countryCode##}" onprocessed='onProcessedJsonCountryCode'>
+    triggers="cms.countryCode" if="{##cms.countryCode##}" lid="1" onprocessed='onProcessedJsonCountryCode'>
 </basis>
 <!-- Get Previous Passengers-->
 <basis core="api" name="api.gridPreviousPassengers"
@@ -46,20 +46,19 @@
                 "price": "{##cms.checkCoupon.price##}",
                 "firstPay": "{##cms.checkCoupon.firstPay##}",
                 "couponCode": "{##cms.checkCoupon.couponCode##}",
-                "lid": "2"
+                "lid":"1"
             }
             ' onprocessed='onProcessedCheckCoupon'>
 </basis>
 <!-- Get Member Point-->
-<basis core="api" name="api.checkMemberPoint" url="{##cms.checkMemberPoint.url##}" method="post"
-    content-type="application/json" run="atclient" triggers="cms.checkMemberPoint"
-    if="{##cms.checkMemberPoint.run|(false)##}" body='{
+<basis core="api" name="api.checkMemberPoint" url="{##cms.checkMemberPoint.url##}" method="post" content-type="application/json"
+    run="atclient" triggers="cms.checkMemberPoint" if="{##cms.checkMemberPoint.run|(false)##}" body='{
                 "rkey": "{##cms.checkMemberPoint.rkey##}",
                 "dmnid": "[##cms.cms.domainid##]",
                 "SessionId": "{##cms.checkMemberPoint.SessionId##}",
                 "{##cms.checkMemberPoint.productIdField##}": "{##cms.checkMemberPoint.Id##}",
                 "{##cms.checkMemberPoint.productGroupField##}": {##cms.checkMemberPoint.Group##},
-                "lid":"2"
+                "lid":"1"
             }
             ' onprocessed='onProcessedMemberPoint'>
 </basis>

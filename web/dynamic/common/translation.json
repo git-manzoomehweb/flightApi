@@ -265,7 +265,7 @@
         "ar": "العمولة بعد خصم العمولة (لكل مسافر)"
     },
     "people": {
-        "en": "preson(s)",
+        "en": "person(s)",
         "fa": "نفر",
         "ar": "مسافر"
     },
@@ -1213,5 +1213,30 @@
         "en": "Next day",
         "fa": "روز بعد",
         "ar": "اليوم التالي"
+    },
+    "club_customer_points": {
+        "en": "Use Customer Club points",
+        "fa": "استفاده از امتیاز باشگاه مشتریان",
+        "ar": "استخدام نقاط نادي العملاء"
+    },
+    "points": {
+        "en": "Points",
+        "fa": "امتیاز",
+        "ar": "النقاط"
+    },
+    "discount_amount": {
+        "en": "Discount amount",
+        "fa": "مبلغ تخفیف",
+        "ar": "مبلغ الخصم"
+    },
+    "usable_amount": {
+        "en": "Usable amount",
+        "fa": "مبلغ قابل استفاده",
+        "ar": "المبلغ القابل للاستخدام"
+    },
+    "coupon_disabled_due_to_club_discount": {
+        "en": "Due to using the Customer Club discount, using a discount coupon is not available.",
+        "fa": "به دلیل استفاده از تخفیف باشگاه مشتریان امکان استفاده از کوپن تخفیف وجود ندارد.",
+        "ar": "بسبب استخدام خصم نادي العملاء، لا يمكن استخدام قسيمة خصم."
     }
 }

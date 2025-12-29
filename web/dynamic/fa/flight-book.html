@@ -283,14 +283,14 @@
                     class="book-text-zinc-500 book-mb-2">مبلغ : </h6>
                 <div
                     class="book-text-lg book-font-bold book-text-zinc-900">
-                    <span class="book-total__cost">${new
-                        Intl.NumberFormat().format($data.PriceInfo.Total)}</span>${await
+                    <span class="book-total__cost">${await
+                        priceWithCurrency($data.PriceInfo.Total)}</span>${await
                     renderCurrency($data.PriceInfo.Currency)}</div></div><div class="book-mb-2 book-commission__container"><h6
                         class="book-text-zinc-500 book-mb-2">کمیسیون : </h6>
                     <div
                         class="book-text-lg book-font-bold book-text-zinc-900">
-                        <span class="book-commission__cost">${new
-                            Intl.NumberFormat().format($data.PriceInfo.Commission)}</span>${await
+                        <span class="book-commission__cost">${await
+                            priceWithCurrency($data.PriceInfo.Commission)}</span>${await
                         renderCurrency($data.PriceInfo.Currency)}</div></div>`
             }
             }}
@@ -304,8 +304,8 @@
 
                 return `<div
                 class="book-text-2xl book-font-bold book-text-zinc-900"><span
-                    class="book-firstpay__cost">${new
-                    Intl.NumberFormat().format($data.PriceInfo.TotalCommission)}</span>
+                    class="book-firstpay__cost">${await
+                        priceWithCurrency($data.PriceInfo.TotalCommission)}</span>
                 <span
                     class="book-unit__content">${await renderCurrency($data.PriceInfo.Currency)}</span></div>`
             }}
@@ -348,7 +348,7 @@
                                 </div>
                                 <div class="book-buyers__container book-hidden" data-run="0">
                                     <span
-                                        class="book-api__container__loader book-flex book-bg-white book-relative book-w-3 book-h-3 book-rounded-full book-mx-auto book-mb-3"></span>
+                                        class="book-api__container__loader book-flex book-bg-white book-relative book-w-3 book-h-3 book-rounded-full book-mx-auto book-mb-3 "></span>
                                     <basis core="call" run="atclient" file="/book/buyer" triggers="cms.buyer"
                                         if="{##cms.buyer##}" method="get" lid="1"
                                         pageindex="[##cms.cms.pageindex|(1)##]">

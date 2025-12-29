@@ -439,11 +439,18 @@ function readODIds() {
 
 // Convert sequential date_id (base Jalali 1369-01-01) to ISO yyyy-mm-dd format
 function isoFromCalendarDateId(dateId) {
-    const [gy, gm, gd] = JALALI.toGregorian(1369, 1, 1);
-    const base = new Date(Date.UTC(gy, gm - 1, gd));
-    base.setUTCDate(base.getUTCDate() + ((Number(dateId) || 0) - 1));
-    return iso(base.getUTCFullYear(), base.getUTCMonth() + 1, base.getUTCDate());
-}
+    const n = Number(dateId);
+    if (!Number.isFinite(n) || n <= 0) return null;
+  
+    // 1369-01-01 (Jalali) == 1990-03-21 (Gregorian)
+    const base = dateUTC(1990, 3, 21);
+  
+    const d = new Date(base.getTime());
+    d.setUTCDate(d.getUTCDate() + (n - 1));
+  
+    return iso(d.getUTCFullYear(), d.getUTCMonth() + 1, d.getUTCDate());
+  }
+  
 
 /* =========================
    Multi-Module Date Management
@@ -626,14 +633,10 @@ class DatePicker {
         }
 
         // Get the current month and year
-        // Get the current month and year
-        const today = new Date();
-        const currentMonth = today.getMonth() + 1;
-        const currentYear = today.getFullYear();
 
         // For flighthotel module, start from primary depart date if available
         const currentMod = getCurrentModule();
-        let startDate = today;
+        let startDate = dateUTC(TY, TM, TD);
         if (currentMod === 'flighthotel') {
             const primaryDates = getPrimaryModuleDates();
             if (primaryDates?.depart) {
@@ -1387,7 +1390,7 @@ class DatePicker {
         if (price != null) {
             const t = ensureTag();
             t.classList.remove('-dots'); // Remove loading dots
-            t.textContent = formatPriceCompact(price, 'biasFloor'); // Display the price
+            t.textContent = formatPriceCompact(price, 'floor'); // Display the price
         } else {
             if (tag) tag.remove(); // If no price, remove the price tag
         }

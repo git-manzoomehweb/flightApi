@@ -409,6 +409,10 @@
     height: 100vh;
 }
 
+.book-max-h-36 {
+    max-height: 9rem;
+}
+
 .book-max-h-80 {
     max-height: 20rem;
 }
@@ -1411,5 +1415,15 @@ html:not([lang="fa"]):not([lang="ar"]) .book-progress__bar::before {
 
     .lg\:book-w-3\/4 {
         width: 75%;
+    }
+
+    .lg\:book-min-w-48 {
+        min-width: 12rem;
+    }
+}
+
+@media (max-width: 1024px) {
+    .max-lg\:book-w-32 {
+        width: 8rem;
     }
 }

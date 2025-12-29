@@ -160,7 +160,41 @@
                         "paymentId": "[##cms.query.paymentId##]"
                     };
                     break;
-
+                case "59": // ArcaPayment
+                    params = {
+                        "orderId": "[##cms.query.orderId##]"
+                    };
+                    break;
+                case "51": // kipaaPayment
+                    params = {
+                        "reciept_number": "[##cms.form.reciept_number##]",
+                        "payment_token": "[##cms.form.payment_token##]"
+                    };
+                    break;
+                case "214": // eliGasht
+                    params = {
+                        "status": "[##cms.form.status##]",
+                        "RefId": "[##cms.form.RefId##]",
+                        "SaleReferenceId": "[##cms.form.SaleReferenceId##]",
+                        "SaleOrderId": "[##cms.form.SaleOrderId##]",
+                        "Amount": "[##cms.form.Amount##]",
+                        "CardPan": "[##cms.form.CardPan##]",
+                        "OrderId": "[##cms.form.OrderId##]",
+                        "AdditionalData": "[##cms.form.AdditionalData##]"
+                    };
+                    break;
+                case "201": // pod
+                    params = {
+                        "billNumber": "[##cms.query.billNumber##]",
+                        "rrn": "[##cms.query.rrn##]"
+                    };
+                    break;
+                case "95": // pasargad2
+                    params = {
+                        "billNumber": "",
+                        "rrn": ""
+                    };
+                    break;
                 default:
                     console.warn('Unknown bank identifier:', bankIdentifier);
             }

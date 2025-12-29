@@ -48,9 +48,11 @@
                         </div>
                     </div>
                     <div class="book-some__time book-hidden">
-                        <div class="book-text-xl book-font-bold book-mt-6">نتایج جستجو تا 6 دقیقه دیگر معتبر می باشد.
+                        <div class="book-text-xl book-font-bold book-mt-6">نتایج
+                            جستجو تا 6 دقیقه دیگر معتبر می باشد.
                         </div>
-                        <div class="book-text-zinc-500 book-mt-3">بعد از به پایان رسیدن مدت اعتبار، پرواز دیگر در دسترس
+                        <div class="book-text-zinc-500 book-mt-3">بعد از به
+                            پایان رسیدن مدت اعتبار، پرواز دیگر در دسترس
                             نمی‌باشد.</div>
                         <div class="book-mt-6">
                             <button
@@ -64,7 +66,6 @@
 
                 </div>
             </div>
-
 
             <div class="book-max-w-7xl book-mx-auto">
 
@@ -94,7 +95,7 @@
                         <!-- Filter Sort Action -->
                         <div
                             class="book-rendered__container book-hidden book-selector__container book-my-5 book-text-sm">
-                            <div class="book-selector__content book-flex book-gap-2 ">
+                            <div class="book-selector__content book-flex book-gap-1">
                                 <div class="book-cursor-pointer book-rounded-lg book-flex book-items-center book-gap-1 book-justify-center book-text-zinc-500 book-border book-border-zinc-200 book-text-center book-text-xm book-p-3 book-min-w-28 "
                                     onclick="toggleAside('filter')">
                                     <svg width="20" height="20">
@@ -111,10 +112,18 @@
                                     </svg>
                                     <h6>مرتب سازی</h6>
                                 </div>
+
+                                <div style="display: none !important;"
+                                    class="book-price__alert__container book-cursor-pointer book-rounded-lg book-flex book-items-center book-gap-1 book-justify-center book-text-zinc-500 book-border book-border-zinc-200 book-text-center book-text-xm book-p-3 book-min-w-28"
+                                    onclick="toggleAside('price')">
+                                    <svg width="15" height="20">
+                                        <use xlink:href="/booking/images/sprite-booking-icons.svg#notif-icon">
+                                        </use>
+                                    </svg>
+                                    <h6>خبرم کن</h6>
+                                </div>
+
                             </div>
-
-
-
                         </div>
                         <!-- Flight Price Options -->
                         <basis core="print" datamembername="flight.calendar" run="atclient">
@@ -190,8 +199,8 @@
                                         <basis core="print" datamembername="flight.outboundairline" run="atclient">
                                             <layout>
                                                 <script type="text/template">
-                                                <div
-                                                    class="book-filter__container book-selector__container  book-border-zinc-200 book-border book-rounded-xl book-mb-4">
+                                                <div data-included="airline"
+                                        class="book-price__trigger_included book-filter__container book-selector__container  book-border-zinc-200 book-border book-rounded-xl book-mb-4">
                                                     <div class="book-p-4">
                                                     <div
                                                         class="book-filter__title__container book-flex book-justify-between  book-cursor-pointer"
@@ -578,7 +587,8 @@
                                                         <div bc-value="farefamily" bc-name="cms.farefamily"
                                                             data-textshow="گروه نرخی" bc-triggers="click"
                                                             class="book-custom__checkbox book-button__content  book-text-center book-cursor-pointer book-mt-3 book-w-1/2 book-py-3 book-rounded-lg book-border book-border-zinc-500 book-text-sm">
-                                                            <span>گروه نرخی</span>
+                                                            <span>گروه
+                                                                نرخی</span>
                                                         </div>
 
                                                     </div>
@@ -611,7 +621,8 @@
                                                                 صبح</div>
                                                             <div class="book-text-zinc-900 book-text-xs book-mb-4">ساعت
                                                                 فیلتر شده از
-                                                                <span class="book-hour">00:00 الی
+                                                                <span class="book-hour">00:00
+                                                                    الی
                                                                     00:00</span>
                                                             </div>
                                                         </div>
@@ -693,7 +704,8 @@
                                                                 صبح</div>
                                                             <div class="book-text-zinc-900 book-text-xs book-mb-4">ساعت
                                                                 فیلتر شده از
-                                                                <span class="book-hour">00:00 الی
+                                                                <span class="book-hour">00:00
+                                                                    الی
                                                                     00:00</span>
                                                             </div>
                                                         </div>
@@ -773,7 +785,8 @@
                                                                 صبح</div>
                                                             <div class="book-text-zinc-900 book-text-xs book-mb-4">ساعت
                                                                 فیلتر شده از
-                                                                <span class="book-hour">00:00 الی
+                                                                <span class="book-hour">00:00
+                                                                    الی
                                                                     00:00</span>
                                                             </div>
                                                         </div>
@@ -855,13 +868,13 @@
                                                                     <div class="book-slider__value__container">
                                                                         <span
                                                                             class="book-min__value book-price__check__currency"
-                                                                            data-original-price=""></span><span
+                                                                            data-original-price></span><span
                                                                             class="book-mr-1 book-unit__value book-unit__check__currency"></span>
                                                                     </div>
                                                                     <div class="book-slider__value__container">
                                                                         <span
                                                                             class="book-max__value book-price__check__currency"
-                                                                            data-original-price=""></span>
+                                                                            data-original-price></span>
                                                                         <span
                                                                             class="book-mr-1 book-unit__value book-unit__check__currency"></span>
                                                                     </div>
@@ -1042,8 +1055,8 @@
                                         <basis core="print" datamembername="flight.outboundairport" run="atclient">
                                             <layout>
                                                 <script type="text/template">
-                                                    <div
-                                                    class="book-filter__container book-selector__container  book-border-zinc-200 book-border book-rounded-xl book-mb-4">
+                                                    <div data-included="airport"
+                                                     class="book-price__trigger_included book-filter__container book-selector__container  book-border-zinc-200 book-border book-rounded-xl book-mb-4">
                                                     <div class="book-p-4 ">
                                                         <div class="book-filter__title__container book-flex book-justify-between  book-cursor-pointer"
                                                             onclick="toggleContent(this)">
@@ -1335,7 +1348,8 @@
                                             <svg width="28" height="28">
                                                 <use href="/booking/images/sprite-booking-icons.svg#close-icon">
                                                 </use>
-                                            </svg> <span class="book-text-base">مرتب سازی</span>
+                                            </svg> <span class="book-text-base">مرتب
+                                                سازی</span>
                                         </span>
 
                                     </div>
@@ -1349,11 +1363,12 @@
                                             <div bc-triggers="click" bc-name="cms.sort" bc-value="default"
                                                 class="book-cursor-pointer book-sort__item__content book-sorting__active book-flex book-items-center book-gap-1 book-justify-center book-min-h-10 book-my-1 book-text-zinc-500 book-border book-border-zinc-200 book-bg-white book-rounded-full book-text-center">
 
-                                                <h6 class="book-text-sm">پیش فرض</ا>
+                                                <h6 class="book-text-sm">پیش
+                                                    فرض</ا>
                                             </div>
                                             <div bc-triggers="click" bc-name="cms.sort" bc-value="price"
                                                 data-sort="ascend"
-                                                class="book-cursor-pointer book-sort__item__content book-flex book-items-center book-gap-1 book-justify-center book-min-h-10 book-my-1 book-text-zinc-500 book-border book-border-zinc-200 book-bg-white book-rounded-full book-text-center">
+                                                class="book-cursor-pointer book-sort__item__content book-flex book-items-center book-gap-1 book-justify-center book-min-h-10 book-my-1 book-text-zinc-900 book-border book-border-zinc-200 book-bg-white book-rounded-full book-text-center">
 
                                                 <svg width="24" height="25">
                                                     <use
@@ -1365,7 +1380,7 @@
                                             </div>
                                             <div bc-triggers="click" bc-name="cms.sort" bc-value="stop"
                                                 data-sort="ascend"
-                                                class="book-cursor-pointer book-sort__item__content book-flex book-items-center book-gap-1 book-justify-center book-min-h-10 book-my-1 book-text-zinc-500 book-border book-border-zinc-200 book-bg-white book-rounded-full book-text-center">
+                                                class="book-cursor-pointer book-sort__item__content book-flex book-items-center book-gap-1 book-justify-center book-min-h-10 book-my-1 book-text-zinc-900 book-border book-border-zinc-200 book-bg-white book-rounded-full book-text-center">
 
                                                 <svg width="24" height="25">
                                                     <use
@@ -1377,7 +1392,7 @@
                                             </div>
                                             <div bc-triggers="click" bc-name="cms.sort" bc-value="time"
                                                 data-sort="ascend"
-                                                class="book-cursor-pointer book-sort__item__content book-flex book-items-center :book-bg-primary-50 book-gap-1 book-justify-center book-min-h-10 book-my-1 book-text-zinc-500 book-border book-border-zinc-200 book-bg-white book-rounded-full book-text-center">
+                                                class="book-cursor-pointer book-sort__item__content book-flex book-items-center  book-gap-1 book-justify-center book-min-h-10 book-my-1 book-text-zinc-900 book-border book-border-zinc-200 book-bg-white book-rounded-full book-text-center">
                                                 <svg width="24" height="25">
                                                     <use
                                                         xlink:href="/booking/images/sprite-booking-icons.svg#sort-up-icon">
@@ -1389,7 +1404,7 @@
                                             </div>
                                             <div bc-triggers="click" bc-name="cms.sort" bc-value="hour"
                                                 data-sort="ascend"
-                                                class="book-cursor-pointer book-sort__item__content book-flex book-items-center book-gap-1 book-justify-center book-min-h-10 book-my-1 book-text-zinc-500 book-border book-border-zinc-200 book-bg-white book-rounded-full book-text-center">
+                                                class="book-cursor-pointer book-sort__item__content book-flex book-items-center book-gap-1 book-justify-center book-min-h-10 book-my-1 book-text-zinc-900 book-border book-border-zinc-200 book-bg-white book-rounded-full book-text-center">
 
                                                 <svg width="24" height="25">
                                                     <use
@@ -1404,7 +1419,33 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="book-aside__price__alert__container book-hidden">
+                                <div
+                                    class="book-aside__price__alert__header book-bg-zinc-200 book-px-2 book-py-2 book-sticky book-top-0 book-z-100">
+                                    <div class="book-flex book-justify-between book-items-center book-text-sm">
+                                        <span class="book-flex book-gap-1 book-items-center book-cursor-pointer"
+                                            onclick="document.querySelector('.book-aside__container')?.classList.add('book-hidden'); document.querySelector('.book-aside__price__alert__container')?.classList.add('book-hidden');"
+                                            class="book-cursor-pointer">
+                                            <svg width="28" height="28">
+                                                <use href="/booking/images/sprite-booking-icons.svg#close-icon">
+                                                </use>
+                                            </svg><span class="book-text-base">ارزان
+                                                شد, خبرم کن</span>
+                                        </span>
 
+                                    </div>
+                                </div>
+                                <!-- Flight Price Alerting Options -->
+
+                                <div class="book-relative book-bg-white book-rounded-2xl book-px-2 book-py-2">
+
+                                    <div
+                                        class="book-aside__price__alert__content book-price__alert__modal__container book-px-2 book-py-2">
+                                        <div class="book-modal__content"></div>
+
+                                    </div>
+                                </div>
+                            </div>
 
                         </div>
                     </aside>
@@ -1421,11 +1462,13 @@
                                 پرواز یافت شد
                             </div>
                             <div class="book-next__prev__container book-flex book-gap-2 book-mb-1 book-hidden"><button
-                                    class="book-cursor-pointer book-min-w-24 hover:book-bg-primary-50 hover:book-text-zinc-900 book-p-2 book-text-zinc-500 book-border book-border-zinc-200 book-bg-white book-rounded-lg book-text-center"
-                                    onclick="shiftPrev(this)">روز قبل</button>
+                                    class="book-cursor-pointer book-min-w-24 hover hover:book-text-zinc-900 book-p-2 book-text-zinc-500 book-border book-border-zinc-200 book-bg-white book-rounded-lg book-text-center"
+                                    onclick="shiftPrev(this)">روز
+                                    قبل</button>
                                 <button
-                                    class="book-cursor-pointer book-min-w-24 hover:book-bg-primary-50 hover:book-text-zinc-900 book-p-2 book-text-zinc-500 book-border book-border-zinc-200 book-bg-white book-rounded-lg book-text-center"
-                                    onclick="shiftNext(this)">روز بعد</button>
+                                    class="book-cursor-pointer book-min-w-24 hover hover:book-text-zinc-900 book-p-2 book-text-zinc-500 book-border book-border-zinc-200 book-bg-white book-rounded-lg book-text-center"
+                                    onclick="shiftNext(this)">روز
+                                    بعد</button>
                             </div>
                         </div>
                         <div
@@ -1562,7 +1605,7 @@
                                                                                 </use>
                                                                             </svg>    <h6 class="book-text-xm book-font-bold book-text-zinc-800">
                                                                                 جزئیات
-                                                                                نرخ</h6></div>
+                                                                                قیمت</h6></div>
                                                                         
                                                                             <svg class="book-api__container__arrow" width="24" height="24">
                                                                                 <use href="/booking/images/sprite-booking-icons.svg#down-arrow-icon">
@@ -1585,7 +1628,7 @@
                                                                                     </svg>
                                                                                     <h6 class="book-text-xm book-font-bold book-text-zinc-800">
                                                                                         قوانین
-                                                                                        کلی
+                                                                                        و مقررات
                                                                                     </h6>
                                                                                 </div>
                                                                              

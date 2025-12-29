@@ -1448,11 +1448,16 @@ const setProductGroup = async () => {
         const Infants = sessionBookStorage.PriceInfo.PassengerFare[2].Count;
         ExcessService = sessionBookStorage.FlightGroup?.[0]?.ExcessService || false;
         SeatSelection = sessionBookStorage.FlightGroup?.[0]?.SeatSelection || false;
-        lastDepartureDate = sessionBookStorage.FlightGroup?.[0].DepartureDate;
+        if (sessionSearchStorage.SchemaId === 291) {
+            lastDepartureDate = sessionBookStorage.FlightGroup?.[0].DepartureDate;
+        } else if (sessionSearchStorage.SchemaId === 290) {
+            lastDepartureDate = sessionBookStorage.FlightGroup?.[1].DepartureDate;
+        } else {
+            lastDepartureDate = sessionBookStorage.FlightGroup?.[0].DepartureDate;
+        };
         if (sessionBookStorage.TemporaryHold) {
-
             TemporaryHold = String(sessionBookStorage.TemporaryHold)
-        }
+        };
         if (ExcessService || SeatSelection) {
             const container = document.querySelector(".book-passengers__container");
             if (!container) throw new Error("Passengers container not found");
@@ -1697,3 +1702,4 @@ const toggleSessionRouteTab = (routeIndex) => {
         activeContent.classList.remove("book-hidden");
     }
 }
+

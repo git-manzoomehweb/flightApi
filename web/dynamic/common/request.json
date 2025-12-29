@@ -13,7 +13,8 @@
             "supplierCredit": "https://ota.basisfly.com/v2/api/flight/SupplierCredit",
             "checkCoupon": "https://ota.basisfly.com/v2/api/flight/CheckCoupon",
             "userCredit": "https://ota.basisfly.com/v2/api/flight/UserCredit",
-            "issueTicket": "https://ota.basisfly.com/v2/api/flight/IssueTicket"
+            "issueTicket": "https://ota.basisfly.com/v2/api/flight/IssueTicket",
+            "checkMemberPoint": "https://ota.basisfly.com/v2/api/flight/CheckMemberPoint"
         }
     },
     "bus": {

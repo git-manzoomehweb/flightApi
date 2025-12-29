@@ -6,7 +6,7 @@ let translations = {};
 let currentLanguage = document.documentElement.lang || 'fa';
 let isRTL = document.documentElement.dir === 'rtl' || currentLanguage === 'fa' || currentLanguage === 'ar';
 const isMobile = document.querySelector("main").dataset.mob === "true";
-var selectedMode, share, accounttype, payType, bankIdentifier, bankId, schemaId, sessionId, productGroup, PriceInfo, email, mobile, fullname, BasisFlyBookId, tokenBankTitle;
+var selectedMode, share, accounttype, payType, bankIdentifier, schemaId, sessionId, productGroup, PriceInfo, email, mobile, fullname, BasisFlyBookId, tokenBankTitle;
 const loadTranslations = async (lang = 'fa') => {
     try {
         const response = await fetch(`/json/translations?lid=1`);
@@ -69,6 +69,8 @@ async function runApiLogic() {
         await loadTranslations();
         // Initialize direction styles
         await applyDirectionStyles();
+        // Initialize lid
+        await setPersistentCookie("lid", getLanguageLid(), 30);
 
         ({
             selectedMode,
@@ -76,7 +78,6 @@ async function runApiLogic() {
             accounttype,
             payType,
             bankIdentifier,
-            bankId,
             schemaId,
             sessionId,
             productGroup,
@@ -184,7 +185,11 @@ const loadRequestMapping = async () => {
 /**
  * Get service mapping info safely
  */
-const getServiceMappingInfo = (selectedMode) => {
+const getServiceMappingInfo = async (selectedMode) => {
+    if (!requestMappingCache) {
+        await loadRequestMapping();
+    }
+
     if (!requestMappingCache) {
         throw new Error('Request mapping data not loaded yet');
     }
@@ -279,6 +284,17 @@ const setReserve = async (args) => {
  */
 const confirmBookingProcesse = async (bookId) => {
     try {
+        accounttype = window.cmsData?.accounttype || accounttype;
+        bankIdentifier = window.cmsData?.bankIdentifier || bankIdentifier;
+        payType = window.cmsData?.payType || payType;
+        share = window.cmsData?.share || share;
+        selectedMode = window.cmsData?.selectedMode || selectedMode;
+        email = window.cmsData?.email || email;
+        mobile = window.cmsData?.mobile || mobile;
+        fullname = window.cmsData?.fullname || fullname;
+        productGroup = window.cmsData?.productGroup || productGroup;
+        PriceInfo = window.cmsData?.PriceInfo || PriceInfo;
+
         // Validate DOM elements
         const responseContainer = document.querySelector(".book-message__booking__container");
         if (!responseContainer) {
@@ -293,7 +309,8 @@ const confirmBookingProcesse = async (bookId) => {
         if (!lastMessage) {
             throw new Error('Last message element not found');
         }
-
+        console.log(accounttype)
+        console.log(bankIdentifier)
         if (!accounttype || !bankIdentifier) {
             throw new Error('Missing required templating placeholders');
         }
@@ -329,7 +346,7 @@ const confirmBookingProcesse = async (bookId) => {
                 bookId: bookId,
                 run: true
             };
-            const { requests } = getServiceMappingInfo(selectedMode);
+            const { requests } = await getServiceMappingInfo(selectedMode);
             const issueTicketUrl = requests.issueTicket;
             issueTicketPayload.url = issueTicketUrl;
             issueTicketPayload.rkey = (selectedMode === "flight") ? 'rkey' : 'rKey';
@@ -550,6 +567,17 @@ const setIssueTicket = async (args) => {
  */
 const setToken = async (args) => {
     try {
+        bankIdentifier = window.cmsData?.bankIdentifier || bankIdentifier;
+        payType = window.cmsData?.payType || payType;
+        schemaId = window.cmsData?.schemaId || schemaId;
+        sessionId = window.cmsData?.sessionId || sessionId;
+        email = window.cmsData?.email || email;
+        mobile = window.cmsData?.mobile || mobile;
+        fullname = window.cmsData?.fullname || fullname;
+        productGroup = window.cmsData?.productGroup || productGroup;
+        PriceInfo = window.cmsData?.PriceInfo || PriceInfo;
+        selectedMode = window.cmsData?.selectedMode || selectedMode;
+
         // Validate DOM elements
         const responseContainer = document.querySelector(".book-message__booking__container");
         if (!responseContainer) {
@@ -635,7 +663,6 @@ const setToken = async (args) => {
                 },
                 body: new URLSearchParams({
                     bankIdentifier,
-                    bankId,
                     schemaid: schemaId,
                     sessionId,
                     BasisFlyBookId,
@@ -689,3 +716,49 @@ const getSearchCookie = (element) => {
         return null;
     }
 };
+/**
+ * Gets the language ID based on the current language.
+* @param {string} element - The cookie name.
+* @returns {string|null} The cookie value or null if not found.
+*/
+const getLanguageLid = () => {
+    if (currentLanguage === 'fa') {
+        return '1'; // Farsi
+    } else if (currentLanguage === 'en') {
+        return '2'; // English
+    } else if (currentLanguage === 'ar') {
+        return '3'; // Arabic
+    }
+    return '1';
+};
+/**
+ * Processes setting lid in Cookie.
+* @param {string} element - The cookie name.
+* @returns {string|null} The cookie value or null if not found.
+*/
+const setPersistentCookie = async (name, value, minutes) => {
+    try {
+        if (!name) throw new Error("Cookie name is required");
+        if (minutes == null || isNaN(minutes) || Number(minutes) <= 0)
+            throw new Error("Minutes must be a positive number");
+
+        const maxAge = Math.floor(Number(minutes) * 60); // seconds
+        const isHttps = location.protocol === "https:";
+
+        const parts = [
+            `${encodeURIComponent(name)}=${encodeURIComponent(value ?? "")}`,
+            `Max-Age=${maxAge}`,
+            "Path=/",
+            "SameSite=None",
+        ];
+
+        if (isHttps) parts.push("Secure");
+        document.cookie = parts.join("; ");
+        return true;
+    } catch (error) {
+        console.error("setPersistentCookie: " + error.message);
+        return false;
+    }
+};
+
+

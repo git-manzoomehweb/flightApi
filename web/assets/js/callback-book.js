@@ -67,6 +67,8 @@ async function runApiLogic() {
         await loadTranslations();
         // Initialize direction styles
         await applyDirectionStyles();
+        // Initialize lid
+        await deletePersistentCookie("lid");
         if (!window.cmsData) {
             console.warn('window.cmsData is not available yet');
             return;
@@ -286,3 +288,31 @@ const setIssueTicket = async (args) => {
         console.error(`setIssueTicket: ${error.message}`);
     }
 };
+/**
+ * Processes deleting lid in Cookie.
+ * @param {Object} args - API response object containing source data with status and error message.
+ */
+const deletePersistentCookie = async (name) => {
+    try {
+        if (!name) throw new Error("Cookie name is required");
+
+        const isHttps = location.protocol === "https:";
+
+        const parts = [
+            `${encodeURIComponent(name)}=`, // empty value
+            "Max-Age=0",                    // expire immediately
+            "Path=/",
+            "SameSite=None",
+        ];
+
+        if (isHttps) parts.push("Secure");
+
+        document.cookie = parts.join("; ");
+        return true;
+    } catch (error) {
+        console.error("deletePersistentCookie: " + error.message);
+        return false;
+    }
+};
+
+
