@@ -3024,8 +3024,7 @@ const renderCurrency = async (element) => {
             }
         });
         // Use appropriate margin class based on direction
-        const marginClass = isRTL ? 'book-mr-1' : 'book-ml-1';
-        return `<span data-unit="${element}" class="${marginClass} book-currency book-unit__check__currency">${unit}</span>`;
+        return `<span data-unit="${element}" class="book-mx-1 book-currency book-unit__check__currency">${unit}</span>`;
     } catch (error) {
         console.error(`renderCurrency: ${error.message}`);
         return "";

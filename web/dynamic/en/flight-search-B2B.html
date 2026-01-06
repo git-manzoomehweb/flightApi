@@ -73,6 +73,175 @@
                         <!-- Filters Sidebar -->
                         <aside class="book-aside__container book-w-full lg:book-w-1/4 book-px-2 book-mb-4 lg:book-mb-0">
                             <div class="book-relative book-bg-white book-rounded-md book-shadow-sm book-p-2 book-mb-4">
+                                <div
+                                    class="book-filter__container book-onewaytrip__content book-selector__container  book-border-solid book-border-zinc-200 book-border-b book-mb-4 book-overflow-hidden">
+                                    <div
+                                        class="book-inner-scroll book-max-h-[21rem] book-px-4 book-py-6 book-overflow-auto">
+                                        <div class="book-filter__title__container book-flex book-justify-between book-mb-3 book-cursor-pointer"
+                                            onclick="toggleContent(this)">
+                                            <h3 class="book-font-bold book-text-sm book-text-zinc-900">Flight Number
+                                                (Outbound)</h3>
+                                            <svg width="24" height="24">
+                                                <use href="/booking/images/sprite-booking-icons.svg#down-arrow-icon">
+                                                </use>
+                                            </svg>
+                                        </div>
+
+                                        <div class="book-space-y-2 book-selector__content book-text-zinc-600">
+                                            <div class="book-filter__content book-outboundflightnumber__content">
+                                                <div class="book-filter__item book-mt-5 book-flex book-items-center">
+                                                    <div class="book-w-full">
+                                                        <input type="text" placeholder="123,456" bc-value
+                                                            bc-name="cms.outboundflightnumber" bc-triggers="keyup"
+                                                            class="book-rounded-md book-bg-zinc-100 book-p-2 book-w-full book-text-xs focus:book-outline-none" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="book-filter__container book-selector__container  book-roundtrip__content book-hidden book-border-solid book-border-zinc-200 book-border-b book-mb-4 book-overflow-hidden">
+                                    <div
+                                        class="book-inner-scroll book-max-h-[21rem] book-px-4 book-py-6 book-overflow-auto">
+                                        <div class="book-filter__title__container book-flex book-justify-between book-mb-3 book-cursor-pointer"
+                                            onclick="toggleContent(this)">
+                                            <h3 class="book-font-bold book-text-sm book-text-zinc-900">Flight Number
+                                                (Inbound)</h3>
+                                            <svg width="24" height="24">
+                                                <use href="/booking/images/sprite-booking-icons.svg#down-arrow-icon">
+                                                </use>
+                                            </svg>
+                                        </div>
+                                        <div class="book-space-y-2 book-selector__content book-text-zinc-600">
+                                            <div class="book-filter__content book-inboundflightnumber__content">
+                                                <div class="book-filter__item book-mt-5 book-flex book-items-center">
+                                                    <div class="book-w-full">
+                                                        <input type="text" placeholder="123,456" bc-value
+                                                            bc-name="cms.inboundflightnumber" bc-triggers="keyup"
+                                                            class="book-rounded-md book-bg-zinc-100 book-p-2 book-w-full book-text-xs focus:book-outline-none" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="book-filter__container book-selector__container  book-multitrip__content book-hidden book-border-solid book-border-zinc-200 book-border-b book-mb-4 book-overflow-auto">
+                                    <div
+                                        class="book-inner-scroll book-max-h-[21rem] book-px-4 book-py-6 book-overflow-auto">
+                                        <div class="book-filter__title__container book-flex book-justify-between book-mb-3 book-cursor-pointer"
+                                            onclick="toggleContent(this)">
+                                            <h3 class="book-font-bold book-text-sm book-text-zinc-900">Flight Number
+                                            </h3>
+                                            <svg width="24" height="24">
+                                                <use href="/booking/images/sprite-booking-icons.svg#down-arrow-icon">
+                                                </use>
+                                            </svg>
+                                        </div>
+                                        <div class="book-space-y-2 book-selector__content book-text-zinc-600">
+                                            <div class="book-filter__content book-flightnumber__content">
+                                                <div class="book-filter__item book-mt-5 book-flex book-items-center">
+                                                    <div class="book-w-full">
+                                                        <input type="text" placeholder="123,456" bc-value
+                                                            bc-name="cms.flightnumber" bc-triggers="keyup"
+                                                            class="book-rounded-md book-bg-zinc-100 book-p-2 book-w-full book-text-xs focus:book-outline-none" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <basis core="print" datamembername="flight.outboundstop" run="atclient">
+                                    <layout>
+                                        <script type="text/template">
+                             <div
+                             class="book-filter__container book-selector__container  book-border-solid book-border-zinc-200 book-border-b book-mb-4 book-overflow-auto">
+                             <div class="book-inner-scroll book-max-h-[21rem] book-px-4 book-py-6 book-overflow-auto">
+                             <div class="book-filter__title__container book-flex book-justify-between book-mb-3 book-cursor-pointer"
+                                 onclick="toggleContent(this)">
+                                 <h3 class="book-font-bold book-text-sm book-text-zinc-900">Stops (Outbound)</h3>
+                                 <svg width="24" height="24">
+                                     <use
+                                         href="/booking/images/sprite-booking-icons.svg#down-arrow-icon">
+                                     </use>
+                                 </svg>
+                             </div>
+                             <div class="book-space-y-2 book-selector__content book-text-zinc-500">
+                                 <div class="book-filter__content book-outboundstop__content">
+                                    @child
+                                 </div>
+                             </div>
+                            </div>
+                            </div>
+                            </script>
+                                    </layout>
+                                    <face>
+                                        <script type="text/template">
+                            {{ return await renderStops($data,'outboundstop')}}
+                            </script>
+                                    </face>
+                                </basis>
+                                <basis core="print" datamembername="flight.inboundstop" run="atclient">
+                                    <layout>
+                                        <script type="text/template">
+                             <div
+                             class="book-filter__container book-selector__container  book-border-solid book-border-zinc-200 book-border-b book-mb-4 book-overflow-auto">
+                             <div class="book-inner-scroll book-max-h-[21rem] book-px-4 book-py-6 book-overflow-auto">
+                             <div class="book-filter__title__container book-flex book-justify-between book-mb-3 book-cursor-pointer"
+                                 onclick="toggleContent(this)">
+                                 <h3 class="book-font-bold book-text-sm book-text-zinc-900">Stops (Inbound)</h3>
+                                 <svg width="24" height="24">
+                                     <use
+                                        href="/booking/images/sprite-booking-icons.svg#down-arrow-icon">
+                                     </use>
+                                 </svg>
+                             </div>
+                             <div class="book-space-y-2 book-selector__content book-text-zinc-500">
+                                 <div class="book-filter__content book-inboundstop__content">
+                                    @child
+                                 </div>
+                             </div>
+                            </div>
+                            </div>
+                            </script>
+                                    </layout>
+                                    <face>
+                                        <script type="text/template">
+                            {{ return await renderStops($data,'inboundstop')}}
+                            </script>
+                                    </face>
+                                </basis>
+                                <basis core="print" datamembername="flight.stop" run="atclient">
+                                    <layout>
+                                        <script type="text/template">
+                             <div
+                             class="book-filter__container book-selector__container  book-border-solid book-border-zinc-200 book-border-b book-mb-4 book-overflow-auto">
+                             <div class="book-inner-scroll book-max-h-[21rem] book-px-4 book-py-6 book-overflow-auto">
+                             <div class="book-filter__title__container book-flex book-justify-between book-mb-3 book-cursor-pointer"
+                                 onclick="toggleContent(this)">
+                                 <h3 class="book-font-bold book-text-sm book-text-zinc-900">Stops</h3>
+                                 <svg width="24" height="24">
+                                     <use
+                                         href="/booking/images/sprite-booking-icons.svg#down-arrow-icon">
+                                     </use>
+                                 </svg>
+                             </div>
+                             <div class="book-space-y-2 book-selector__content book-text-zinc-500">
+                                 <div class="book-filter__content book-stop__content">
+                                    @child
+                                 </div>
+                             </div>
+                            </div>
+                            </div>
+                            </script>
+                                    </layout>
+                                    <face>
+                                        <script type="text/template">
+                            {{ return await renderStops($data,'stop')}}
+                            </script>
+                                    </face>
+                                </basis>
                                 <basis core="print" datamembername="flight.outboundairline" run="atclient">
                                     <layout>
                                         <script type="text/template">
@@ -220,175 +389,8 @@
                                     </face>
                                 </basis>
 
-                                <basis core="print" datamembername="flight.outboundstop" run="atclient">
-                                    <layout>
-                                        <script type="text/template">
-                                 <div
-                                 class="book-filter__container book-selector__container  book-border-solid book-border-zinc-200 book-border-b book-mb-4 book-overflow-auto">
-                                 <div class="book-inner-scroll book-max-h-[21rem] book-px-4 book-py-6 book-overflow-auto">
-                                 <div class="book-filter__title__container book-flex book-justify-between book-mb-3 book-cursor-pointer"
-                                     onclick="toggleContent(this)">
-                                     <h3 class="book-font-bold book-text-sm book-text-zinc-900">Stops (Outbound)</h3>
-                                     <svg width="24" height="24">
-                                         <use
-                                             href="/booking/images/sprite-booking-icons.svg#down-arrow-icon">
-                                         </use>
-                                     </svg>
-                                 </div>
-                                 <div class="book-space-y-2 book-selector__content book-text-zinc-500">
-                                     <div class="book-filter__content book-outboundstop__content">
-                                        @child
-                                     </div>
-                                 </div>
-                                </div>
-                                </div>
-                                </script>
-                                    </layout>
-                                    <face>
-                                        <script type="text/template">
-                                {{ return await renderStops($data,'outboundstop')}}
-                                </script>
-                                    </face>
-                                </basis>
-                                <basis core="print" datamembername="flight.inboundstop" run="atclient">
-                                    <layout>
-                                        <script type="text/template">
-                                 <div
-                                 class="book-filter__container book-selector__container  book-border-solid book-border-zinc-200 book-border-b book-mb-4 book-overflow-auto">
-                                 <div class="book-inner-scroll book-max-h-[21rem] book-px-4 book-py-6 book-overflow-auto">
-                                 <div class="book-filter__title__container book-flex book-justify-between book-mb-3 book-cursor-pointer"
-                                     onclick="toggleContent(this)">
-                                     <h3 class="book-font-bold book-text-sm book-text-zinc-900">Stops (Inbound)</h3>
-                                     <svg width="24" height="24">
-                                         <use
-                                            href="/booking/images/sprite-booking-icons.svg#down-arrow-icon">
-                                         </use>
-                                     </svg>
-                                 </div>
-                                 <div class="book-space-y-2 book-selector__content book-text-zinc-500">
-                                     <div class="book-filter__content book-inboundstop__content">
-                                        @child
-                                     </div>
-                                 </div>
-                                </div>
-                                </div>
-                                </script>
-                                    </layout>
-                                    <face>
-                                        <script type="text/template">
-                                {{ return await renderStops($data,'inboundstop')}}
-                                </script>
-                                    </face>
-                                </basis>
-                                <basis core="print" datamembername="flight.stop" run="atclient">
-                                    <layout>
-                                        <script type="text/template">
-                                 <div
-                                 class="book-filter__container book-selector__container  book-border-solid book-border-zinc-200 book-border-b book-mb-4 book-overflow-auto">
-                                 <div class="book-inner-scroll book-max-h-[21rem] book-px-4 book-py-6 book-overflow-auto">
-                                 <div class="book-filter__title__container book-flex book-justify-between book-mb-3 book-cursor-pointer"
-                                     onclick="toggleContent(this)">
-                                     <h3 class="book-font-bold book-text-sm book-text-zinc-900">Stops</h3>
-                                     <svg width="24" height="24">
-                                         <use
-                                             href="/booking/images/sprite-booking-icons.svg#down-arrow-icon">
-                                         </use>
-                                     </svg>
-                                 </div>
-                                 <div class="book-space-y-2 book-selector__content book-text-zinc-500">
-                                     <div class="book-filter__content book-stop__content">
-                                        @child
-                                     </div>
-                                 </div>
-                                </div>
-                                </div>
-                                </script>
-                                    </layout>
-                                    <face>
-                                        <script type="text/template">
-                                {{ return await renderStops($data,'stop')}}
-                                </script>
-                                    </face>
-                                </basis>
-                                <div
-                                    class="book-filter__container book-onewaytrip__content book-selector__container  book-border-solid book-border-zinc-200 book-border-b book-mb-4 book-overflow-hidden">
-                                    <div
-                                        class="book-inner-scroll book-max-h-[21rem] book-px-4 book-py-6 book-overflow-auto">
-                                        <div class="book-filter__title__container book-flex book-justify-between book-mb-3 book-cursor-pointer"
-                                            onclick="toggleContent(this)">
-                                            <h3 class="book-font-bold book-text-sm book-text-zinc-900">Flight Number
-                                                (Outbound)</h3>
-                                            <svg width="24" height="24">
-                                                <use href="/booking/images/sprite-booking-icons.svg#down-arrow-icon">
-                                                </use>
-                                            </svg>
-                                        </div>
 
-                                        <div class="book-space-y-2 book-selector__content book-text-zinc-600">
-                                            <div class="book-filter__content book-outboundflightnumber__content">
-                                                <div class="book-filter__item book-mt-5 book-flex book-items-center">
-                                                    <div class="book-w-full">
-                                                        <input type="text" placeholder="123,456" bc-value
-                                                            bc-name="cms.outboundflightnumber" bc-triggers="keyup"
-                                                            class="book-rounded-md book-bg-zinc-100 book-p-2 book-w-full book-text-xs focus:book-outline-none" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div
-                                    class="book-filter__container book-selector__container  book-roundtrip__content book-hidden book-border-solid book-border-zinc-200 book-border-b book-mb-4 book-overflow-hidden">
-                                    <div
-                                        class="book-inner-scroll book-max-h-[21rem] book-px-4 book-py-6 book-overflow-auto">
-                                        <div class="book-filter__title__container book-flex book-justify-between book-mb-3 book-cursor-pointer"
-                                            onclick="toggleContent(this)">
-                                            <h3 class="book-font-bold book-text-sm book-text-zinc-900">Flight Number
-                                                (Inbound)</h3>
-                                            <svg width="24" height="24">
-                                                <use href="/booking/images/sprite-booking-icons.svg#down-arrow-icon">
-                                                </use>
-                                            </svg>
-                                        </div>
-                                        <div class="book-space-y-2 book-selector__content book-text-zinc-600">
-                                            <div class="book-filter__content book-inboundflightnumber__content">
-                                                <div class="book-filter__item book-mt-5 book-flex book-items-center">
-                                                    <div class="book-w-full">
-                                                        <input type="text" placeholder="123,456" bc-value
-                                                            bc-name="cms.inboundflightnumber" bc-triggers="keyup"
-                                                            class="book-rounded-md book-bg-zinc-100 book-p-2 book-w-full book-text-xs focus:book-outline-none" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div
-                                    class="book-filter__container book-selector__container  book-multitrip__content book-hidden book-border-solid book-border-zinc-200 book-border-b book-mb-4 book-overflow-auto">
-                                    <div
-                                        class="book-inner-scroll book-max-h-[21rem] book-px-4 book-py-6 book-overflow-auto">
-                                        <div class="book-filter__title__container book-flex book-justify-between book-mb-3 book-cursor-pointer"
-                                            onclick="toggleContent(this)">
-                                            <h3 class="book-font-bold book-text-sm book-text-zinc-900">Flight Number
-                                            </h3>
-                                            <svg width="24" height="24">
-                                                <use href="/booking/images/sprite-booking-icons.svg#down-arrow-icon">
-                                                </use>
-                                            </svg>
-                                        </div>
-                                        <div class="book-space-y-2 book-selector__content book-text-zinc-600">
-                                            <div class="book-filter__content book-flightnumber__content">
-                                                <div class="book-filter__item book-mt-5 book-flex book-items-center">
-                                                    <div class="book-w-full">
-                                                        <input type="text" placeholder="123,456" bc-value
-                                                            bc-name="cms.flightnumber" bc-triggers="keyup"
-                                                            class="book-rounded-md book-bg-zinc-100 book-p-2 book-w-full book-text-xs focus:book-outline-none" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+
 
                                 <div
                                     class="book-filter__container book-selector__container  book-border-solid book-border-zinc-200 book-border-b book-mb-4 book-overflow-auto">
@@ -1566,7 +1568,7 @@
                                                      <div class="book-flight__rule book-api__container book-p-4 book-border book-border-zinc-300 book-rounded-2xl">
                                                          <div class="book-border-b book-border-zinc-300 book-pb-4 book-mb-2">
                                                              <div class="book-content__api book-flex book-justify-between book-items-center book-mb-2 book-cursor-pointer"  onclick="{{return `toggleContentApi(this,'AirRules','book-flight__rule','${$data.FlightId}')`}}" data-run="0">
-                                                                 <h6 class="book-text-lg book-font-bold book-text-zinc-800">General Rules</h6>
+                                                                 <h6 class="book-text-lg book-font-bold book-text-zinc-800">Rules and Regulations</h6>
                                                                  <svg class="book-api__container__arrow" width="24" height="24">
                                                                      <use
                                                                          href="/booking/images/sprite-booking-icons.svg#down-arrow-icon">

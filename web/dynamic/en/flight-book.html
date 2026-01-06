@@ -203,7 +203,7 @@
                                                     <div class="book-content__api book-flex book-justify-between book-items-center book-mb-2 book-cursor-pointer"
                                                         onclick="{{return `toggleContentApi(this,'','book-flight__price')`}}" data-run="1">
                                                         <h6 class="book-text-lg book-font-bold book-text-zinc-800">
-                                                            Rate Details</h6>
+                                                            Price Details</h6>
                                                         <svg class="book-api__container__arrow" width="24" height="24">
                                                             <use href="/booking/images/sprite-booking-icons.svg#down-arrow-icon">
                                                             </use>
@@ -220,7 +220,7 @@
                                                     <div class="book-content__api book-flex book-justify-between book-items-center book-mb-2 book-cursor-pointer"
                                                         onclick="{{return `toggleContentApi(this,'AirRules','book-flight__rule')`}}" data-run="0">
                                                         <h6 class="book-text-lg book-font-bold book-text-zinc-800">
-                                                            General Rules
+                                                            Rules and Regulations
                                                         </h6>
                                                         <svg class="book-api__container__arrow" width="24" height="24">
                                                             <use href="/booking/images/sprite-booking-icons.svg#down-arrow-icon">
@@ -318,7 +318,7 @@
                                 <div class="book-buyers__container book-hidden" data-run="0">
                                     <span
                                         class="book-api__container__loader book-flex book-bg-white book-relative book-w-3 book-h-3 book-rounded-full book-mx-auto book-mb-3"></span>
-                                    <basis core="call" run="atclient" file="/book/buyer" triggers="cms.buyer"
+                                    <basis core="call" run="atclient" file="/book/buyer?lid=2" triggers="cms.buyer"
                                         if="{##cms.buyer##}" method="get" lid="2"
                                         pageindex="[##cms.cms.pageindex|(1)##]">
                                     </basis>

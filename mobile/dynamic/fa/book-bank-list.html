@@ -40,7 +40,7 @@
             {"root":[##db.webservice_list.result##]}</member>
         <member name="bankid" format="json" postsql="select Value from [db.bankid] where field = 'id'">
             {"root":[##db.webservice_list.result##]}</member>
-        <member name='unit_id' format="json" postsql="select value from [db.unit_id] where field = 'id'">
+        <member name='unit_title' format="json" postsql="select value from [db.unit_title] where field = 'title'">
             {"root": [##db.get_unit_currency.result##]}
         </member>
     </basis>
@@ -63,10 +63,8 @@
             </face>
             <face filter="field = 'persianName'">
                 <li class="book-my-1">@value</li>
-            </face>
-            <face filter="field = 'moneytype'">
                 <li class="book-my-2"><span class="book-firstpay__cost book-font-bold"></span><span
-                        class="book-text-xs book-mx-1">@value</span></li>
+                        class="book-text-xs book-mx-1">[##db.unit_title.Value##]</span></li>
             </face>
             <face filter="field = 'id'">
                 <input type="hidden" value="@value" class="book-bankId" />
@@ -101,10 +99,8 @@
                 </face>
                 <face filter="field = 'persianName'">
                     <li class="book-my-1">@value</li>
-                </face>
-                <face filter="field = 'moneytype'">
                     <li class="book-my-2"><span class="book-firstpay__cost book-font-bold"></span><span
-                            class="book-text-xs book-mx-1">@value</span></li>
+                            class="book-text-xs book-mx-1">[##db.unit_title.Value##]</span></li>
                 </face>
                 <face filter="field = 'id'">
                     <input type="hidden" value="@value" class="book-bankId">

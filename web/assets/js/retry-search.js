@@ -478,7 +478,7 @@ const handleCityListClick = async (element) => {
                 } else {
                     // If no cache, fetch and populate
                     manageCityLoader(parent, "show");
-                    const html = await fetchCityList(`/module/retry/suggestedCity?typeid=${typeid}`, parent);
+                    const html = await fetchCityList(`/module/retry/suggestedCity?typeid=${typeid}&lid=${getLanguageLid()}`, parent);
                     manageCityLoader(parent, "hide");
                     if (html) {
                         cachedSuggestedCityHTML = html;
@@ -522,7 +522,7 @@ const handleCityListClick = async (element) => {
         // Fetch and append new list
         clearCityLists(parent);
         manageCityLoader(parent, "show");
-        const html = await fetchCityList(`/module/retry/suggestedCity?typeid=${typeid}`, parent);
+        const html = await fetchCityList(`/module/retry/suggestedCity?typeid=${typeid}&lid=${getLanguageLid()}`, parent);
         manageCityLoader(parent, "hide");
         if (html) {
             cachedSuggestedCityHTML = html;
@@ -676,7 +676,7 @@ const handleCitySearch = (element) => {
             if (query.length < 3) return;
             searchTimeout = setTimeout(async () => {
                 manageCityLoader(parent, "show");
-                const html = await fetchCityList(`/module/retry/searchedCity?q=${encodeURIComponent(query)}&typeid=${typeid}`, parent);
+                const html = await fetchCityList(`/module/retry/searchedCity?q=${encodeURIComponent(query)}&typeid=${typeid}&lid=${getLanguageLid()}`, parent);
                 manageCityLoader(parent, "hide");
                 if (html) {
                     appendCityList(html, parent,
@@ -708,7 +708,7 @@ const handleCitySearch = (element) => {
 
         searchTimeout = setTimeout(async () => {
             mobileSearchLoader(overlay, "show");           // Show loading
-            const html = await fetchCityList(`/module/retry/searchedCity?q=${encodeURIComponent(query)}&typeid=${typeid}`, parent);
+            const html = await fetchCityList(`/module/retry/searchedCity?q=${encodeURIComponent(query)}&typeid=${typeid}&lid=${getLanguageLid()}`, parent);
             mobileSearchLoader(overlay, "hide");           // Hide loading after response
             if (!html || !searchWrap) return;
 

@@ -219,7 +219,7 @@
                                                         </svg>
                                                         <h6 class="book-text-xm book-font-bold book-text-zinc-800">
                                                             جزئیات
-                                                            نرخ</h6>
+                                                            قیمت</h6>
                                                     </div>
                             
                                                     <svg class="book-api__container__arrow" width="24" height="24">
@@ -246,7 +246,7 @@
                                                         </svg>
                                                         <h6 class="book-text-xm book-font-bold book-text-zinc-800">
                                                             قوانین
-                                                            کلی
+                                                            و مقررات
                                                         </h6>
                                                     </div>
                             
@@ -321,7 +321,7 @@
                             <div class="book-buyers__container book-hidden" data-run="0">
                                 <span
                                 class="book-api__container__loader book-flex book-bg-white book-relative book-w-3 book-h-3 book-rounded-full book-mx-auto book-mb-3"></span>
-                                <basis core="call" run="atclient" file="/book/buyer" triggers="cms.buyer"
+                                <basis core="call" run="atclient" file="/book/buyer?lid=1" triggers="cms.buyer"
                                     if="{##cms.buyer##}" method="get" lid="1" pageindex="[##cms.cms.pageindex|(1)##]">
                                 </basis>
                             </div>

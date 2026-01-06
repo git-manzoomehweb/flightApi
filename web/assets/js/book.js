@@ -570,8 +570,7 @@ const renderCurrency = async (element, type) => {
         if (type === "input") {
             return unit; // Return raw currency value
         }
-        const marginClass = isRTL ? 'book-mr-1' : 'book-ml-1';
-        return `<span class="${marginClass} book-text-xs book-currency">${unit}</span>`;
+        return `<span class="book-mx-1 book-text-xs book-currency">${unit}</span>`;
     } catch (error) {
         console.error("renderCurrency: " + error.message);
         return "";

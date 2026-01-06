@@ -171,7 +171,7 @@
                         "payment_token": "[##cms.form.payment_token##]"
                     };
                     break;
-                case "214": // eliGasht
+                case "214": // EliGasht
                     params = {
                         "status": "[##cms.form.status##]",
                         "RefId": "[##cms.form.RefId##]",
@@ -183,16 +183,27 @@
                         "AdditionalData": "[##cms.form.AdditionalData##]"
                     };
                     break;
-                case "201": // pod
+                case "201": // Pod
                     params = {
                         "billNumber": "[##cms.query.billNumber##]",
                         "rrn": "[##cms.query.rrn##]"
                     };
                     break;
-                case "95": // pasargad2
+                case "95": // Pasargad2
                     params = {
                         "billNumber": "",
                         "rrn": ""
+                    };
+                    break;
+                case "200": // Sadad
+                    params = {
+                        "token": "[##cms.form.token##]",
+                        "ResCode": "[##cms.form.ResCode##]",
+                        "description": "[##cms.form.Messagevv##]",
+                        "refno": "[##cms.form.RetrivalRefNo##]",
+                        "traceno": "[##cms.form.SystemTraceNo##]",
+                        "orderid": "[##cms.form.OrderId##]",
+                        "CardHolderFullName": "[##cms.form.CardHolderFullName##]"
                     };
                     break;
                 default:
